@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.techelevator.dao.UserDAO;
-import com.techelevator.model.LoginDTO;
-import com.techelevator.model.RegisterUserDTO;
-import com.techelevator.model.User;
-import com.techelevator.model.UserAlreadyExistsException;
 import com.techelevator.security.jwt.JWTFilter;
 import com.techelevator.security.jwt.TokenProvider;
+import com.techelevator.userModel.LoginDTO;
+import com.techelevator.userModel.RegisterUserDTO;
+import com.techelevator.userModel.User;
+import com.techelevator.userModel.UserAlreadyExistsException;
 
 @RestController
 @CrossOrigin
