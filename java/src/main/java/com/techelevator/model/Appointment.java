@@ -1,7 +1,7 @@
-package model;
+package com.techelevator.model;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Appointment {
 	
@@ -14,8 +14,8 @@ public class Appointment {
 	private int id;
 	private Doctor doctor;
 	private Patient parient;
-	private Date date;
-	private Time time;
+	private LocalDate date;
+	private LocalTime time;
 	private double appointmentLength;
 	
 	
@@ -37,16 +37,17 @@ public class Appointment {
 	public void setParient(Patient parient) {
 		this.parient = parient;
 	}
-	public Date getDate() {
+
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	public Time getTime() {
+	public LocalTime getTime() {
 		return time;
 	}
-	public void setTime(Time time) {
+	public void setTime(LocalTime time) {
 		this.time = time;
 	}
 	public double getAppointmentLength() {

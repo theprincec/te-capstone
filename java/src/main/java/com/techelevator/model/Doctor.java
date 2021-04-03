@@ -1,4 +1,4 @@
-package model;
+package com.techelevator.model;
 
 public class Doctor {
 	
@@ -8,20 +8,28 @@ public class Doctor {
 //    last_name varchar(50) NOT NULL,
 //    office_id int,
 	
-	
-	private String name;
+	private int doctorId;
 	private String officeName;
 	private String firstName;
 	private String lastName;
 	
-	
-	
-	public String getName() {
-		return name;
+	public int getDoctorId() {
+		return doctorId;
 	}
-	public void setName(String name) {
-		this.name = "Dr." + firstName.substring(0, 1) + " " + lastName;
+	public void setDoctorId(int doctorId) {
+		this.doctorId = doctorId;
 	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+//	
+//	public void setName(String name) {
+//		this.name = "Dr." + firstName.substring(0, 1) + " " + lastName;
+//	}
 	public String getOfficeName() {
 		return officeName;
 	}

@@ -1,4 +1,4 @@
-package model;
+package com.techelevator.model;
 
 public class Address {
 	
@@ -7,13 +7,10 @@ public class Address {
 //  district varchar(50),
 //  postal_code varchar(10) NOT NULL,
 
-	
 	private String addressLine;
 	private String city;
 	private String district;
-	private int postalCode;
-	
-	
+	private String postalCode;
 	
 	
 	public String getAddressLine() {
@@ -34,10 +31,10 @@ public class Address {
 	public void setDistrict(String district) {
 		this.district = district;
 	}
-	public int getPostalCode() {
+	public String getPostalCode() {
 		return postalCode;
 	}
-	public void setPostalCode(int postalCode) {
+	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
 	
