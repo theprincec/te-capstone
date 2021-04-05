@@ -12,30 +12,43 @@ public class Appointment {
 //    appointment_time time NOT NULL,
 	
 	private int id;
-	private Doctor doctor;
-	private Patient parient;
+	private int doctorId;
+	private Patient patient;
 	private LocalDate date;
-	private LocalTime time;
-	private double appointmentLength;
+	private LocalTime timeStart;
+	private LocalTime timeEnd;
+	private String appointmentType;
 	
 	
+	public LocalTime getTimeEnd() {
+		return timeEnd;
+	}
+	public void setTimeEnd(LocalTime timeEnd) {
+		this.timeEnd = timeEnd;
+	}
+	public String getAppointmentType() {
+		return appointmentType;
+	}
+	public void setAppointmentType(String appointmentType) {
+		this.appointmentType = appointmentType;
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Doctor getDoctor() {
-		return doctor;
+	public int getDoctorid() {
+		return doctorId;
 	}
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
+	public void setDoctorId(int doctorId) {
+		this.doctorId = doctorId;
 	}
-	public Patient getParient() {
-		return parient;
+	public Patient getPatient() {
+		return patient;
 	}
-	public void setParient(Patient parient) {
-		this.parient = parient;
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 
 	public LocalDate getDate() {
@@ -44,18 +57,18 @@ public class Appointment {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	public LocalTime getTime() {
-		return time;
+	public LocalTime getTimeStart() {
+		return timeStart;
 	}
-	public void setTime(LocalTime time) {
-		this.time = time;
+	public void setTimeStart(LocalTime timeStart) {
+		this.timeStart = timeStart;
 	}
-	public double getAppointmentLength() {
-		return appointmentLength;
-	}
-	public void setAppointmentLength(double appointmentLength) {
-		this.appointmentLength = appointmentLength;
-	}
+	//public double getAppointmentLength() {
+	//	return appointmentLength;
+	//}
+	//public void setAppointmentLength(double appointmentLength) {
+	//	this.appointmentLength = appointmentLength;
+	//}
 	
 	
 	

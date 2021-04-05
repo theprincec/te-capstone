@@ -65,16 +65,22 @@ CREATE TABLE appointments (
         doctor_id int,
         patient_id int,
         appointment_date date NOT NULL, 
-        appointment_time time NOT NULL,
+        appointment_time_start time NOT NULL,
+        appointment_time_end time NOT NULL,
+        appointment_status varchar(25),
         
-        CONSTRAINT fk_doctor_id FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id),
-        CONSTRAINT fk_patient_id FOREIGN KEY (patient_id) REFERENCES patients(patient_id)    
+        CONSTRAINT fk_doctor_id FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
+        --CONSTRAINT fk_patient_id FOREIGN KEY (patient_id) REFERENCES patients(patient_id)    
 );
 
 
 
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
+INSERT INTO offices (office_id, office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate) VALUES (DEFAULT, 'TreeCare', '1234 test st', 'Columbus', 'OH', '43221', '6143574454', '09:00:00', '05:00:00', 25);
+INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 1, 'James', 'Brown',DEFAULT );
 
 
 COMMIT TRANSACTION;
+
+
