@@ -31,7 +31,9 @@ export default {
     props: ['doctorId'],
     data() {
         return {
-               office: {}
+               office: {
+                   
+               }
         }
     },
     created() {

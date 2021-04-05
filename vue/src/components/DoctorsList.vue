@@ -1,6 +1,6 @@
 <template>
 <div class="doctors-list">
-    <doctor-card v-for="doctor in doctors" :key="doctor.id" :doctor="doctor" />
+    <doctor-card v-for="doctor in $store.state.doctors" :key="doctor.id" :doctor="doctor" />
 
 </div>
   
@@ -15,15 +15,13 @@ export default {
     components: {
         DoctorCard
     },
-    data() {
-        return {
-            doctors: []
-        }
-    },
     created() {
-         doctorService.getDoctors().then(response => {
-             this.doctors = response.data;
-         })
+        doctorService.getDoctors()
+        .then(response => {
+            this.$store.commit("SET_DOCTORS", response.data);
+        }).catch( error => {
+            console.error( error );
+        });
     }
 
 }
