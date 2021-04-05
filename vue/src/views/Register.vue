@@ -1,5 +1,68 @@
 <template>
-  <div id="register" class="text-center">
+
+<div id="register">
+   <v-card width="400" class="mx-auto mt-5">
+     <v-card-title>
+      <h1 class="display-1">Create Account</h1>
+    </v-card-title>
+    <v-card-text>
+
+      <v-form id="form-register" 
+        ref="form"
+        v-model="valid"
+        lazy-validation
+        @submit.prevent="register"
+        validate
+        >
+      <div>
+        <v-alert type="error" v-if="registrationErrors">
+          {{ registrationErrorMsg }}
+        </v-alert>
+      </div>
+        <v-text-field 
+          v-model="user.username"
+          :rules="[v => !!v || 'Username is required']"
+          label="Username"
+          prepend-icon="mdi-account-circle"
+          required          
+        />
+        <v-text-field 
+          v-model="user.password"
+          :type="showPassword ? 'text' : 'password'"
+          :rules="[v => !!v || 'Password is required']"
+          label="Password"
+          prepend-icon="mdi-lock"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append="showPassword = !showPassword"
+          required
+        />
+        <v-text-field 
+          v-model="user.confirmPassword"
+          :type="showConfirmPassword ? 'text' : 'password'"
+          :rules="[v => !!v || 'Please confirm password']"
+          label="Confirm Password"
+          prepend-icon="mdi-lock"
+          :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append="showConfirmPassword = ! showConfirmPassword"
+          required
+        />
+      </v-form>
+    </v-card-text>
+    <v-divider></v-divider>
+    <v-card-actions>
+      <router-link :to="{ name: 'login' }" style="text-decoration: none">
+        <p style="color: success">Have an account?</p>
+      </router-link>
+      <v-spacer></v-spacer>
+      <v-btn :disabled= !valid 
+        type="submit" 
+        color="success" form="form-register" class="mr-4"
+        @click="validate">Register</v-btn>
+    </v-card-actions>
+   </v-card>
+  </div>
+
+  <!-- <div id="register" class="text-center">
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
@@ -37,7 +100,7 @@
         Create Account
       </button>
     </form>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -47,6 +110,9 @@ export default {
   name: 'register',
   data() {
     return {
+      valid: true,
+      showPassword: false,
+      showConfirmPassword: false,
       user: {
         username: '',
         password: '',
@@ -86,6 +152,9 @@ export default {
       this.registrationErrors = false;
       this.registrationErrorMsg = 'There were problems registering this user.';
     },
+    validate () {
+        this.$refs.form.validate()
+      },
   },
 };
 </script>

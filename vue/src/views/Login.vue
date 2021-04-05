@@ -1,33 +1,61 @@
 <template>
 
-<v-app>
-   <v-card width="400" class="mx-auto mt-5" dark>
+<div id="login">
+   <v-card width="400" class="mx-auto mt-5">
      <v-card-title>
       <h1 class="display-1">Please Sign In</h1>
     </v-card-title>
     <v-card-text>
 
-      <v-form @submit.prevent="login">
+      <v-form id="form-signin"
+        ref="form"
+        v-model="valid"
+        lazy-validation
+        @submit.prevent="login"
+        validate
+        >
+      <div>
+        <v-alert type="error" v-if="invalidCredentials">
+          Invalid username and password!
+        </v-alert>
+      </div>
+      <div>
+        <v-alert type="success" v-if="this.$route.query.registration"> 
+          Thank you for registering, please sign in.
+        </v-alert>
+      </div>
         <v-text-field 
+          v-model="user.username"
+          :rules="[v => !!v || 'Username is required']"
           label="Username"
           prepend-icon="mdi-account-circle"
+          required          
         />
         <v-text-field 
-          type="password"
+          v-model="user.password"
+          :type="showPassword ? 'text' : 'password'"
+          :rules="[v => !!v || 'Password is required']"
           label="Password"
           prepend-icon="mdi-lock"
-          append-icon="mdi-eye-off"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append="showPassword = ! showPassword"
+          required
         />
       </v-form>
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
-      <v-btn color="success">Register</v-btn>
+      <router-link :to="{ name: 'register' }" style="text-decoration: none">
+        <p style="color: success">Need an account?</p>
+      </router-link>
       <v-spacer></v-spacer>
-      <v-btn color="info">Login</v-btn>
+      <v-btn :disabled= !valid 
+        type="submit" 
+        color="success" form="form-signin" class="mr-4"
+        @click="validate">Sign In</v-btn>
     </v-card-actions>
    </v-card>
-  </v-app>
+  </div>
 
   <!-- <div id="login" class="text-center">
     <form class="form-signin" @submit.prevent="login">
@@ -75,6 +103,8 @@ export default {
   components: {},
   data() {
     return {
+      valid: true,
+      showPassword: false,
       user: {
         username: "",
         password: ""
@@ -100,7 +130,10 @@ export default {
             this.invalidCredentials = true;
           }
         });
-    }
+    },
+    validate () {
+        this.$refs.form.validate()
+      },
   }
 };
 </script>

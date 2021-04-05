@@ -1,5 +1,7 @@
 <template>
-  <h1>Logout</h1>
+  <v-content>
+    <h1 class="text-centered">Logout</h1>
+  </v-content>
 </template>
 
 <script>
