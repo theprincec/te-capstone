@@ -1,5 +1,35 @@
 <template>
-  <div id="login" class="text-center">
+
+<v-app>
+   <v-card width="400" class="mx-auto mt-5" dark>
+     <v-card-title>
+      <h1 class="display-1">Please Sign In</h1>
+    </v-card-title>
+    <v-card-text>
+
+      <v-form @submit.prevent="login">
+        <v-text-field 
+          label="Username"
+          prepend-icon="mdi-account-circle"
+        />
+        <v-text-field 
+          type="password"
+          label="Password"
+          prepend-icon="mdi-lock"
+          append-icon="mdi-eye-off"
+        />
+      </v-form>
+    </v-card-text>
+    <v-divider></v-divider>
+    <v-card-actions>
+      <v-btn color="success">Register</v-btn>
+      <v-spacer></v-spacer>
+      <v-btn color="info">Login</v-btn>
+    </v-card-actions>
+   </v-card>
+  </v-app>
+
+  <!-- <div id="login" class="text-center">
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div
@@ -34,7 +64,7 @@
       <router-link :to="{ name: 'register' }">Need an account?</router-link>
       <button type="submit">Sign in</button>
     </form>
-  </div>
+  </div> -->
 </template>
 
 <script>

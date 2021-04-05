@@ -1,19 +1,21 @@
 <template>
-  <div class="app">
-    <home />
-    <router-view />
-  </div>
-  
+  <v-app>
+    <v-app-bar app>
+      <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
+      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+    </v-app-bar>
+    <v-content>
+      <router-view />
+    </v-content>
+  </v-app>
 </template>
 
 <script>
-import  Home from '@/views/Home.vue'
 
 export default {
   name: 'App',
 
   components: {
-    Home
   }
 
 };
