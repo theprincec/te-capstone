@@ -1,5 +1,8 @@
 package com.techelevator.model.dao.jdbc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -33,6 +36,17 @@ private JdbcTemplate jdbcTemplate;
 		}
 	
 		return doctor;
+	}
+	
+	@Override
+	public List<Doctor> getDoctors() {
+		List<Doctor> doctors = new ArrayList<Doctor>();
+		String sql = "SELECT doctor_id, first_name, last_name, office_id FROM doctors";
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
+		while(rows.next()) {
+			doctors.add(mapDoctorToRow(rows));
+		}
+		return doctors;
 	}
 	
 	public Doctor mapDoctorToRow (SqlRowSet row) {
