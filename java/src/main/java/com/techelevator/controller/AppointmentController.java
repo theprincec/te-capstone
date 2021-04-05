@@ -3,12 +3,14 @@ package com.techelevator.controller;
 
 import java.security.Principal;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.model.Appointment;
@@ -32,6 +34,7 @@ public class AppointmentController {
 	private AppointmentDAO appointmentdao;
 	private DoctorDAO doctordao;
 
+	@ResponseStatus(HttpStatus.CREATED)  
 	@RequestMapping(path="/appointements", method=RequestMethod.POST)
 	public void createAppointment (Principal principal, @RequestBody Appointment appointment) {
 	
