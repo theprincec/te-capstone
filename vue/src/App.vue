@@ -1,11 +1,11 @@
 <template>
-  <div id="app">
-    <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
-    <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
-    <div>
+  <v-app>
+    <v-app-bar>
+      <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
+      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+    </v-app-bar>
       <router-view />
-    </div>
-  </div>
+  </v-app>
 </template>
 
 <script>
