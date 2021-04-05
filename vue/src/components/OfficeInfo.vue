@@ -2,7 +2,7 @@
 <div class="office-info">
     <h1>{{office.name}}</h1>
     <h2>Address:</h2>
-    <p>Address line</p>
+    <p>{{office.address.addressLine}}</p>
     <p>City, District, postal-code</p>
     <p>Hours of Operation</p>
     <p>Open time Close time</p>
@@ -31,20 +31,19 @@ export default {
     props: ['doctorId'],
     data() {
         return {
-               office: {
-                   
-               }
+               office: {}
         }
     },
-    created() {
+    beforeUpdate() {
         officeService.getOfficeInfo(this.doctorId).then(response => {
             this.office = response.data;
+        }).catch(error => {
+            console.log(error);
         })
-       
-    }
-
-
+    }  
 }
+
+
 </script>
 
 <style>

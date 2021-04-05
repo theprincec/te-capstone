@@ -9,7 +9,7 @@ public class Doctor {
 //    office_id int,
 	
 	private int doctorId;
-	private int officeId;
+	private Office office;
 	private String firstName;
 	private String lastName;
 	
@@ -26,24 +26,20 @@ public class Doctor {
 		this.lastName = lastName;
 	}
 	
-//	
-//	public void setName(String name) {
-//		this.name = "Dr." + firstName.substring(0, 1) + " " + lastName;
-//	}
-	public int getOfficeId() {
-		return officeId;
-	}
-	public void setOfficeId(int officeId) {
-		this.officeId = officeId;
-	}
-	
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
 
 	public String getLastName() {
 		return lastName;
+	}
+	
+	public Office getOffice() {
+		return office;
+	}
+	public void setOffice(Office office) {
+		this.office = office;
 	}
 
 	
