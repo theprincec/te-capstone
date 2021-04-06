@@ -1,6 +1,5 @@
 BEGIN TRANSACTION;
 
-
 DROP TABLE IF EXISTS appointments;
 DROP TABLE IF EXISTS doctors;
 DROP TABLE IF EXISTS offices;
@@ -74,12 +73,21 @@ CREATE TABLE appointments (
 );
 
 
-
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
-INSERT INTO offices (office_id, office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate) VALUES (DEFAULT, 'TreeCare', '1234 test st', 'Columbus', 'OH', '43221', '6143574454', '09:00:00', '05:00:00', 25);
-INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 1, 'James', 'Brown',DEFAULT );
+INSERT INTO users (username,password_hash,role) VALUES ('tiffany','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('jamesbrown','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 
+INSERT INTO offices (office_id, office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate) 
+VALUES (DEFAULT, 'TreeCare', '1234 Test street', 'Columbus', 'OH', '43221', '6143574454', '09:00:00', '05:00:00', 25);
+INSERT INTO offices (office_id, office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate) 
+VALUES (DEFAULT, 'ParrottCare', '456 Test drive', 'Columbus', 'OH', '43221', '6147856948', '09:00:00', '05:00:00', 30);
+INSERT INTO offices (office_id, office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate) 
+VALUES (DEFAULT, 'TreeCare', '124 Test road', 'Columbus', 'OH', '43221', '6142568969', '09:00:00', '06:00:00', 50);
+
+INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 1, 'James', 'Brown', 1);
+INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 3, 'Tiffany', 'Blue', 2 );
+INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 4, 'Adam', 'Laundry', 3 );
 
 COMMIT TRANSACTION;
 
