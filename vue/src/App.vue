@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="everything">
     <v-main>
        
       <router-view />
@@ -22,5 +22,8 @@ export default {
 <style scoped>
 .flex {
   border: 1px solid red;
+}
+#everything{
+  background-image: linear-gradient(#ffffff,#ffffff, #cccccc);
 }
 </style>

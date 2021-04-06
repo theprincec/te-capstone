@@ -9,7 +9,7 @@
           </v-img>
         </v-card>
         <v-card elevation="4" width="400" class="mx-auto mt-5">
-          <v-card-title>
+          <v-card-title id="title-container">
             <h1 class="display-1">Please Sign In</h1>
           </v-card-title>
           <v-card-text>
@@ -53,7 +53,7 @@
           
           <v-card-actions>
             <router-link :to="{ name: 'register' }" style="text-decoration: none">
-              <v-btn color="blue" text>NEW USER? CREATE AN ACCOUNT</v-btn>
+              <v-btn color="blue" text id="log-in-text">NEW USER? CREATE AN ACCOUNT</v-btn>
             </router-link>
           </v-card-actions>
 
@@ -63,7 +63,7 @@
             <v-btn :disabled= !valid 
               block
               type="submit" 
-              color="success" form="form-signin" class="mr-4"
+              form="form-signin" class="mr-4" id="sign-in-button"
               @click="validate">
               Sign In
             </v-btn>
@@ -119,7 +119,23 @@ export default {
 
 <style scoped>
 .card {
-  border: 1px solid red
+  border: 1px solid red;
+
 }
+#sign-in-button{
+  background-color: #aaaaaa;
+}
+#sign-in-button:hover{
+  background-color: #f48d11;
+}
+#title-container{
+  width: 100%;
+  padding-left: 80px;
+}
+#log-in-text{
+  width: 100%;
+  padding-left: 60px;
+}
+
 
 </style>

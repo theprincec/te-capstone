@@ -83,4 +83,8 @@ export default {
 #doctor-title{
     text-align: center;
 }
+/* .row{
+    background-image: linear-gradient(#ffffff,#ffffff,#cccccc);
+} */
+
 </style>

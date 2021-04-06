@@ -1,5 +1,5 @@
 <template>
-<v-container grid-list-md fluid >
+<v-container grid-list-md fluid color="primary">
 
   <v-app-bar class="px-5" app color="primary" flat>
     <v-tabs
@@ -32,6 +32,8 @@
       </v-icon>
       </v-avatar>
     </v-app-bar>
+
+
 
    
       <doctors-list />
