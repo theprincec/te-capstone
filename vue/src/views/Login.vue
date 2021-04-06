@@ -1,98 +1,77 @@
 <template>
+  <v-container ma-0 pa-0 fill-height fluid>
+    <v-layout>
+      <v-flex md5 class="primary">
+      </v-flex>
+      <v-flex md7 align-self-center>
+        <v-card elevation="0" class="d-flex justify-center" mx-auto>
+          <v-img src="../assets/orange.png" max-height="150" max-width="134">
+          </v-img>
+        </v-card>
+        <v-card elevation="4" width="400" class="mx-auto mt-5">
+          <v-card-title>
+            <h1 class="display-1">Please Sign In</h1>
+          </v-card-title>
+          <v-card-text>
 
-<div id="login">
-   <v-card width="400" class="mx-auto mt-5">
-     <v-card-title>
-      <h1 class="display-1">Please Sign In</h1>
-    </v-card-title>
-    <v-card-text>
+            <v-form id="form-signin"
+              ref="form"
+              v-model="valid"
+              lazy-validation
+              @submit.prevent="login"
+              validate
+              >
+      
+              <v-alert type="error" v-if="invalidCredentials">
+                Invalid username and password!
+              </v-alert>
+        
 
-      <v-form id="form-signin"
-        ref="form"
-        v-model="valid"
-        lazy-validation
-        @submit.prevent="login"
-        validate
-        >
-      <div>
-        <v-alert type="error" v-if="invalidCredentials">
-          Invalid username and password!
-        </v-alert>
-      </div>
-      <div>
-        <v-alert type="success" v-if="this.$route.query.registration"> 
-          Thank you for registering, please sign in.
-        </v-alert>
-      </div>
-        <v-text-field 
-          v-model="user.username"
-          :rules="[v => !!v || 'Username is required']"
-          label="Username"
-          prepend-icon="mdi-account-circle"
-          required          
-        />
-        <v-text-field 
-          v-model="user.password"
-          :type="showPassword ? 'text' : 'password'"
-          :rules="[v => !!v || 'Password is required']"
-          label="Password"
-          prepend-icon="mdi-lock"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="showPassword = ! showPassword"
-          required
-        />
-      </v-form>
-    </v-card-text>
-    <v-divider></v-divider>
-    <v-card-actions>
-      <router-link :to="{ name: 'register' }" style="text-decoration: none">
-        <p style="color: success">Need an account?</p>
-      </router-link>
-      <v-spacer></v-spacer>
-      <v-btn :disabled= !valid 
-        type="submit" 
-        color="success" form="form-signin" class="mr-4"
-        @click="validate">Sign In</v-btn>
-    </v-card-actions>
-   </v-card>
-  </div>
+              <v-alert type="success" v-if="this.$route.query.registration"> 
+                Thank you for registering, please sign in.
+              </v-alert>
+        
+              <v-text-field 
+                v-model="user.username"
+                :rules="[v => !!v || 'Username is required']"
+                label="Username"
+                prepend-icon="mdi-account-circle"
+                required          
+              />
+              <v-text-field 
+                v-model="user.password"
+                :type="showPassword ? 'text' : 'password'"
+                :rules="[v => !!v || 'Password is required']"
+                label="Password"
+                prepend-icon="mdi-lock"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="showPassword = ! showPassword"
+                required
+              />
+            </v-form>
+          </v-card-text>
+          
+          <v-card-actions>
+            <router-link :to="{ name: 'register' }" style="text-decoration: none">
+              <v-btn color="blue" text>NEW USER? CREATE AN ACCOUNT</v-btn>
+            </router-link>
+          </v-card-actions>
 
-  <!-- <div id="login" class="text-center">
-    <form class="form-signin" @submit.prevent="login">
-      <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
-      <div
-        class="alert alert-danger"
-        role="alert"
-        v-if="invalidCredentials"
-      >Invalid username and password!</div>
-      <div
-        class="alert alert-success"
-        role="alert"
-        v-if="this.$route.query.registration"
-      >Thank you for registering, please sign in.</div>
-      <label for="username" class="sr-only">Username</label>
-      <input
-        type="text"
-        id="username"
-        class="form-control"
-        placeholder="Username"
-        v-model="user.username"
-        required
-        autofocus
-      />
-      <label for="password" class="sr-only">Password</label>
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        placeholder="Password"
-        v-model="user.password"
-        required
-      />
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
-      <button type="submit">Sign in</button>
-    </form>
-  </div> -->
+          <v-divider></v-divider>
+
+          <v-card-actions>
+            <v-btn :disabled= !valid 
+              block
+              type="submit" 
+              color="success" form="form-signin" class="mr-4"
+              @click="validate">
+              Sign In
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -137,3 +116,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.card {
+  border: 1px solid red
+}
+
+</style>

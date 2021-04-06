@@ -1,106 +1,78 @@
 <template>
 
-<div id="register">
-   <v-card width="400" class="mx-auto mt-5">
-     <v-card-title>
-      <h1 class="display-1">Create Account</h1>
-    </v-card-title>
-    <v-card-text>
+<v-container id="register" ma-0 pa-0 fill-height fluid>
+  <v-layout>
+      <v-flex md5 class="primary">
+      </v-flex>
+      <v-flex md7 align-self-center>
+        <v-card elevation="0" class="d-flex justify-center" mx-auto>
+          <v-img src="../assets/orange.png" max-height="150" max-width="134">
+          </v-img>
+        </v-card>
+        <v-card width="400" class="mx-auto mt-5">
+          <v-card-title>
+          <h1 class="display-1">Create Account</h1>
+        </v-card-title>
+        <v-card-text>
 
-      <v-form id="form-register" 
-        ref="form"
-        v-model="valid"
-        lazy-validation
-        @submit.prevent="register"
-        validate
-        >
-      <div>
-        <v-alert type="error" v-if="registrationErrors">
-          {{ registrationErrorMsg }}
-        </v-alert>
-      </div>
-        <v-text-field 
-          v-model="user.username"
-          :rules="[v => !!v || 'Username is required']"
-          label="Username"
-          prepend-icon="mdi-account-circle"
-          required          
-        />
-        <v-text-field 
-          v-model="user.password"
-          :type="showPassword ? 'text' : 'password'"
-          :rules="[v => !!v || 'Password is required']"
-          label="Password"
-          prepend-icon="mdi-lock"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="showPassword = !showPassword"
-          required
-        />
-        <v-text-field 
-          v-model="user.confirmPassword"
-          :type="showConfirmPassword ? 'text' : 'password'"
-          :rules="[v => !!v || 'Please confirm password']"
-          label="Confirm Password"
-          prepend-icon="mdi-lock"
-          :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="showConfirmPassword = ! showConfirmPassword"
-          required
-        />
-      </v-form>
-    </v-card-text>
-    <v-divider></v-divider>
-    <v-card-actions>
-      <router-link :to="{ name: 'login' }" style="text-decoration: none">
-        <p style="color: success">Have an account?</p>
-      </router-link>
-      <v-spacer></v-spacer>
-      <v-btn :disabled= !valid 
-        type="submit" 
-        color="success" form="form-register" class="mr-4"
-        @click="validate">Register</v-btn>
-    </v-card-actions>
-   </v-card>
-  </div>
-
-  <!-- <div id="register" class="text-center">
-    <form class="form-register" @submit.prevent="register">
-      <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
-      <div class="alert alert-danger" role="alert" v-if="registrationErrors">
-        {{ registrationErrorMsg }}
-      </div>
-      <label for="username" class="sr-only">Username</label>
-      <input
-        type="text"
-        id="username"
-        class="form-control"
-        placeholder="Username"
-        v-model="user.username"
-        required
-        autofocus
-      />
-      <label for="password" class="sr-only">Password</label>
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        placeholder="Password"
-        v-model="user.password"
-        required
-      />
-      <input
-        type="password"
-        id="confirmPassword"
-        class="form-control"
-        placeholder="Confirm Password"
-        v-model="user.confirmPassword"
-        required
-      />
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Create Account
-      </button>
-    </form>
-  </div> -->
+          <v-form id="form-register" 
+            ref="form"
+            v-model="valid"
+            lazy-validation
+            @submit.prevent="register"
+            validate
+            >
+          <div>
+            <v-alert type="error" v-if="registrationErrors">
+              {{ registrationErrorMsg }}
+            </v-alert>
+          </div>
+            <v-text-field 
+              v-model="user.username"
+              :rules="[v => !!v || 'Username is required']"
+              label="Username"
+              prepend-icon="mdi-account-circle"
+              required          
+            />
+            <v-text-field 
+              v-model="user.password"
+              :type="showPassword ? 'text' : 'password'"
+              :rules="[v => !!v || 'Password is required']"
+              label="Password"
+              prepend-icon="mdi-lock"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="showPassword = !showPassword"
+              required
+            />
+            <v-text-field 
+              v-model="user.confirmPassword"
+              :type="showConfirmPassword ? 'text' : 'password'"
+              :rules="[v => !!v || 'Please confirm password']"
+              label="Confirm Password"
+              prepend-icon="mdi-lock"
+              :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="showConfirmPassword = ! showConfirmPassword"
+              required
+            />
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <router-link :to="{ name: 'login' }" style="text-decoration: none">
+            <v-btn color="blue" text>HAVE AN ACCOUNT? LOG IN</v-btn>
+          </router-link>
+        </v-card-actions>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-btn :disabled= !valid 
+            block
+            type="submit" 
+            color="success" form="form-register" class="mr-4"
+            @click="validate">Register</v-btn>
+        </v-card-actions>
+      </v-card>
+       </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
