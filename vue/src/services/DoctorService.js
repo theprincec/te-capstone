@@ -8,7 +8,11 @@ export default {
 
     getDoctors() {
         return http.get('/doctors');
-    }
+    },
+
+    // getDoctor() {
+    //     return http.get('/doctor');
+    // }
 
     // getOfficeInfo(doctorId) {
         

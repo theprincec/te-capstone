@@ -1,4 +1,5 @@
 package com.techelevator.controller;
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +25,11 @@ public class DoctorController {
 	@RequestMapping(path="/doctors", method=RequestMethod.GET)
 	public List<Doctor> getDoctors() {
 		return doctorDao.getDoctors();
+	}
+	
+	@RequestMapping(path="/doctor", method=RequestMethod.GET)
+	public Doctor getDoctor(Principal principal) {
+		return doctorDao.getDoctor(principal.getName());
 	}
 
 }

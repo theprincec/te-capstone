@@ -1,46 +1,117 @@
 <template>
-<div class="office-info">
-    <h1>{{office.name}}</h1>
-    <h2>Address:</h2>
-    <p>{{office.address.addressLine}}</p>
-    <p>City, District, postal-code</p>
-    <p>Hours of Operation</p>
-    <p>Open time Close time</p>
-    <p>Phone number</p>
-</div>
-    <!--"officeId": 2,
-    "name": "Therapy",
-    "address": {
-        "addressLine": "Test2",
-        "city": "test",
-        "district": "Franklin",
-        "postalCode": "43016"
-    },
-    "phoneNumber": "6147451420",
-    "openTime": "09:00:00",
-    "closeTime": "18:00:00",
-    "officeRate": 25
-    -->
+  <v-row>
+        <v-col cols="12"
+                md="3">
+            <v-card
+                rounded="lg"
+                min-height="368">
+                <v-card-title>
+                    Narrow appointments search:
+                </v-card-title>
+                <v-card-text>
+                    <v-text-field
+                        class="my-5"
+                        dense
+                        solo
+                        clearable
+                        color="blue-grey lighten-2"
+                        label="Name"
+                    ></v-text-field>  
+                    <v-text-field
+                        class="my-5"
+                        dense
+                        solo
+                        clearable
+                        color="blue-grey lighten-2"
+                        label="Location"
+                    ></v-text-field>  
+                    <v-text-field
+                        class="my-5"
+                        dense
+                        solo
+                        clearable
+                        color="blue-grey lighten-2"
+                        label="Specialty"
+                    ></v-text-field>
+                </v-card-text>
+            </v-card>
+        </v-col>
+        <v-col cols="12"
+            md="6">
+            <v-card class="mx-auto pa-2 mb-5">
+       
+                <v-card-title class="h4">{{doctor}}</v-card-title>
+                <v-card-text>
+                
+                <div class="d-flex justify-space-between subtitle-1">
+                        <p class="ma-1">Office name: </p>
+                        <p class="ma-1">fdhkhjfdg</p>
+                    </div>
+
+                    <div class="body-2">
+                        <p class="pb-1">bnvb</p>
+                    </div>
+                    <v-row
+                    align="center"
+                    class="mx-0"
+                >
+                <!-- change hardcoded value to rating -->
+                </v-row>
+                </v-card-text>
+
+                <v-card-actions>
+                    <a style="text-decoration: none" href=# class="blue--text">Check availability</a>
+                </v-card-actions>
+        
+            </v-card>
+        </v-col>
+        <v-col cols="12"
+                md="3">
+            <v-card
+                rounded="lg"
+                min-height="368">
+            </v-card>
+        </v-col>
+    </v-row>
+
+
 </template>
 
 <script>
-import officeService from '@/services/OfficeService'
+import doctorService from '@/services/DoctorService'
+//import officeService from '@/services/OfficeService'
+//import OfficeCard from '@/components/OfficeCard'
 
 export default {
     name: "office-info",
-    props: ['doctorId'],
-    data() {
-        return {
-               office: {}
+
+    // components: {
+    //     OfficeCard
+    // },
+    // created() {
+    //     doctorService.getDoctor()
+    //     .then(response => {
+    //         this.$store.commit("SET_CURRENT_DOCTOR", response.data);
+    //     }).catch( error => {
+    //         console.error( error );
+    //     });
+    // }
+    computed: {
+        doctor() {
+            const doctor = this.$store.state.doctors.find(doctor => {
+                doctor.userId == this.$store.state.user.id;
+            })
+            return doctor;
         }
     },
-    beforeUpdate() {
-        officeService.getOfficeInfo(this.doctorId).then(response => {
-            this.office = response.data;
-        }).catch(error => {
-            console.log(error);
-        })
-    }  
+     created() {
+        doctorService.getDoctors()
+        .then(response => {
+            this.$store.commit("SET_DOCTORS", response.data);
+        }).catch( error => {
+            console.error( error );
+        });
+    } 
 }
 
 

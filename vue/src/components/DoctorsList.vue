@@ -38,6 +38,9 @@
         </v-col>
         <v-col cols="12"
             md="6">
+            <!-- displayed to doctor -->
+            <h1>View list of appointments</h1>
+            
              <doctor-card class="mb-5" v-for="doctor in $store.state.doctors" :key="doctor.id" :doctor="doctor" />
         </v-col>
         <v-col cols="12"

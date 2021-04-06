@@ -27,7 +27,7 @@ public class JDBCDoctorDao implements DoctorDAO{
 	public Doctor getDoctor(String username) {
 		Doctor doctor = new Doctor();
 		
-		String sql = "SELECT doctor_id, first_name, last_name, doctors.office_id as office_id, " + 
+		String sql = "SELECT doctor_id, users.user_id as user_id, first_name, last_name, doctors.office_id as office_id, " + 
 				"office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate " + 
 				"FROM doctors " + 
 				"JOIN offices ON doctors.office_id = offices.office_id " + 
@@ -47,7 +47,7 @@ public class JDBCDoctorDao implements DoctorDAO{
 	@Override
 	public List<Doctor> getDoctors() {
 		List<Doctor> doctors = new ArrayList<Doctor>();
-		String sql = "SELECT doctor_id, first_name, last_name, doctors.office_id as office_id, " + 
+		String sql = "SELECT doctor_id, doctors.user_id as user_id, first_name, last_name, doctors.office_id as office_id, " + 
 				"office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate " + 
 				"FROM doctors " +
 				"JOIN offices ON doctors.office_id = offices.office_id";
@@ -62,6 +62,7 @@ public class JDBCDoctorDao implements DoctorDAO{
 		Doctor doctor = new Doctor();
 		Office office = mapRowToOffice(row);
 		doctor.setDoctorId(row.getInt("doctor_id"));
+		doctor.setUserId(row.getInt("user_id"));
 		doctor.setFirstName(row.getString("first_name"));
 		doctor.setLastName(row.getString("last_name"));
 		doctor.setOffice(office);

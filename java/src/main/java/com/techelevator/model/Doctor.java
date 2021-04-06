@@ -9,10 +9,18 @@ public class Doctor {
 //    office_id int,
 	
 	private int doctorId;
+	private int userId;
 	private Office office;
 	private String firstName;
 	private String lastName;
 	
+	
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	public int getDoctorId() {
 		return doctorId;
 	}

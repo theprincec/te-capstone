@@ -6,18 +6,16 @@
       class="ml-n9"
       color="grey darken-1"
     >
-    <router-link :to="{ name: 'home' }" style="text-decoration: none" >
+    <!-- <router-link :to="{ name: 'home' }" style="text-decoration: none" >
       <v-tab class="pa-6 mx-auto" style="color:white">Home</v-tab>
     </router-link>
-
-    
     <v-divider vertical></v-divider>
       
     <router-link v-bind:to="{ name: 'logout' }" 
       v-if="$store.state.token != ''"
       style="text-decoration: none">
       <v-tab class="pa-6 mx-auto" style="color:white">Logout</v-tab>
-    </router-link>
+    </router-link> -->
     <v-divider vertical></v-divider>
 
     </v-tabs>
@@ -32,22 +30,23 @@
       </v-icon>
       </v-avatar>
     </v-app-bar>
-
-   
-      <doctors-list />
-    <!--<office-info />-->
+    <!-- appointtent availablity -->
+      <h1>View appointments</h1>
+      <office-info />
+     
     
 </v-container>
 </template>
 
 <script>
-import DoctorsList from '@/components/DoctorsList'
-//import OfficeInfo from '@/components/OfficeInfo'
+import OfficeInfo from '@/components/OfficeInfo'
+
 
 export default {
   name: "home",
   components: {
-    DoctorsList
+    OfficeInfo
   }
 };
 </script>
+    DoctorsList

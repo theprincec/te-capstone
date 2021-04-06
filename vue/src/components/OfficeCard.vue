@@ -39,35 +39,19 @@
             <v-spacer></v-spacer>
             <a style="text-decoration: none" href=# class="blue--text">Check availability</a>
         </v-card-actions>
-        <!-- <office-info :doctorId="doctor.id" />-->
-            <!-- <h3>{{doctor.office.name}}</h3>
-            <h2>Address:</h2>
-            <p>{{doctor.office.address.addressLine}}</p>
-            <p>{{doctor.office.address.city}} {{doctor.office.address.district}} {{doctor.office.address.postalCode}}</p>
-            <p>Hours of Operation:</p>
-            <p>{{doctor.office.openTime}} - {{doctor.office.closeTime}}</p>
-            <p>{{doctor.office.phoneNumber}}</p> -->
+ 
     </v-card>
 </template>
 
 <script>
-//import OfficeInfo from "@/components/OfficeInfo.vue"
-//import officeService from '@/services/OfficeService'
 
 export default {
-    name: "doctor-card",
+    name: "office-card",
     props: ['doctor'],
     data: () => ({
         rating: 4.5,
     })
-    // components: { 
-    //   OfficeInfo 
-    // }
-    // computed: {
-    //     openTime(){
-    //         doctor.office.openTime
-    //     }
-    // }
+  
 }
 
    
