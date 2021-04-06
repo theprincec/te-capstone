@@ -1,17 +1,17 @@
 import axios from 'axios';
 
-const http = axios.create({
-    baseURL: "http://localhost:8080"
-}); 
+// const http = axios.create({
+//     baseURL: "http://localhost:8080"
+// }); 
 
 export default {
 
     getOfficeInfo(doctorId) {
         
-        return http.get(`/doctors/${doctorId}/offices`)
+        return axios.get(`/doctors/${doctorId}/offices`)
     },
     updateOfficeInfo(office){
-        return http.put(`/offices`, office)
+        return axios.put(`/offices`, office)
     }
 
 //   login(user) {

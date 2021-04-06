@@ -14,7 +14,6 @@ import com.techelevator.model.dao.OfficeDAO;
 
 @RestController
 @CrossOrigin
-@PreAuthorize("isAuthenticated()")
 public class OfficeController {
 	
 	private OfficeDAO officeDAO;

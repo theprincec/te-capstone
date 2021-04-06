@@ -23,7 +23,6 @@ import com.techelevator.model.dao.OfficeDAO;
 @RestController
 @CrossOrigin
 @PreAuthorize("isAuthenticated()")
-
 public class AppointmentController {
 	
 	public AppointmentController(AppointmentDAO appointmentDAO , DoctorDAO doctorDAO) {
@@ -35,7 +34,7 @@ public class AppointmentController {
 	private DoctorDAO doctordao;
 
 	@ResponseStatus(HttpStatus.CREATED)  
-	@RequestMapping(path="/appointements", method=RequestMethod.POST)
+	@RequestMapping(path="/appointments", method=RequestMethod.POST)
 	public void createAppointment (Principal principal, @RequestBody Appointment appointment) {
 	
 		Doctor doctor = doctordao.getDoctor(principal.getName());

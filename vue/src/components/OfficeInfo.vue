@@ -51,6 +51,8 @@
                 rounded="lg"
                 min-height="368">
                 <h1>You can view appointments here</h1>
+                <availability-form />
+
             </v-card>
         </v-col>
         <v-col cols="12"
@@ -60,7 +62,7 @@
                 <v-card-title class="h4"></v-card-title>
                 <v-card-text>
                 
-                <div>
+                <div v-if="!showForm">
                     <!-- <div 
                 //class="d-flex justify-space-between subtitle-1"
                 > -->
@@ -82,10 +84,10 @@
                 </v-card-text>
 
                 <v-card-actions>
-                    <a style="text-decoration: none" href=# class="blue--text"> Edit Office Info</a>
+                    <a style="text-decoration: none" href=# class="blue--text" @click="showForm = true" v-if="!showForm"> Edit Office Info</a>
                 </v-card-actions>
                 
-                <form v-on:submit.prevent="commitOfficeUpdate">
+                <form v-on:submit.prevent="commitOfficeUpdate()" v-if="showForm">
                     <div class="field">
                     <label for="officeName">Office Name: </label>
                     <input name="officeName" type="text"  v-model="office.name"/>
@@ -136,7 +138,8 @@
                     <button type="submit">Update Message</button>
                     </div>
                 </form>
-        
+
+
             </v-card>
         </v-col>
     </v-row>
@@ -147,10 +150,14 @@
 <script>
 import doctorService from '@/services/DoctorService'
 import officeService from '@/services/OfficeService'
+import AvailabilityForm from '@/components/AvailabilityForm'
 //import OfficeCard from '@/components/OfficeCard'
 
 export default {
     name: "office-info",
+    components: {
+        AvailabilityForm
+    },
     data(){
         return{
             office: {
@@ -166,7 +173,8 @@ export default {
                 openTime: "",
                 closeTime: "",
                 officeRate: ""
-            }
+            }, 
+            showForm: false
         }
     },
     
@@ -191,8 +199,12 @@ export default {
             this.office.address.postalCode= doctor.office.address.postalCode;           
         },
         commitOfficeUpdate(){
-            officeService.updateOfficeInfo(this.office);
-            this.autoPopulateOfficeInfo();
+            officeService.updateOfficeInfo(this.office).then(response => {
+                if(response.status == 200) {
+                    this.autoPopulateOfficeInfo();
+                }
+                this.showForm = false;
+            });
 
 
         },

@@ -1,13 +1,10 @@
 import axios from 'axios';
 
-const http = axios.create({
-    baseURL: "http://localhost:8080"
-}); 
 
 export default {
 
     getDoctors() {
-        return http.get('/doctors');
+        return axios.get('/doctors');
     },
 
     // getDoctor() {
