@@ -1,5 +1,14 @@
 <template>
+
   <v-row>
+      <v-col cols="12"
+            md="12">
+            <v-card id="docs"
+                rounded="lg"
+                min-height="100">
+                <h1>Dr Info</h1>
+            </v-card>
+        </v-col>
         <v-col cols="12"
                 md="3">
             <v-card
@@ -38,18 +47,31 @@
         </v-col>
         <v-col cols="12"
             md="6">
+            <v-card id="appointments"
+                rounded="lg"
+                min-height="368">
+                <h1>You can view appointments here</h1>
+            </v-card>
+        </v-col>
+        <v-col cols="12"
+                md="3">
             <v-card class="mx-auto pa-2 mb-5">
        
-                <v-card-title class="h4">{{doctor}}</v-card-title>
+                <v-card-title class="h4"></v-card-title>
                 <v-card-text>
                 
-                <div class="d-flex justify-space-between subtitle-1">
-                        <p class="ma-1">Office name: </p>
-                        <p class="ma-1">fdhkhjfdg</p>
-                    </div>
+                <div>
+                    <!-- <div 
+                //class="d-flex justify-space-between subtitle-1"
+                > -->
+                        <h2 class="ma-1">Office name:  {{doctor.office.name}} </h2> <br>
+                        <p class="ma-1"> Address: <br> {{doctor.office.address.addressLine}} </p> <br>
+                        <p class="ma-1">Location: <br> {{doctor.office.address.city}}, {{doctor.office.address.district}} {{doctor.office.address.postalCode}}</p> <br>
+                        <p class="ma-1"> Phone Number: <br> {{doctor.office.phoneNumber}} </p> <br>
+                        <p class="ma-1">Hours: <br> {{doctor.office.openTime}} - {{doctor.office.closeTime}} </p>
+                        <p class="ma-1">Hourly Rate: <br> {{doctor.office.officeRate}}</p>
 
-                    <div class="body-2">
-                        <p class="pb-1">bnvb</p>
+
                     </div>
                     <v-row
                     align="center"
@@ -60,16 +82,61 @@
                 </v-card-text>
 
                 <v-card-actions>
-                    <a style="text-decoration: none" href=# class="blue--text">Check availability</a>
+                    <a style="text-decoration: none" href=# class="blue--text"> Edit Office Info</a>
                 </v-card-actions>
+                
+                <form v-on:submit.prevent="commitOfficeUpdate">
+                    <div class="field">
+                    <label for="officeName">Office Name: </label>
+                    <input name="officeName" type="text"  v-model="office.name"/>
+                    </div>
+                    <div class="field">
+                    <label for="address"> Address line </label>
+                    <input name="officeName" type="text" v-model="office.address.addressLine" />
+                    </div>
+                    
+                    <div class="field">
+                    <label for="addressLine"> City </label>
+                    <input name="addressLine" type="text" v-model="office.address.city" />
+                    </div>
+
+                    <div class="field">
+                    <label for="district"> District</label>
+                    <input name="district" type="text" v-model="office.address.district" />
+                    </div>
+
+                    <div class="field">
+                    <label for="postalCode"> Postal Code</label>
+                    <input name="postalCode" type="text" v-model="office.address.postalCode" />
+                    </div>
+
+                    <div class="field">
+                    <label for="phonenNumber"> Phone Number:</label>
+                    <input name="phoneNumber" type="text" v-model="office.phoneNumber" />
+                    </div>
+                    <div class="field">
+                    <label for="openTime"> Open-time</label>
+                    <input name="openTime" type="text" v-model="office.openTime" />
+                    </div>
+
+                    <div class="field">
+                    <label for="closeTime"> Close-time</label>
+                    <input name="closeTime" type="text" v-model="office.closeTime" value=""/>
+                    </div>
+                    
+                    <div class="field">
+                    <label for="officeRate"> Office Rate:</label>
+                    <input name="officeRate" type="text" v-model="office.officeRate"  />
+                    </div>
+                    <!-- <div class="field">
+                    <label for="officeName"> Address:</label>
+                    <input name="officeName" type="text" v-model="title" />
+                    </div> -->
+                    <div class="actions" style="color:green">
+                    <button type="submit">Update Message</button>
+                    </div>
+                </form>
         
-            </v-card>
-        </v-col>
-        <v-col cols="12"
-                md="3">
-            <v-card
-                rounded="lg"
-                min-height="368">
             </v-card>
         </v-col>
     </v-row>
@@ -79,38 +146,72 @@
 
 <script>
 import doctorService from '@/services/DoctorService'
-//import officeService from '@/services/OfficeService'
+import officeService from '@/services/OfficeService'
 //import OfficeCard from '@/components/OfficeCard'
 
 export default {
     name: "office-info",
-
-    // components: {
-    //     OfficeCard
-    // },
-    // created() {
-    //     doctorService.getDoctor()
-    //     .then(response => {
-    //         this.$store.commit("SET_CURRENT_DOCTOR", response.data);
-    //     }).catch( error => {
-    //         console.error( error );
-    //     });
-    // }
+    data(){
+        return{
+            office: {
+                officeId: "",
+                name:"",
+                address: {
+                    addressLine: "",
+                    city: "",
+                    district: "",
+                    postalCode: ""
+                },
+                phoneNumber: "",
+                openTime: "",
+                closeTime: "",
+                officeRate: ""
+            }
+        }
+    },
+    
     computed: {
         doctor() {
-            const doctor = this.$store.state.doctors.find(doctor => {
-                doctor.userId == this.$store.state.user.id;
+            return this.$store.state.doctors.find(doctor => {
+                return doctor.userId == this.$store.state.user.id;
             })
-            return doctor;
+        }
+    },
+    methods: {
+        getOfficeData(doctor){
+            this.office.officeId= doctor.office.officeId;
+            this.office.name= doctor.office.name;
+            this.office.phoneNumber= doctor.office.phoneNumber;
+            this.office.openTime= doctor.office.openTime;
+            this.office.closeTime= doctor.office.closeTime;
+            this.office.officeRate= doctor.office.officeRate;
+            this.office.address.addressLine= doctor.office.address.addressLine;
+            this.office.address.city= doctor.office.address.city;
+            this.office.address.district= doctor.office.address.district;
+            this.office.address.postalCode= doctor.office.address.postalCode;           
+        },
+        commitOfficeUpdate(){
+            officeService.updateOfficeInfo(this.office);
+            this.autoPopulateOfficeInfo();
+
+
+        },
+        autoPopulateOfficeInfo(){
+            doctorService.getDoctors()
+                .then(response => {
+                    this.$store.commit("SET_DOCTORS", response.data); // commit to store
+
+                    const currentDoctor = this.$store.state.doctors
+                        .find(doctor => {return doctor.userId == this.$store.state.user.id;}); //get correct dr
+                    this.getOfficeData(currentDoctor); //set office equal data
+
+                }).catch( error => {
+                    console.error( error );
+            });
         }
     },
      created() {
-        doctorService.getDoctors()
-        .then(response => {
-            this.$store.commit("SET_DOCTORS", response.data);
-        }).catch( error => {
-            console.error( error );
-        });
+        this.autoPopulateOfficeInfo();
     } 
 }
 
@@ -124,5 +225,17 @@ export default {
     margin: 0 auto;
     width: 50%;
     text-align: center;
+}
+#appointments{
+    background-color:aquamarine;
+}
+#docs{
+    background-color:blueviolet;
+    width: 500px;
+}
+form input{
+    border: 1pt solid gray;
+    border-radius: 2pt;
+    box-shadow: 2px 2px #aaaaaaaa;
 }
 </style>

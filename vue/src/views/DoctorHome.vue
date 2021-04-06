@@ -31,7 +31,6 @@
       </v-avatar>
     </v-app-bar>
     <!-- appointtent availablity -->
-      <h1>View appointments</h1>
       <office-info />
      
     

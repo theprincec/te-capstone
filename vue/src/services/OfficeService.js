@@ -9,6 +9,9 @@ export default {
     getOfficeInfo(doctorId) {
         
         return http.get(`/doctors/${doctorId}/offices`)
+    },
+    updateOfficeInfo(office){
+        return http.put(`/offices`, office)
     }
 
 //   login(user) {
