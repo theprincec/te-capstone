@@ -1,8 +1,8 @@
 <template>
 
   <v-row>
-      <v-col cols="12"
-            md="12">
+      <v-col cols="12" md="12">
+            
             <v-card id="docs"
                 rounded="lg"
                 min-height="100">
@@ -243,7 +243,7 @@ export default {
 }
 #docs{
     background-color:blueviolet;
-    width: 500px;
+    width: 100%;
 }
 form input{
     border: 1pt solid gray;
