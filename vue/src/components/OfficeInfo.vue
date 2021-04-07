@@ -96,9 +96,9 @@
 
                 <div class="field" v-show="showDoctorForm" >
                     <label for="doctors">Doctors List: </label>
-                    <select id="doctorList" name="doctors" v-model="newDoctor" >
+                    <select id="doctorList" name="doctors" v-model="slctDoctor"  @change="selectedDoctor()">
                         <option v-for="doctorFromOffice in doctorsList" 
-                        v-bind:key="doctorFromOffice.doctorId" :value="newDoctor">Dr. {{doctorFromOffice.firstName}} {{doctorFromOffice.lastName}}</option>
+                        v-bind:key="doctorFromOffice.doctorId" v-bind:value="{id: doctorFromOffice.doctorId}">Dr. {{doctorFromOffice.firstName}} {{doctorFromOffice.lastName}}</option>
                     </select>
                 </div>
 
@@ -168,7 +168,11 @@ export default {
                 firstName: "",
                 lastName: ""
             },
-            selectedDoctor: ""
+            slctDoctor: {
+                id: "",
+                firstName: "",
+                lastName: ""
+            }
         }
     },
     
@@ -183,11 +187,16 @@ export default {
                 return doctor.office.officeId == this.doctor.office.officeId;
             })
         }
-        // currentDoctorFromOffice() {
-            
-        // }
+          
     },
     methods: {
+        selectedDoctor() {
+            this.doctorsList.find( doctor => {
+                if(this.slctDoctor.id == doctor.doctorId){
+                    this.newDoctor = doctor;
+                }
+            })
+        },
         getOfficeData(doctor){
             this.office.officeId= doctor.office.officeId;
             this.office.name= doctor.office.name;
