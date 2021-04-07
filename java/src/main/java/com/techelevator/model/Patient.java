@@ -6,10 +6,10 @@ public class Patient {
 //    user_id int,
 //    first_name varchar(50) NOT NULL,
 //    last_name varchar(50) NOT NULL, 
+	private int patientId;
 	private String firstName;
 	private String lastName;
-	private String fullName;
-	
+
 	
 	
 	public String getFirstName() {
@@ -24,15 +24,11 @@ public class Patient {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getFullName() {
-		return firstName + lastName;
+	public int getPatientId() {
+		return patientId;
 	}
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setPatientId(int patientId) {
+		this.patientId = patientId;
 	}
-	
-	
-	
-	
 
 }

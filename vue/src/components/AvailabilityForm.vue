@@ -6,9 +6,18 @@
         <h3 class="px-9">You can view appointments here</h3>
         
         <form id="appointment-form" class="px-9 pb-9"  v-on:submit.prevent="addAnAppointment()">
+
+            <v-select
+                v-model="appointment.appointmentType"
+                :items="items"
+                label="Appointment Type"
+            ></v-select>
+
             <v-text-field
-                v-model="appointment.patient.patientId"
+                v-model="appointment.patientId"
                 label="Patient ID"
+                v-if="isAppointmentReqiured()"
+                required
             ></v-text-field>
 
              <div class="field">
@@ -25,12 +34,6 @@
                 <label for="endTime" style="color:rgb(118, 118, 118)">End Time: </label>
                 <input id="endTime" name="endTime" type="time" v-model="appointment.timeEnd"/>
             </div>
-        
-            <v-select
-            v-model="appointment.appointmentType"
-            :items="items"
-            label="Appointment Type"
-            ></v-select>
 
             <v-btn
                 form="appointment-form"
@@ -88,13 +91,12 @@ export default {
     data() {
         return {
             appointment: {
-                patient: {
-                    patientId: ""
-                },
+               
+                patientId: "",            
                 date: this.fromDateDisp, 
                 timeStart: "", 
                 timeEnd: "", 
-                appointmentType: ""
+                appointmentType: "Personal"
             },
             items: [
                 'Personal',
@@ -120,15 +122,15 @@ export default {
         }, 
         clearForm() {
             this.appointment =  {
-                patient: {
-                    firstName: "", 
-                    lastName: ""
-                },
+                patientId: "",
                 date: "", 
                 timeStart: "", 
                 timeEnd: "", 
-                appointmentType: ""
+                appointmentType: "Personal"
             }
+        },
+        isAppointmentReqiured() {
+            return this.appointment.appointmentType == 'Personal' ? false : true;
         }
     },
     computed: {

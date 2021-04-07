@@ -24,11 +24,11 @@ public class JDBCAppointmentDao implements AppointmentDAO {
 	@Override
 	public void updateAvailablity(Appointment appointment) {
 		
-		String sql = "INSERT INTO appointments (appointment_id, doctor_id, appointment_date, appointment_time_start," +
-		"appointment_time_end, appointment_status) VALUES (DEFAULT,?, ?, ?, ?, ?) ";
+		String sql = "INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_date, appointment_time_start," +
+		"appointment_time_end, appointment_status) VALUES (DEFAULT,?, ?, ?, ?, ?, ?) ";
 		
 		
-		jdbcTemplate.update(sql, appointment.getDoctorid(), appointment.getDate(), appointment.getTimeStart(), appointment.getTimeEnd(), appointment.getAppointmentType());
+		jdbcTemplate.update(sql, appointment.getDoctorid(), appointment.getPatientId(), appointment.getDate(), appointment.getTimeStart(), appointment.getTimeEnd(), appointment.getAppointmentType());
 		
 		
 		

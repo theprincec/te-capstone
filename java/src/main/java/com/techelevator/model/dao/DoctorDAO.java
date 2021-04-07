@@ -9,4 +9,7 @@ public interface DoctorDAO {
 	public Doctor getDoctor(String username);
 	
 	List<Doctor> getDoctors();
+	
+	void updateOfficeForDoctor(Doctor doctor);
+	
 }

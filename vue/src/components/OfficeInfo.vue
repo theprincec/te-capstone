@@ -49,6 +49,10 @@
                 <v-card-actions class="px-10">
                         <a style="text-decoration: none" class="blue--text" @click="showForm = true" v-if="!showForm"
                         > Edit Office Info</a>
+                      
+                        <v-spacer></v-spacer>
+                        <a style="text-decoration: none" class="blue--text" @click="showDoctorForm = true"
+                        > Update Doctors</a>
                         <v-spacer></v-spacer>
                         <p class="mb-0 grey-text display-1"> ${{doctor.office.officeRate}}</p>
                 </v-card-actions>
@@ -85,14 +89,30 @@
                  <v-divider></v-divider>
                 <v-card-actions>
                     <v-btn block type="submit" success="accent"
-                    > Update Message</v-btn>
+                    >SUBMIT FORM</v-btn>
                 </v-card-actions>
 
                 </v-form>
 
+                <div class="field" v-show="showDoctorForm" >
+                    <label for="doctors">Doctors List: </label>
+                    <select id="doctorList" name="doctors" v-model="newDoctor" >
+                        <option v-for="doctorFromOffice in doctorsList" 
+                        v-bind:key="doctorFromOffice.doctorId" :value="newDoctor">Dr. {{doctorFromOffice.firstName}} {{doctorFromOffice.lastName}}</option>
+                    </select>
+                </div>
+
+                <v-divider v-if="showDoctorForm"></v-divider>
+
+                <v-card-actions v-if="showDoctorForm">
+                    <v-btn block type="button" success="accent" @click="removeDoctorFromOffice()"
+                    >REMOVE DOCTOR</v-btn>
+                </v-card-actions>
+
             </v-card>
         </v-col>
     </v-row>
+    
 
 </v-container>
 </template>
@@ -126,7 +146,29 @@ export default {
                 closeTime: "",
                 officeRate: ""
             }, 
-            showForm: false
+            showForm: false,
+            showDoctorForm: false,
+            newDoctor: {
+                doctorId: "",
+                userId: "",
+                office: {
+                    officeId: "",
+                    name: "",
+                    address: {
+                        addressLine: "",
+                        city: "",
+                        district: "",
+                        postalCode: ""
+                    },
+                    phoneNumber: "",
+                    openTime: "",
+                    closeTime: "",
+                    officeRate: ""
+                    }, 
+                firstName: "",
+                lastName: ""
+            },
+            selectedDoctor: ""
         }
     },
     
@@ -135,7 +177,15 @@ export default {
             return this.$store.state.doctors.find(doctor => {
                 return doctor.userId == this.$store.state.user.id;
             })
+        },
+        doctorsList() {
+            return this.$store.state.doctors.filter(doctor => {
+                return doctor.office.officeId == this.doctor.office.officeId;
+            })
         }
+        // currentDoctorFromOffice() {
+            
+        // }
     },
     methods: {
         getOfficeData(doctor){
@@ -172,6 +222,18 @@ export default {
                 }).catch( error => {
                     console.error( error );
             });
+        },
+        removeDoctorFromOffice() {
+            // const currentDoctor = this.doctor;
+            doctorService.updateOfficeForDoctor(this.newDoctor)
+                .then(response => {
+                    if(response.status == 200) {
+                         this.$store.commit("UPDATE_DOCTOR_INFO", this.newDoctor);
+                         alert("Doctor has been added")
+                    }
+                }).catch(error => {
+                    console.log(error);
+                })
         }
     },
      created() {
@@ -183,6 +245,18 @@ export default {
 </script>
 
 <style>
+#doctorList {
+    padding: 8px 0 8px 8px;
+    line-height: 20px;
+    border-bottom: 1px solid rgb(118, 118, 118);
+    width: 100%;
+    border-color: (rgb(118, 118, 118), rgb(133, 133, 133));
+    color: rgb(133, 133, 133);
+    max-height: 32px;
+}
+.field {
+    padding: 8px 0 8px 
+}
 /* .office-info {
     background-color: whitesmoke;
     border: 1px solid red;

@@ -11,7 +11,6 @@ import com.techelevator.model.Address;
 import com.techelevator.model.Doctor;
 import com.techelevator.model.Office;
 import com.techelevator.model.dao.DoctorDAO;
-import com.techelevator.model.dao.OfficeDAO;
 
 
 @Component
@@ -58,6 +57,12 @@ public class JDBCDoctorDao implements DoctorDAO{
 		return doctors;
 	}
 	
+	@Override
+	public void updateOfficeForDoctor(Doctor doctor) {
+		jdbcTemplate.update("UPDATE doctors SET office_id = null WHERE doctor_id = ?", doctor.getDoctorId());
+		
+	}
+	
 	private Doctor mapDoctorToRow (SqlRowSet row) {
 		Doctor doctor = new Doctor();
 		Office office = mapRowToOffice(row);
@@ -87,5 +92,6 @@ public class JDBCDoctorDao implements DoctorDAO{
 		office.setOfficeRate(row.getBigDecimal("hourly_rate"));
 		return office;
 	}
+
 
 }

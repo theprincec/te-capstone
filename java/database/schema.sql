@@ -77,6 +77,7 @@ INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULi
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 INSERT INTO users (username,password_hash,role) VALUES ('tiffany','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('jamesbrown','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('lola','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 
 INSERT INTO offices (office_id, office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate) 
 VALUES (DEFAULT, 'TreeCare', '1234 Test street', 'Columbus', 'OH', '43221', '6143574454', '09:00:00', '05:00:00', 25);
@@ -88,6 +89,9 @@ VALUES (DEFAULT, 'TreeCare', '124 Test road', 'Columbus', 'OH', '43221', '614256
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 1, 'James', 'Brown', 1);
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 3, 'Tiffany', 'Blue', 2 );
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 4, 'Adam', 'Laundry', 3 );
+INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 5, 'Lola', 'Balinsky', 1 );
+
+
 
 COMMIT TRANSACTION;
 

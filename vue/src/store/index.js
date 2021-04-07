@@ -44,8 +44,11 @@ export default new Vuex.Store({
     SET_DOCTORS(state, doctors) {
       state.doctors = doctors;
     },
-    // SET_CURRENT_DOCTOR(state, doctor) {
-    //   state.currentDoctor = doctor;
-    // }
+    UPDATE_DOCTOR_INFO(state, doctorFromOffice) {
+      state.doctors.find(doctor => {
+        doctor.doctorId == doctorFromOffice.doctorId;
+        doctorFromOffice.office.officeId = null;
+      })
+    }
   }
 })

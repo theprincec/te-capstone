@@ -1,11 +1,16 @@
 import axios from 'axios';
 
 
+
 export default {
 
     getDoctors() {
         return axios.get('/doctors');
     },
+
+    updateOfficeForDoctor(doctor) {
+        return axios.put('/doctors', doctor);
+    }
 
     // getDoctor() {
     //     return http.get('/doctor');
