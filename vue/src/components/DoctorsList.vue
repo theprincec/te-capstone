@@ -65,11 +65,12 @@ import BookAppointment from './BookAppointment.vue'
 export default {
     name: "doctors-list",
     components: {
+        BookAppointment,
         DoctorCard
     },
     created() {
      
-        BookAppointment   doctorService.getDoctors()
+        doctorService.getDoctors()
         .then(response => {
             this.$store.commit("SET_DOCTORS", response.data);
         }).catch( error => {
