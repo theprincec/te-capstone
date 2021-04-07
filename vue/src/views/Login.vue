@@ -128,7 +128,6 @@ export default {
 #sign-in-button:hover{
   background-color: #f48d11;
 }
-<<<<<<< HEAD
 #title-container{
   width: 100%;
   padding-left: 80px;
@@ -137,11 +136,9 @@ export default {
   width: 100%;
   padding-left: 60px;
 }
-
-=======
 #background {
   background-image: url('../assets/img.png')
 }
->>>>>>> organization
+
 
 </style>

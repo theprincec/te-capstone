@@ -10,7 +10,7 @@
           </v-img>
         </v-card>
         <v-card width="400" class="mx-auto mt-5">
-          <v-card-title>
+          <v-card-title id="title-container">
           <h1 class="display-1">Create Account</h1>
         </v-card-title>
         <v-card-text>
@@ -58,7 +58,7 @@
         </v-card-text>
         <v-card-actions>
           <router-link :to="{ name: 'login' }" style="text-decoration: none">
-            <v-btn color="blue" text>HAVE AN ACCOUNT? LOG IN</v-btn>
+            <v-btn color="blue" text id="log-in-text">HAVE AN ACCOUNT? LOG IN</v-btn>
           </router-link>
         </v-card-actions>
         <v-divider></v-divider>
@@ -66,8 +66,8 @@
           <v-btn :disabled= !valid 
             block
             type="submit" 
-            color="success" form="form-register" class="mr-4"
-            @click="validate">Register</v-btn>
+            form="form-register" class="mr-4"
+            @click="validate" id="sign-in-button">Register</v-btn>
         </v-card-actions>
       </v-card>
        </v-flex>
@@ -134,5 +134,19 @@ export default {
 <style>
 #background {
   background-image: url('../assets/img.png')
+}
+#sign-in-button{
+  background-color: #aaaaaa;
+}
+#sign-in-button:hover{
+  background-color: #f48d11;
+}
+#title-container{
+  width: 100%;
+  padding-left: 80px;
+}
+#log-in-text{
+  width: 100%;
+  padding-left: 60px;
 }
 </style>
