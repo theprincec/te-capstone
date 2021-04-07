@@ -18,93 +18,77 @@
     <v-row>
         
         <v-col cols="12"
-            md="4" class="pb-0 pt-3">
+            md="6" class="pb-0 pt-3">
             <availability-form />
         </v-col>
         <v-col cols="12"
-                md="4" class="py-3">
+                md="6" class="py-3">
             <v-card class="mx-auto pa-2 mb-5">
-       
-                <v-card-title class="h4"></v-card-title>
-                <v-card-text>
+                <v-form v-if="!showForm">
+                    <v-card
+                        class="mx-auto my-5"
+                        max-width="480"
+                    >
+                        <v-img
+                        height="250"
+                        src="../assets/placeholder.jpg"
+                        ></v-img>
+                    </v-card>
+               
+                <v-card-title class="h4 py-2 px-10">{{doctor.office.name}} </v-card-title>
+                <v-card-text class="py-2 px-10">
                 
-                <div v-if="!showForm">
-                    <!-- <div 
-                //class="d-flex justify-space-between subtitle-1"
-                > -->
-                        <h2 class="ma-1">Office name:  {{doctor.office.name}} </h2> <br>
-                        <p class="ma-1"> Address: <br> {{doctor.office.address.addressLine}} </p> <br>
-                        <p class="ma-1">Location: <br> {{doctor.office.address.city}}, {{doctor.office.address.district}} {{doctor.office.address.postalCode}}</p> <br>
-                        <p class="ma-1"> Phone Number: <br> {{doctor.office.phoneNumber}} </p> <br>
-                        <p class="ma-1">Hours: <br> {{doctor.office.openTime}} - {{doctor.office.closeTime}} </p>
-                        <p class="ma-1">Hourly Rate: <br> {{doctor.office.officeRate}}</p>
-
-
-                    </div>
-                    <v-row
-                    align="center"
-                    class="mx-0"
-                >
-                <!-- change hardcoded value to rating -->
-                </v-row>
+                <div class="d-flex justify-space-between subtitle-1"> 
+                    <p class="pa-1 ma-0"> {{doctor.office.address.addressLine}} <br>
+                        {{doctor.office.address.city}}, {{doctor.office.address.district}} {{doctor.office.address.postalCode}}</p> 
+                    <p class="pa-1 ma-0 subtitle-2"><v-icon small class="px-2">mdi-clock</v-icon>{{doctor.office.openTime}} - {{doctor.office.closeTime}} <br>
+                        <v-icon small class="px-2">mdi-phone</v-icon>{{doctor.office.phoneNumber}} </p>
+                </div>
                 </v-card-text>
-
-                <v-card-actions>
-                    <a style="text-decoration: none" href=# class="blue--text" @click="showForm = true" v-if="!showForm"> Edit Office Info</a>
+                    <v-divider></v-divider>
+                <v-card-actions class="px-10">
+                        <a style="text-decoration: none" class="blue--text" @click="showForm = true" v-if="!showForm"
+                        > Edit Office Info</a>
+                        <v-spacer></v-spacer>
+                        <p class="mb-0 grey-text display-1"> ${{doctor.office.officeRate}}</p>
                 </v-card-actions>
-                
-                <form v-on:submit.prevent="commitOfficeUpdate()" v-if="showForm">
-                    <div class="field">
-                    <label for="officeName">Office Name: </label>
-                    <input name="officeName" type="text"  v-model="office.name"/>
+                </v-form>
+
+            <!--Update form-->
+
+                <v-form v-on:submit.prevent="commitOfficeUpdate()" v-if="showForm">
+               
+                <v-card-title class="h3 py-5 px-10">Update Office Details</v-card-title>
+                    <v-text-field class="px-10" label="Office Name" outlined dense v-model="office.name">
+                    </v-text-field>
+                    <v-text-field class="px-10" label="Address" outlined dense v-model="office.address.addressLine">
+                    </v-text-field>
+                    <div class="d-flex justify-space-between">
+                        <v-text-field class="pl-10 pr-2" label="City" outlined dense v-model="office.address.city">
+                        </v-text-field>
+                        <v-text-field class="px-2" label="State" outlined dense v-model="office.address.district" >
+                        </v-text-field>
+                        <v-text-field class="pr-10 pl-2" label="ZipCode" outlined dense v-model="office.address.postalCode">
+                        </v-text-field>
                     </div>
-                    <div class="field">
-                    <label for="address"> Address line </label>
-                    <input name="officeName" type="text" v-model="office.address.addressLine" />
+                    <v-text-field class=" px-10" label="Phone Number" outlined dense v-model="office.phoneNumber">
+                    </v-text-field>
+                    <div class="d-flex justify-space-between">
+                        <v-text-field class=" pl-10 pr-2" label="Open Time" outlined dense v-model="office.openTime">
+                        </v-text-field>
+                        <v-text-field class=" pr-10 pl-2" label="Close Time" outlined dense v-model="office.closeTime">
+                        </v-text-field>
                     </div>
+                    <v-text-field class=" px-10" label="Office Rate" outlined dense v-model="office.officeRate">
+                    </v-text-field>
                     
-                    <div class="field">
-                    <label for="addressLine"> City </label>
-                    <input name="addressLine" type="text" v-model="office.address.city" />
-                    </div>
+                 <v-divider></v-divider>
+                <v-card-actions>
+                    <v-btn block type="submit" success="accent"
+                    > Update Message</v-btn>
+                </v-card-actions>
 
-                    <div class="field">
-                    <label for="district"> District</label>
-                    <input name="district" type="text" v-model="office.address.district" />
-                    </div>
-
-                    <div class="field">
-                    <label for="postalCode"> Postal Code</label>
-                    <input name="postalCode" type="text" v-model="office.address.postalCode" />
-                    </div>
-
-                    <div class="field">
-                    <label for="phonenNumber"> Phone Number:</label>
-                    <input name="phoneNumber" type="text" v-model="office.phoneNumber" />
-                    </div>
-                    <div class="field">
-                    <label for="openTime"> Open-time</label>
-                    <input name="openTime" type="text" v-model="office.openTime" />
-                    </div>
-
-                    <div class="field">
-                    <label for="closeTime"> Close-time</label>
-                    <input name="closeTime" type="text" v-model="office.closeTime" value=""/>
-                    </div>
-                    
-                    <div class="field">
-                    <label for="officeRate"> Office Rate:</label>
-                    <input name="officeRate" type="text" v-model="office.officeRate"  />
-                    </div>
-                    <!-- <div class="field">
-                    <label for="officeName"> Address:</label>
-                    <input name="officeName" type="text" v-model="title" />
-                    </div> -->
-                    <div class="actions" style="color:green">
-                    <button type="submit">Update Message</button>
-                    </div>
-                </form>
-
+                </v-form>
 
             </v-card>
         </v-col>
@@ -199,7 +183,7 @@ export default {
 </script>
 
 <style>
-.office-info {
+/* .office-info {
     background-color: whitesmoke;
     border: 1px solid red;
     margin: 0 auto;
@@ -217,5 +201,5 @@ form input{
     border: 1pt solid gray;
     border-radius: 2pt;
     box-shadow: 2px 2px #aaaaaaaa;
-}
+} */
 </style>

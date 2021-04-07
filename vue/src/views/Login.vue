@@ -1,11 +1,11 @@
 <template>
   <v-container ma-0 pa-0 fill-height fluid>
     <v-layout>
-      <v-flex md5 class="primary">
+      <v-flex md5 class="primary" id="background">
       </v-flex>
       <v-flex md7 align-self-center>
         <v-card elevation="0" class="d-flex justify-center" mx-auto>
-          <v-img src="../assets/orange.png" max-height="150" max-width="134">
+          <v-img src="../assets/carehub.png" max-height="170" max-width="134">
           </v-img>
         </v-card>
         <v-card elevation="4" width="400" class="mx-auto mt-5">
@@ -128,6 +128,7 @@ export default {
 #sign-in-button:hover{
   background-color: #f48d11;
 }
+<<<<<<< HEAD
 #title-container{
   width: 100%;
   padding-left: 80px;
@@ -137,5 +138,10 @@ export default {
   padding-left: 60px;
 }
 
+=======
+#background {
+  background-image: url('../assets/img.png')
+}
+>>>>>>> organization
 
 </style>

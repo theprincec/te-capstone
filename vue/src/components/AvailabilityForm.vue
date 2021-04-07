@@ -1,11 +1,50 @@
 <template>
  
     <v-card id="appointments"
-            rounded="lg"
-            min-height="368">
-        <h1>You can view appointments here</h1>
-            
-        <form v-on:submit.prevent="addAnAppointment()">
+            min-height="368"
+            flat>
+        <h3 class="px-9">You can view appointments here</h3>
+        
+        <form id="appointment-form" class="px-9 pb-9"  v-on:submit.prevent="addAnAppointment()">
+            <v-text-field
+                v-model="appointment.patient.patientId"
+                label="Patient ID"
+            ></v-text-field>
+
+             <div class="field">
+                <label for="date">Date: </label>
+                <input id="date" name="date" type="date"  v-model="appointment.date"/>
+            </div>
+
+            <div class="field">
+                <label for="startTime" style="color:rgb(118, 118, 118)">Start Time: </label>
+                <input id="startTime" name="startTime" type="time"  v-model="appointment.timeStart"/>
+            </div>
+
+            <div class="field">
+                <label for="endTime" style="color:rgb(118, 118, 118)">End Time: </label>
+                <input id="endTime" name="endTime" type="time" v-model="appointment.timeEnd"/>
+            </div>
+        
+            <v-select
+            v-model="appointment.appointmentType"
+            :items="items"
+            label="Appointment Type"
+            ></v-select>
+
+            <v-btn
+                form="appointment-form"
+                class="mr-4"
+                type="submit"
+            >
+            submit
+            </v-btn>
+            <v-btn @click="clearForm">
+            clear
+            </v-btn>
+        </form>
+
+        <!-- <form v-on:submit.prevent="addAnAppointment()">
             <div class="field">
                 <label for="patientFirstName">Patient ID: </label>
                 <input name="patientFirstName" type="text"  v-model="appointment.patient.patientId"/>
@@ -37,13 +76,9 @@
                 <button type="submit">Save Appointment</button>
             </div>
         
-        </form>
+        </form> -->
     </v-card>
-    
 
-
-
-  
 </template>
 
 <script>
@@ -56,11 +91,19 @@ export default {
                 patient: {
                     patientId: ""
                 },
-                date: "", 
+                date: this.fromDateDisp, 
                 timeStart: "", 
                 timeEnd: "", 
                 appointmentType: ""
-            }
+            },
+            items: [
+                'Personal',
+                'Appoinment'
+            ],
+            fromDateMenu: false,
+            fromDateVal: null,
+            minDate: "2020-01-05",
+            maxDate: "2019-08-30"
         }
     }, 
     methods: {
@@ -87,15 +130,26 @@ export default {
                 appointmentType: ""
             }
         }
+    },
+    computed: {
+        fromDateDisp() {
+            return this.fromDateVal;
+        }
     }
-
 }
 </script>
 
 <style>
-form select{
-    border: 1pt solid gray;
-    border-radius: 2pt;
-    box-shadow: 2px 2px #aaaaaaaa;
+#startTime, #endTime, #date {
+    padding: 8px 0 8px 8px;
+    line-height: 20px;
+    border-bottom: 1px solid rgb(118, 118, 118);
+    width: 100%;
+    border-color: (rgb(118, 118, 118), rgb(133, 133, 133));
+    color: rgb(133, 133, 133);
+    max-height: 32px;
+}
+.field {
+    padding: 8px 0 8px 
 }
 </style>
