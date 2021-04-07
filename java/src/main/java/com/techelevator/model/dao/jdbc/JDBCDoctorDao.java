@@ -22,6 +22,29 @@ public class JDBCDoctorDao implements DoctorDAO{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
+	
+	@Override
+	public Doctor getDoctorId(int id) {
+		Doctor doctor = new Doctor();
+		
+		String sql = "SELECT doctor_id, users.user_id as user_id, first_name, last_name, doctors.office_id as office_id, " + 
+				"office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate " + 
+				"FROM doctors " + 
+				"JOIN offices ON doctors.office_id = offices.office_id " + 
+				"JOIN users ON users.user_id = doctors.user_id " + 
+				"WHERE doctor_id = ? ";
+		
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, id);
+		
+		
+		while(rows.next()) {
+			doctor = mapDoctorToRow(rows);
+		}
+	
+		return doctor;
+	}
+	
+	
 	@Override
 	public Doctor getDoctor(String username) {
 		Doctor doctor = new Doctor();

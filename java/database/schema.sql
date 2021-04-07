@@ -99,7 +99,11 @@ INSERT INTO patients (patient_id, user_id, first_name, last_name) VALUES (DEFAUL
 INSERT INTO patients (patient_id, user_id, first_name, last_name) VALUES (DEFAULT, 7, 'Matt', 'Eland');
 INSERT INTO patients (patient_id, user_id, first_name, last_name) VALUES (DEFAULT, 8, 'Jordan', 'Rutland');
 
+INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_date, appointment_time_start, appointment_time_end, appointment_status) VALUES (DEFAULT, 1, 1, '2021-05-21', '11:00:00', '12:00:00', 'appointment');
+INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_date, appointment_time_start, appointment_time_end, appointment_status) VALUES (DEFAULT, 2, 1, '2021-05-21', '13:00:00', '14:00:00', 'appointment');
+
 COMMIT TRANSACTION;
+
 
 
 

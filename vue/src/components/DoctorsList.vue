@@ -48,8 +48,10 @@
         </v-col>
         <v-col cols="12" md="3">
             <v-card
+            
                 rounded="lg"
                 min-height="368">
+                <book-appointment/>
             </v-card>
         </v-col>
     </v-row>
@@ -58,6 +60,7 @@
 <script>
 import doctorService from '@/services/DoctorService'
 import DoctorCard from '@/components/DoctorCard'
+import BookAppointment from './BookAppointment.vue'
 
 export default {
     name: "doctors-list",
@@ -65,7 +68,8 @@ export default {
         DoctorCard
     },
     created() {
-        doctorService.getDoctors()
+     
+        BookAppointment   doctorService.getDoctors()
         .then(response => {
             this.$store.commit("SET_DOCTORS", response.data);
         }).catch( error => {

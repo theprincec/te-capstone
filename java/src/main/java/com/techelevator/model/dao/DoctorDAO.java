@@ -6,6 +6,8 @@ import com.techelevator.model.Doctor;
 
 public interface DoctorDAO {
 
+	public Doctor getDoctorId(int id);
+	
 	public Doctor getDoctor(String username);
 	
 	List<Doctor> getDoctors();

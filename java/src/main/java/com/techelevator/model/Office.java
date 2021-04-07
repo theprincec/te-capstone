@@ -1,7 +1,10 @@
 package com.techelevator.model;
 
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Office {
 	
@@ -21,6 +24,43 @@ public class Office {
 	private String phoneNumber;
 	private String openTime;
 	private String closeTime;
+	
+	
+	public List<LocalTime> timeSlots() {
+		List<LocalTime> timeSlots = new ArrayList<LocalTime>();
+		
+		LocalTime startTime = LocalTime.parse(openTime);
+		LocalTime current = startTime;
+		LocalTime endTime = LocalTime.parse(closeTime);
+		
+		while(current.isBefore(endTime)) {
+			timeSlots.add(current);
+			current = current.plusHours(1);
+		}
+		return timeSlots;
+	}
+	
+	public List<LocalTime> availableTimes(List<Appointment> appointments, List<LocalTime> timeSlots) {
+		
+		List<LocalTime> availableSlots = new ArrayList<LocalTime>();
+		
+		if(appointments.size() > 0) {
+			for(LocalTime time : timeSlots) {
+			for(Appointment appointment : appointments) {
+				if(time.isBefore(appointment.getTimeStart()) && time.plusMinutes(59).isBefore(appointment.getTimeStart()) || (time.isAfter(appointment.getTimeEnd()))) {
+					
+						availableSlots.add(time);
+					
+				}
+				//if((time.isAfter(appointment.getTimeStart()) ||time.equals(appointment.getTimeStart())) && (time.isBefore(appointment.getTimeEnd()) || time.equals(appointment.getTimeEnd()))) {
+					//availableSlots.add(time);
+				//}
+			}
+			}
+		}
+			return availableSlots;
+	}
+	
 	public String getOpenTime() {
 		return openTime;
 	}

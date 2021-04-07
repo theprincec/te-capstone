@@ -8,5 +8,5 @@ public interface AppointmentDAO {
 	
 	 void updateAvailablity(Appointment appointment);
 
-	 List<Appointment> listOfAppointment();
+	 List<Appointment> listOfAppointment(int doctorId);
 }
