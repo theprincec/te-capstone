@@ -72,12 +72,16 @@ CREATE TABLE appointments (
         --CONSTRAINT fk_patient_id FOREIGN KEY (patient_id) REFERENCES patients(patient_id)    
 );
 
-
+--doctor
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 INSERT INTO users (username,password_hash,role) VALUES ('tiffany','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('jamesbrown','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('lola','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+--patient 
+INSERT INTO users (username,password_hash,role) VALUES ('random','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('sick','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('tree','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 
 INSERT INTO offices (office_id, office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate) 
 VALUES (DEFAULT, 'TreeCare', '1234 Test street', 'Columbus', 'OH', '43221', '6143574454', '09:00:00', '05:00:00', 25);
@@ -91,8 +95,11 @@ INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUE
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 4, 'Adam', 'Laundry', 3 );
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 5, 'Lola', 'Balinsky', 1 );
 
-
+INSERT INTO patients (patient_id, user_id, first_name, last_name) VALUES (DEFAULT, 6, 'Brian', 'Lauray');
+INSERT INTO patients (patient_id, user_id, first_name, last_name) VALUES (DEFAULT, 7, 'Matt', 'Eland');
+INSERT INTO patients (patient_id, user_id, first_name, last_name) VALUES (DEFAULT, 8, 'Jordan', 'Rutland');
 
 COMMIT TRANSACTION;
+
 
 
