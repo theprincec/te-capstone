@@ -238,7 +238,7 @@ export default {
                 .then(response => {
                     if(response.status == 200) {
                          this.$store.commit("UPDATE_DOCTOR_INFO", this.newDoctor);
-                         alert("Doctor has been added")
+                         alert("Doctor has been removed")
                     }
                 }).catch(error => {
                     console.log(error);
