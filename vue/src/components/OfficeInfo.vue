@@ -1,62 +1,28 @@
 <template>
-
-  <v-row>
-      <v-col cols="12" md="12">
-            
+<v-container>
+    <v-row>
+        <v-col cols="12" md="12">
             <v-card id="docs"
                 rounded="lg"
                 min-height="100">
                 <h1>Dr Info</h1>
             </v-card>
         </v-col>
+    </v-row>
+    <v-row>
+    </v-row>
         <v-col cols="12"
-                md="3">
-            <v-card
-                rounded="lg"
-                min-height="368">
-                <v-card-title>
-                    Narrow appointments search:
-                </v-card-title>
-                <v-card-text>
-                    <v-text-field
-                        class="my-5"
-                        dense
-                        solo
-                        clearable
-                        color="blue-grey lighten-2"
-                        label="Name"
-                    ></v-text-field>  
-                    <v-text-field
-                        class="my-5"
-                        dense
-                        solo
-                        clearable
-                        color="blue-grey lighten-2"
-                        label="Location"
-                    ></v-text-field>  
-                    <v-text-field
-                        class="my-5"
-                        dense
-                        solo
-                        clearable
-                        color="blue-grey lighten-2"
-                        label="Specialty"
-                    ></v-text-field>
-                </v-card-text>
-            </v-card>
+                md="12" class="px-0 py-3">
+            <search-appointment />
+        </v-col>
+    <v-row>
+        
+        <v-col cols="12"
+            md="4" class="pb-0 pt-3">
+            <availability-form />
         </v-col>
         <v-col cols="12"
-            md="6">
-            <v-card id="appointments"
-                rounded="lg"
-                min-height="368">
-                <h1>You can view appointments here</h1>
-                <availability-form />
-
-            </v-card>
-        </v-col>
-        <v-col cols="12"
-                md="3">
+                md="4" class="py-3">
             <v-card class="mx-auto pa-2 mb-5">
        
                 <v-card-title class="h4"></v-card-title>
@@ -144,19 +110,21 @@
         </v-col>
     </v-row>
 
-
+</v-container>
 </template>
 
 <script>
 import doctorService from '@/services/DoctorService'
 import officeService from '@/services/OfficeService'
 import AvailabilityForm from '@/components/AvailabilityForm'
+import SearchAppointment from '@/components/SearchAppointment'
 //import OfficeCard from '@/components/OfficeCard'
 
 export default {
     name: "office-info",
     components: {
-        AvailabilityForm
+        AvailabilityForm,
+        SearchAppointment
     },
     data(){
         return{

@@ -1,5 +1,10 @@
 <template>
-    <div>
+ 
+    <v-card id="appointments"
+            rounded="lg"
+            min-height="368">
+        <h1>You can view appointments here</h1>
+            
         <form v-on:submit.prevent="addAnAppointment()">
             <div class="field">
                 <label for="patientFirstName">Patient ID: </label>
@@ -33,9 +38,11 @@
             </div>
         
         </form>
+    </v-card>
+    
 
 
-    </div>
+
   
 </template>
 
