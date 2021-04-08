@@ -2,6 +2,7 @@ package com.techelevator.model;
 
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,25 +41,49 @@ public class Office {
 		return timeSlots;
 	}
 	
-	public List<LocalTime> availableTimes(List<Appointment> appointments, List<LocalTime> timeSlots) {
-		
+	public List<LocalTime> availableTimes(List<Appointment> appointments, List<LocalTime> timeSlots, LocalDate date) {
 		List<LocalTime> availableSlots = new ArrayList<LocalTime>();
+		for(LocalTime slot : timeSlots) {
+			availableSlots.add(slot);
+		}
 		
 		if(appointments.size() > 0) {
-			for(LocalTime time : timeSlots) {
-			for(Appointment appointment : appointments) {
-				if(time.isBefore(appointment.getTimeStart()) && time.plusMinutes(59).isBefore(appointment.getTimeStart()) || (time.isAfter(appointment.getTimeEnd()))) {
-					
-						availableSlots.add(time);
-					
+			for(Appointment appointment:appointments) {
+				for(LocalTime time : timeSlots) {
+					if((appointment.getTimeStart().isBefore(time) || appointment.getTimeStart().equals(time)) 
+								&& (appointment.getTimeEnd().isAfter(time) )) {
+						availableSlots.remove(time);
+					}
 				}
-				//if((time.isAfter(appointment.getTimeStart()) ||time.equals(appointment.getTimeStart())) && (time.isBefore(appointment.getTimeEnd()) || time.equals(appointment.getTimeEnd()))) {
-					//availableSlots.add(time);
-				//}
-			}
 			}
 		}
-			return availableSlots;
+		return availableSlots;
+		
+		
+//		List<LocalTime> availableSlots = new ArrayList<LocalTime>();
+//		
+//		if(appointments.size() > 0) {
+//			for(LocalTime time : timeSlots) {
+//				for(Appointment appointment : appointments) {
+//					if(date.equals(appointment.getDate())){
+//
+//						if(time.isBefore(appointment.getTimeStart()) && time.plusMinutes(59).isBefore(appointment.getTimeStart()) || ((time.plusMinutes(1)).isAfter(appointment.getTimeEnd()))) {
+//							if(!availableSlots.contains(time)) {
+//								availableSlots.add(time);
+//							}
+//						}
+//					
+//					} else {
+//						if(!availableSlots.contains(time)) {
+//							availableSlots.add(time);
+//						}
+//					}
+//				}
+//			}
+//		} else {
+//			availableSlots = timeSlots;
+//		}
+//		return availableSlots;
 	}
 	
 	public String getOpenTime() {
