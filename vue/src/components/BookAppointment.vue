@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import AppointmentService from "@/services/AppointmentService.vue"
+//import AppointmentService from "@/services/AppointmentService.vue"
 export default {
     name: "book-appointment",
     data() {

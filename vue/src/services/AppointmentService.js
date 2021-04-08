@@ -8,11 +8,12 @@ export default {
 
     addAppointment(appointment) {
         return axios.post("/appointments", appointment);
-    },
-
-    viewTimeSlots(doctorId) {
-        return axios.get(`/doctors/${doctorId}/appointments`)
     }
+    // ,
+
+    // viewTimeSlots(doctorId) {
+    //     return axios.get(`/doctors/${doctorId}/appointments`)
+    // }
 
 
 }
