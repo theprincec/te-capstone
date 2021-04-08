@@ -65,7 +65,7 @@ public class JDBCAppointmentDao implements AppointmentDAO {
 	private Appointment mapAppointmentToRow(SqlRowSet row) {
 		Appointment appointment = new Appointment();
 		Patient patient = new Patient();
-		patient.setPatientId(row.getInt("appointment_id"));
+		patient.setPatientId(row.getInt("patient_id"));
 		patient.setFirstName(row.getString("first_name"));
 		patient.setLastName(row.getString("last_name"));
 		appointment.setPatient(patient);

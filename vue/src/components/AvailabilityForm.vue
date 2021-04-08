@@ -75,6 +75,8 @@
 
 <script>
 import appointmentService from '@/services/AppointmentService';
+import patientService from '@/services/PatientService';
+
 export default {
     name: "availability-form", 
     data() {
@@ -84,6 +86,8 @@ export default {
                
                 patient: {
                     patientId: "",
+                    firstName: "",
+                    lastName: ""
                 },            
                 date: "", 
                 timeStart: "", 
@@ -102,8 +106,10 @@ export default {
                 if(response.status == 201) {
                     //UPDATE APPOINTMENTS LIST IN OUR STORE
                     //ADD POST FOR PAITIENT BY ID
-                    this.$store.commit("ADD_APPOINTMENT", this.appointment);
-                    this.clearForm();
+                    //this.$store.commit("ADD_APPOINTMENT", this.appointment);
+                    //this.getUpdatedAppointments();
+                    this.getPatientById();
+
                     alert("Appointment successfully saved");
                 }
             })
@@ -111,6 +117,33 @@ export default {
                 console.log(error);
             })
         }, 
+        getUpdatedAppointments() {
+            appointmentService.getAppointments().then(response => {
+                if(repsponse.status == 200) {
+                    this.$store.commit("SET_APPOINTMENTS", response.data);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
+        getPatientById() {
+            patientService.getPatient(this.appointment.patient.patientId)
+                .then(response => {
+                    const newPatient = response.data;
+                    this.appointment.patient.firstName = newPatient.firstName;
+                    this.appointment.patient.lastName = newPatient.lastName;
+                    this.getUpdatedAppointments();
+
+                    this.$store.commit("ADD_APPOINTMENT", this.appointment);
+                    this.clearForm();
+
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+
+        },
         clearForm() {
             this.appointment =  {
                 patient: {},

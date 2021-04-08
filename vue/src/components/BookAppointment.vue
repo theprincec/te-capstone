@@ -52,11 +52,6 @@ export default {
     name: "book-appointment",
     data() {
         return {
-<<<<<<< HEAD
-            appointment: [
-                
-            ]
-=======
             appointment: {}
         }
     },
@@ -70,7 +65,6 @@ export default {
                 // .catch( error =>{
                 //     console.error(error);
                 // })
->>>>>>> a198c7870b1cf344e6ed0751ef27dfa9c576e8db
         }
     }}
 </script>

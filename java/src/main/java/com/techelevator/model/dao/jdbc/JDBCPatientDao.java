@@ -1,0 +1,39 @@
+package com.techelevator.model.dao.jdbc;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
+
+import com.techelevator.model.Patient;
+import com.techelevator.model.dao.PatientDAO;
+
+@Component
+public class JDBCPatientDao implements PatientDAO{
+	
+	private JdbcTemplate jdbcTemplate;
+	
+	public JDBCPatientDao(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
+	@Override
+	public Patient getPatientById(int id) {
+		String sql = "SELECT patient_id, first_name, last_name FROM patients " + 
+						"WHERE patient_id = ?";
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, id);
+		Patient patient = new Patient();
+		while(rows.next()) {
+			patient = mapRowsToPatient(rows);
+		}
+		return patient;
+	}
+	
+	private Patient mapRowsToPatient(SqlRowSet row) {
+		Patient patient = new Patient();
+		patient.setPatientId(row.getInt("patient_id"));
+		patient.setFirstName(row.getString("first_name"));
+		patient.setLastName(row.getString("last_name"));
+		return patient;
+	}
+
+}
