@@ -32,7 +32,7 @@ public class Application {
 //    	List<LocalTime> availableTimes = office.availableTimes(appointments, times, apptDate);
 //    	
 //    	System.out.println(availableTimes);
-    	
+    
     	
     	
     	//office.availableTimes(appointments, )

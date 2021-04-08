@@ -22,7 +22,10 @@ export default new Vuex.Store({
     user: currentUser || {},
     doctors: [],
     office: {},
-  //  currentDoctor: {}
+    timeSlots:{},
+    currentDate:'',
+    currentDoctor: {},
+    Id:''
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {

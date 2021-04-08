@@ -44,7 +44,8 @@
         </v-col>
         <!-- vertical column for doctor's list -->
         <v-col cols="12" md="6">             
-             <doctor-card class="mb-5" v-for="doctor in $store.state.doctors" :key="doctor.id" :doctor="doctor" />
+             <doctor-card class="mb-5" v-for="doctor in $store.state.doctors" 
+             :key="doctor.id" :doctor="doctor" />
         </v-col>
         <v-col cols="12" md="3">
             <v-card
@@ -52,6 +53,7 @@
                 rounded="lg"
                 min-height="368">
                 <book-appointment/>
+                <time-slot-card/>
             </v-card>
         </v-col>
     </v-row>
@@ -61,15 +63,27 @@
 import doctorService from '@/services/DoctorService'
 import DoctorCard from '@/components/DoctorCard'
 import BookAppointment from './BookAppointment.vue'
+import TimeSlotCard from '@/components/TimeSlotCard.vue'
+
+
 
 export default {
     name: "doctors-list",
     components: {
         BookAppointment,
-        DoctorCard
+        DoctorCard,
+        TimeSlotCard
+       
+    },
+    methods: {
+
+        // setCurrentDoctor(id) {
+        //     //route here
+        //     this.$store.state.Id = id;
+        //     TimeSlotCard.getTimeSlots();
+        // }
     },
     created() {
-     
         doctorService.getDoctors()
         .then(response => {
             this.$store.commit("SET_DOCTORS", response.data);

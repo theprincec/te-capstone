@@ -37,6 +37,7 @@
 
    
       <doctors-list />
+      <!-- <time-slot-card/> -->
     <!--<office-info />-->
     
 </v-container>
@@ -44,12 +45,16 @@
 
 <script>
 import DoctorsList from '@/components/DoctorsList'
+// import TimeSlotCard from '@/components/TimeSlotCard.vue'
 //import OfficeInfo from '@/components/OfficeInfo'
 
 export default {
   name: "home",
   components: {
-    DoctorsList
+    DoctorsList,
+    // TimeSlotCard
   }
 };
 </script>
+
+    TimeSlotCard

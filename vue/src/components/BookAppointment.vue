@@ -59,7 +59,7 @@ export default {
         getAppointments(doctorId){
             AppointmentService.viewTimeSlots(doctorId)
                 .then(response => {
-                    appointment = response.data;
+                    this.appointment = response.data;
                 } )
                 // .catch( error =>{
                 //     console.error(error);

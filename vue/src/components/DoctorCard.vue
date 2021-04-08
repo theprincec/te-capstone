@@ -1,7 +1,7 @@
 <template>
     <v-card class="mx-auto pa-2">
        
-        <v-card-title class="h4">Dr. {{doctor.firstName}} {{doctor.lastName}}</v-card-title>
+        <v-card-title class="h4" >Dr. {{doctor.firstName}} {{doctor.lastName}}</v-card-title>
         <v-card-text>
         
            <div class="d-flex justify-space-between subtitle-1">
@@ -37,7 +37,7 @@
             4.5 (413)
             </span>
             <v-spacer></v-spacer>
-            <a style="text-decoration: none" href=# class="blue--text">Check availability</a>
+            <a style="text-decoration: none" href=# class="blue--text" >Check availability</a>
         </v-card-actions>
         <!-- <office-info :doctorId="doctor.id" />-->
             <!-- <h3>{{doctor.office.name}}</h3>
