@@ -45,17 +45,13 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-//import AppointmentService from "@/services/AppointmentService.vue"
-=======
 import AppointmentService from "@/services/AppointmentService.js"
->>>>>>> 6c739ca39da9782e642b62e37c6d68685f2a639d
 export default {
     name: "book-appointment",
     data() {
         return {
             appointment: [
-
+                
             ]
         }
     }
