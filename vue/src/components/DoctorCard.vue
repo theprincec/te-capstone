@@ -37,7 +37,7 @@
             4.5 (413)
             </span>
             <v-spacer></v-spacer>
-            <a style="text-decoration: none" href=# class="blue--text" >Check availability</a>
+            <a style="text-decoration: none" href=# class="blue--text" @click="setCurrentDoctor(doctor)">Check availability</a>
         </v-card-actions>
         <!-- <office-info :doctorId="doctor.id" />-->
             <!-- <h3>{{doctor.office.name}}</h3>
@@ -59,7 +59,12 @@ export default {
     props: ['doctor'],
     data: () => ({
         rating: 4.5,
-    })
+    }),
+    methods: {
+        setCurrentDoctor(doctor) {
+            this.$store.commit("SET_CURRENT_DOCTOR", doctor);
+        }
+    }
     // components: { 
     //   OfficeInfo 
     // }

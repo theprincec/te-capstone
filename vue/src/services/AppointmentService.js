@@ -11,7 +11,12 @@ export default {
     },
     viewTimeSlots(doctorId,date) {
         return axios.get(`/doctors/${doctorId}/appointments?date=${date}`)
+    },
+    getAppointments() {
+        return axios.get('/appointments');
     }
+
+    
 
 
 }

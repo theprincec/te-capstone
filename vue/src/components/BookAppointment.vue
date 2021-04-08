@@ -47,6 +47,7 @@
 <script>
 import AppointmentService from "@/services/AppointmentService.js"
 
+
 export default {
     name: "book-appointment",
     data() {

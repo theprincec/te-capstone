@@ -1,10 +1,11 @@
 <template>
+
     <div class="time-slot"> 
         <!-- <h1 v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`">{{time}}</h1> -->
         <form id = "appointment-time-slot" v-on:submit.prevent="addAnAppointment()">
             <div>
                 <label for="slotDate">Date:</label>
-                <input id="slotDate" name="slotDate" type="date" v-bind="$store.state.currentDate"/>
+                <input required id="slotDate" name="slotDate" type="date" v-model="currentDate" @change="getTimeSlots(currentDoctor.doctorId, currentDate);"/>
             </div>
 
             <div>
@@ -36,17 +37,19 @@ export default {
             timeSlot:[{
 
             }],
-            doctorId: "1"
+            doctorId: "",
+            currentDate:""
         }
     },
     methods: {
         setDate() {
-            return this.$store.state.currentDate
+            return this.currentDate 
         },
         getTimeSlots(){
-            AppointmentService.viewTimeSlots(this.$store.state.currentDoctor.doctorId,this.$store.state.currentDate)
+            AppointmentService.viewTimeSlots(this.$store.state.currentDoctor.doctorId,this.currentDate)
                 .then(response => {
                     this.$store.state.timeSlots = response.data;
+                    console.log(this.currentDate);
                     
                 } )
                 .catch( error =>{

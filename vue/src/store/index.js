@@ -23,9 +23,8 @@ export default new Vuex.Store({
     doctors: [],
     office: {},
     timeSlots:{},
-    currentDate:'',
     currentDoctor: {},
-    Id:''
+    appointments: []
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -52,6 +51,23 @@ export default new Vuex.Store({
         doctor.doctorId == doctorFromOffice.doctorId;
         doctorFromOffice.office.officeId = null;
       })
+    },
+    SET_CURRENT_DOCTOR(state, currentDoctor) {
+      state.currentDoctor = currentDoctor;
+    },
+    SET_APPOINTMENTS(state, appointments) {
+      state.appointments = appointments;
+    },
+    ADD_APPOINTMENT(state, appointment) {
+      state.appointments.push(appointment);
+      // const apptTime = appointment.timeStart;
+      // for(let i = 0; i < state.appointments.length; i++) {
+      //   if(state.appointments[i].timeStart > apptTime) {
+      //     //insert appointment @ i
+      //     state.appointment.insert(i, appointment);
+      //   }
+      // }
+
     }
   }
 })

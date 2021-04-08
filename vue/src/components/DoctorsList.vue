@@ -45,7 +45,7 @@
         <!-- vertical column for doctor's list -->
         <v-col cols="12" md="6">             
              <doctor-card class="mb-5" v-for="doctor in $store.state.doctors" 
-             :key="doctor.id" :doctor="doctor" />
+             :key="doctor.doctorId" :doctor="doctor" />
         </v-col>
         <v-col cols="12" md="3">
             <v-card

@@ -73,4 +73,13 @@ public class AppointmentController {
 //		return appointment;	
 		return availableTimes;
 	}
+	
+	@RequestMapping(path="/appointments", method=RequestMethod.GET)
+	public List<Appointment> viewAppointments (Principal principal) {
+		Doctor doctor = doctordao.getDoctor(principal.getName());
+		List<Appointment> appointments = appointmentdao.listOfAppointment(doctor.getDoctorId());
+		return appointments;
+	}
+	
+	
 }
