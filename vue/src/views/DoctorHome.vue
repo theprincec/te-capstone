@@ -31,6 +31,8 @@
       </v-avatar>
     </v-app-bar>
     <!-- appointtent availablity -->
+   
+      
       <office-info />
      
     
@@ -39,6 +41,7 @@
 
 <script>
 import OfficeInfo from '@/components/OfficeInfo'
+
 
 
 export default {

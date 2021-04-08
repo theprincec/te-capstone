@@ -46,18 +46,33 @@
 
 <script>
 import AppointmentService from "@/services/AppointmentService.js"
+
+
 export default {
     name: "book-appointment",
     data() {
         return {
+<<<<<<< HEAD
             appointment: [
                 
             ]
+=======
+            appointment: {}
         }
-    }
-    
-    
-}
+    },
+
+    methods: {
+        getAppointments(doctorId){
+            AppointmentService.viewTimeSlots(doctorId)
+                .then(response => {
+                    appointment = response.data;
+                } )
+                // .catch( error =>{
+                //     console.error(error);
+                // })
+>>>>>>> a198c7870b1cf344e6ed0751ef27dfa9c576e8db
+        }
+    }}
 </script>
 
 <style>
