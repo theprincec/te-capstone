@@ -26,7 +26,7 @@ public class JDBCAppointmentDao implements AppointmentDAO {
 	@Override
 	public void updateAvailablity(Appointment appointment) {
 		
-		String sql = "INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_date, appointment_time_start," +
+		String sql = "INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_date, appointment_time_start, " +
 		"appointment_time_end, appointment_status) VALUES (DEFAULT,?, ?, ?, ?, ?, ?) ";
 		
 		

@@ -1,8 +1,28 @@
 <template>
- 
+  <v-row justify="center">
+            <v-dialog
+                v-model="dialog"
+                persistent
+                max-width="600px"
+            >
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        color="primary"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                    Add appointment
+                </v-btn>
+                
+            </template>
     <v-card id="appointments"
-            min-height="368"
+            min-height="368" class="mt-5"
             flat>
+
+            <v-card-title>
+                <span class="headline">Update Availability</span>
+            </v-card-title>
 
         <form id="appointment-form" class="px-9 pb-9"  v-on:submit.prevent="addAnAppointment()">
 
@@ -13,7 +33,7 @@
             ></v-select>
 
             <v-text-field
-                v-model="appointment.patientId"
+                v-model="appointment.patient.patientId"
                 label="Patient ID"
                 v-if="isAppointmentReqiured()"
                 required
@@ -21,32 +41,35 @@
 
              <div class="field">
                 <label for="date">Date: </label>
-                <input id="date" name="date" type="date"  v-model="appointment.date"/>
+                <input id="date" name="date" type="date" required v-model="appointment.date"/>
             </div>
 
             <div class="field">
                 <label for="startTime" style="color:rgb(118, 118, 118)">Start Time: </label>
-                <input id="startTime" name="startTime" type="time"  v-model="appointment.timeStart"/>
+                <input id="startTime" name="startTime" type="time" required v-model="appointment.timeStart"/>
             </div>
 
             <div class="field">
                 <label for="endTime" style="color:rgb(118, 118, 118)">End Time: </label>
-                <input id="endTime" name="endTime" type="time" v-model="appointment.timeEnd"/>
+                <input id="endTime" name="endTime" type="time" required v-model="appointment.timeEnd"/>
             </div>
 
             <v-btn
                 form="appointment-form"
                 class="mr-4"
                 type="submit"
+                @click="toggleDialog"                
             >
             submit
             </v-btn>
-            <v-btn @click="clearForm">
-            clear
+            <v-btn @click="clearForm, dialog=false">
+            cancel
             </v-btn>
         </form>
 
     </v-card>
+     </v-dialog>
+  </v-row>
 
 </template>
 
@@ -56,10 +79,13 @@ export default {
     name: "availability-form", 
     data() {
         return {
+            dialog: false,
             appointment: {
                
-                patientId: "",            
-                date: this.fromDateDisp, 
+                patient: {
+                    patientId: "",
+                },            
+                date: "", 
                 timeStart: "", 
                 timeEnd: "", 
                 appointmentType: "Personal"
@@ -68,16 +94,15 @@ export default {
                 'Personal',
                 'Appoinment'
             ],
-            fromDateMenu: false,
-            fromDateVal: null,
-            minDate: "2020-01-05",
-            maxDate: "2019-08-30"
         }
     }, 
     methods: {
         addAnAppointment() {
             appointmentService.addAppointment(this.appointment).then(response => {
                 if(response.status == 201) {
+                    //UPDATE APPOINTMENTS LIST IN OUR STORE
+                    //ADD POST FOR PAITIENT BY ID
+                    this.$store.commit("ADD_APPOINTMENT", this.appointment);
                     this.clearForm();
                     alert("Appointment successfully saved");
                 }
@@ -88,7 +113,7 @@ export default {
         }, 
         clearForm() {
             this.appointment =  {
-                patientId: "",
+                patient: {},
                 date: "", 
                 timeStart: "", 
                 timeEnd: "", 
@@ -97,13 +122,12 @@ export default {
         },
         isAppointmentReqiured() {
             return this.appointment.appointmentType == 'Personal' ? false : true;
+        },
+        toggleDialog() {
+            (this.appointment.date == "" || this.appointment.timeStart == "" || this.appointment.timeEnd == "") 
+                    ? this.dialog = true : this.dialog = false;
         }
     },
-    computed: {
-        fromDateDisp() {
-            return this.fromDateVal;
-        }
-    }
 }
 </script>
 

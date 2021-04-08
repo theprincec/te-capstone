@@ -22,6 +22,7 @@ export default new Vuex.Store({
     user: currentUser || {},
     doctors: [],
     office: {},
+    appointments: []
   //  currentDoctor: {}
   },
   mutations: {
@@ -49,6 +50,13 @@ export default new Vuex.Store({
         doctor.doctorId == doctorFromOffice.doctorId;
         doctorFromOffice.office.officeId = null;
       })
+    },
+    SET_APPOINTMENTS(state, appointments) {
+      state.appointments = appointments;
+    },
+    ADD_APPOINTMENT(state, appointment) {
+      state.appointments.push(appointment);
     }
+
   }
 })

@@ -45,8 +45,11 @@
                 <div class="d-flex justify-space-between subtitle-1"> 
                     <p class="pa-1 ma-0"> {{doctor.office.address.addressLine}} <br>
                         {{doctor.office.address.city}}, {{doctor.office.address.district}} {{doctor.office.address.postalCode}}</p> 
-                    <p class="pa-1 ma-0 subtitle-2"><v-icon small class="px-2">mdi-clock</v-icon>{{doctor.office.openTime}} - {{doctor.office.closeTime}} <br>
-                        <v-icon small class="px-2">mdi-phone</v-icon>{{doctor.office.phoneNumber}} </p>
+                    <p class="pa-1 ma-0 subtitle-2">
+                        <v-icon small class="px-2">mdi-clock</v-icon>
+                        {{convertTime(doctor.office.openTime)}} - {{convertTime(doctor.office.closeTime)}} <br>
+                         <!-- CHANGE -->
+                        <v-icon small class="px-2">mdi-phone</v-icon>{{convertNumber(doctor.office.phoneNumber)}} </p>
                 </div>
                 </v-card-text>
                     <v-divider></v-divider>
@@ -249,6 +252,24 @@ export default {
                 }).catch(error => {
                     console.log(error);
                 })
+        },
+        convertTime(time) { // 18:00:00
+            let convertedTime = time.slice(0, 5); // 18:00
+            let result;
+            if (convertedTime.length > 1) { // If time format correct
+                convertedTime = convertedTime.split (":");  // Remove full string match value - 18 00
+                let timeUnder = (convertedTime[0] - 12 >= 0 || convertedTime[0] == 12) ? 'PM' : 'AM'; // Set AM/PM
+                let hours = convertedTime[0] > 12 ? convertedTime[0] - 12 : convertedTime[0]; // Adjust hours
+                let minutes = convertedTime[1];
+                result = hours + ":" + minutes + " "+ timeUnder;
+            }
+            return result;
+        },
+        convertNumber(phone) {
+            let firstNum = phone.slice(0, 3);
+            let secondNum = phone.slice(3, 6);
+            let thirdNum = phone.slice(6);
+            return "(" + firstNum + ")" + " " + secondNum + "-" + thirdNum;
         }
     },
      created() {

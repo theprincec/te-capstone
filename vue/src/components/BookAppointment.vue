@@ -45,14 +45,9 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-//import AppointmentService from "@/services/AppointmentService.js"
-||||||| merged common ancestors
-import AppointmentService from "@/services/AppointmentService.js"
-=======
 import AppointmentService from "@/services/AppointmentService.js"
 
->>>>>>> 31fa1a46bbf53c5c854ca8d9447fcb11410859f2
+
 export default {
     name: "book-appointment",
     data() {

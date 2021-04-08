@@ -1,18 +1,43 @@
 <template>
 
-  <v-card>
+  <v-card class="pa-5">
 
+      <v-card-title>
+                <span class="headline">Upcoming Appointments</span>
+                <v-spacer></v-spacer>
+                 <availability-form />
+            </v-card-title>
+           
       <div class="field">
-            <label for="date">Date: </label>
+            <label for="date">Select Date: </label>
             <input id="date" name="date" type="date"  v-model="todayDate" @change="toggleShowAppointment()"/>
         </div>
 
-      <div v-if="showAppointments">
-        <div v-for="appointment in getAppointmentsForToday" :key="appointment.id" >
-                <p>{{appointment.date}}</p>
-                <p>{{convertTime(appointment.timeStart)}} - {{convertTime(appointment.timeEnd)}}</p>
-                <p>Patient ID: {{appointment.patient.patientId}} Name: {{appointment.patient.firstName}} {{appointment.patient.lastName}}</p>
+       
+         <!-- availability Form -->
+              
+           
 
+      <div v-if="showAppointments">
+        <div   v-for="appointment in getAppointmentsForToday" :key="appointment.id" >
+            <v-card color="#FFF8DC" class="ma-5" elevation="10" outlined style="border-radius: 20px">
+
+                <v-card-actions class="px-5 pb-0 mb-0">
+                    <p class=" pt-2 mb-0 font-weight-medium"> <v-icon class="pr-2" meduim>mdi-account-clock</v-icon>
+                    {{convertTime(appointment.timeStart)}} - {{convertTime(appointment.timeEnd)}}</p>
+                      <v-spacer></v-spacer>
+                    <p class="pt-3 mb-0">{{appointment.date}}</p>
+                </v-card-actions>
+               
+                
+                <v-card-actions class="px-5 pb-0 mb-0">
+                    <p>Patient ID: {{appointment.patient.patientId}}</p>
+                    <v-spacer></v-spacer>
+                    <p>Name: <span class="font-weight-medium">{{appointment.patient.firstName}} {{appointment.patient.lastName}}</span></p>
+
+                </v-card-actions>
+                 
+            </v-card>
         </div>  
       </div>
        <div v-if="!showAppointments">
@@ -23,12 +48,16 @@
 
 <script>
 import appointmentService from '@/services/AppointmentService'
+import AvailabilityForm from '@/components/AvailabilityForm'
 
 export default {
     name: "appointments-list",
+    components: {
+        AvailabilityForm
+    },
     data() {
         return {
-            appointments: [],
+            //appointments: [],
             showAppointments: true,
             todayDate: new Date().toISOString().split('T')[0]
         }
@@ -36,8 +65,9 @@ export default {
     created() { 
             appointmentService.getAppointments()
                 .then(response => {
-                    this.appointments = response.data;
+                    this.$store.commit("SET_APPOINTMENTS", response.data);
                     this.toggleShowAppointment();
+                    //SET ARRAY OF APPOINTMENTS IN STORE
         }).catch(error => {
             console.log(error)
         })
@@ -45,7 +75,7 @@ export default {
     computed: {
         getAppointmentsForToday() {
             //let todayDate = new Date().toISOString().split('T')[0];
-            return this.appointments.filter(appointment => {
+            return this.$store.state.appointments.filter(appointment => {
                 return appointment.date == this.todayDate;
             })
         }
@@ -71,5 +101,8 @@ export default {
 </script>
 
 <style>
+.field {
+    margin: 0 20px 0 20px
+}
 
 </style>
