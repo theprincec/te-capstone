@@ -12,6 +12,10 @@ export default {
 
     viewTimeSlots(doctorId) {
         return axios.get(`/doctors/${doctorId}/appointments`)
+    },
+
+    getAppointments() {
+        return axios.get('/appointments');
     }
 
 

@@ -19,7 +19,11 @@
         
         <v-col cols="12"
             md="6" class="pb-0 pt-3">
-            <availability-form />
+       <!-- appointments -->
+            <appointments-list />
+    <!-- availability-form -->
+            <!-- <availability-form /> -->
+
         </v-col>
         <v-col cols="12"
                 md="6" class="py-3">
@@ -120,15 +124,17 @@
 <script>
 import doctorService from '@/services/DoctorService'
 import officeService from '@/services/OfficeService'
-import AvailabilityForm from '@/components/AvailabilityForm'
+//import AvailabilityForm from '@/components/AvailabilityForm'
 import SearchAppointment from '@/components/SearchAppointment'
+import AppointmentsList from '@/components/AppointmentsList'
 //import OfficeCard from '@/components/OfficeCard'
 
 export default {
     name: "office-info",
     components: {
-        AvailabilityForm,
-        SearchAppointment
+        //AvailabilityForm,
+        SearchAppointment,
+        AppointmentsList
     },
     data(){
         return{

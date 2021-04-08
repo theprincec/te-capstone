@@ -3,8 +3,7 @@
     <v-card id="appointments"
             min-height="368"
             flat>
-        <h3 class="px-9">You can view appointments here</h3>
-        
+
         <form id="appointment-form" class="px-9 pb-9"  v-on:submit.prevent="addAnAppointment()">
 
             <v-select
@@ -47,39 +46,6 @@
             </v-btn>
         </form>
 
-        <!-- <form v-on:submit.prevent="addAnAppointment()">
-            <div class="field">
-                <label for="patientFirstName">Patient ID: </label>
-                <input name="patientFirstName" type="text"  v-model="appointment.patient.patientId"/>
-            </div>
-            <div class="field">
-                <label for="date">Date: </label>
-                <input name="date" type="date"  v-model="appointment.date"/>
-            </div>
-                            
-            <div class="field">
-                <label for="startTime">Start Time: </label>
-                <input name="startTime" type="time"  v-model="appointment.timeStart"/>
-            </div>
-
-            <div class="field">
-                <label for="endTime">End Time: </label>
-                <input name="endTime" type="time" v-model="appointment.timeEnd"/>
-            </div>
-
-            <div class="field">
-                <label for="type">Appointment Type: </label>
-                <select name="type" v-model="appointment.appointmentType">
-                    <option value="Personal">Personal</option>
-                    <option value="Appointment">Appointment</option>
-                </select>
-            </div>
-
-            <div class="actions" style="color:green">
-                <button type="submit">Save Appointment</button>
-            </div>
-        
-        </form> -->
     </v-card>
 
 </template>

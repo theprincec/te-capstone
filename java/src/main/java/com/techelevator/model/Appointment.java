@@ -13,7 +13,7 @@ public class Appointment {
 	
 	private int id;
 	private int doctorId;
-	private int patientId;
+	private Patient patient;
 	private LocalDate date;
 	private LocalTime timeStart;
 	private LocalTime timeEnd;
@@ -38,22 +38,19 @@ public class Appointment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getDoctorid() {
+	public int getDoctorId() {
 		return doctorId;
 	}
 	public void setDoctorId(int doctorId) {
 		this.doctorId = doctorId;
 	}
-	public int getPatientId() {
-		return patientId;
-	}
-	public void setPatientId(int patientId) {
-		this.patientId = patientId;
-	}
-	public int getDoctorId() {
-		return doctorId;
-	}
 
+	public Patient getPatient() {
+		return patient;
+	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
 	public LocalDate getDate() {
 		return date;
 	}
