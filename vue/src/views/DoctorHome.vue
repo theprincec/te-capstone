@@ -42,8 +42,6 @@
 <script>
 import OfficeInfo from '@/components/OfficeInfo'
 
-
-
 export default {
   name: "home",
   components: {

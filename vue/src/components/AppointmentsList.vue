@@ -12,6 +12,7 @@
             <label for="date">Select Date: </label>
             <input id="date" name="date" type="date"  v-model="todayDate" @change="toggleShowAppointment()"/>
         </div>
+           <time-slot-card/>
 
        
          <!-- availability Form -->
@@ -49,11 +50,13 @@
 <script>
 import appointmentService from '@/services/AppointmentService'
 import AvailabilityForm from '@/components/AvailabilityForm'
+import TimeSlotCard from '@/components/TimeSlotCard'
 
 export default {
     name: "appointments-list",
     components: {
-        AvailabilityForm
+        AvailabilityForm,
+        TimeSlotCard
     },
     data() {
         return {

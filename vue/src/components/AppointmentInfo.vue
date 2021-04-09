@@ -20,7 +20,8 @@
         <v-col cols="12"
             md="6" class="pb-0 pt-3">
        <!-- appointments -->
-            <appointments-list />
+            <!-- <appointments-list /> -->
+            <time-slot-card/>
     <!-- availability-form -->
             <!-- <availability-form /> -->
 
@@ -129,19 +130,21 @@ import doctorService from '@/services/DoctorService'
 import officeService from '@/services/OfficeService'
 //import AvailabilityForm from '@/components/AvailabilityForm'
 import SearchAppointment from '@/components/SearchAppointment'
-import AppointmentsList from '@/components/AppointmentsList'
+// import AppointmentsList from '@/components/AppointmentsList'
 //import OfficeCard from '@/components/OfficeCard'
 import TimeSlotCard from '@/components/TimeSlotCard'
+
 
 export default {
     name: "office-info",
     components: {
         //AvailabilityForm,
         SearchAppointment,
-        AppointmentsList,
+        // AppointmentsList,
         TimeSlotCard
     },
     data(){
+   
         return{
             office: {
                 officeId: "",

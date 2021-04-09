@@ -22,7 +22,7 @@ export default new Vuex.Store({
     user: currentUser || {},
     doctors: [],
     office: {},
-    timeSlots:{},
+    timeSlots:[],
     currentDoctor: {},
     appointments: [],
     currentAppointment: {
@@ -60,11 +60,18 @@ export default new Vuex.Store({
     SET_DOCTORS(state, doctors) {
       state.doctors = doctors;
     },
+    SET_TIME_SLOTS(state, timeSlots) {
+      state.timeSlots = timeSlots;
+    },
+
     UPDATE_DOCTOR_INFO(state, doctorFromOffice) {
       state.doctors.find(doctor => {
         doctor.doctorId == doctorFromOffice.doctorId;
         doctorFromOffice.office.officeId = null;
       })
+    },
+    SET_CURRENT_DATE(state, currentDate) {
+      state.currentDate = currentDate;
     },
     SET_CURRENT_DOCTOR(state, currentDoctor) {
       state.currentDoctor = currentDoctor;

@@ -63,6 +63,7 @@ export default {
     methods: {
         setCurrentDoctor(doctor) {
             this.$store.commit("SET_CURRENT_DOCTOR", doctor);
+            this.$router.push('/patient');
         }
     }
     // components: { 

@@ -5,17 +5,47 @@
         <form id = "appointment-time-slot" v-on:submit.prevent="addAnAppointment()">
             <div>
                 <label for="slotDate">Date:</label>
-                <input required id="slotDate" name="slotDate" type="date" v-model="currentDate" @change="getTimeSlots(currentDoctor.doctorId, currentDate);"/>
+                <input required id="slotDate" name="slotDate" type="date" v-model="currentDate" @change="setDate()"/>
             </div>
 
-            <div>
+            <!-- <div>
                 <label for="timeslot">Available Appointments:</label>
                 <select id="timeSlotsList" name="times">
-                    <!-- <option v-for="time in timeSlots" v-bind:key="time">{{time}}</option> -->
-                    <option v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`">{{time}}</option>
+                    <option v-for="time in timeSlots" v-bind:key="time">{{time}}</option>
+                    <option v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`">{{time}}
+
+                        
+                    </option>
                 </select>
-            </div>
+            </div> -->
+            <!-- <div v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`">{{time}}   
+
+            </div> -->
             </form>
+            
+            <!-- <div v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`">{{time}}   
+
+            </div> -->
+            <div  v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`">
+            <v-card color="#FFF8DC" class="ma-5" elevation="10" outlined style="border-radius: 20px">
+
+                <v-card-actions class="px-5 pb-0 mb-0">
+                    <p class=" pt-2 mb-0 font-weight-medium"> <v-icon class="pr-2" meduim>mdi-account-clock</v-icon>
+                    {{time}}</p>
+                      <v-spacer></v-spacer>
+                    <!-- <p class="pt-3 mb-0">{{time}}</p> -->
+                </v-card-actions>
+               
+                
+                <!-- <v-card-actions class="px-5 pb-0 mb-0">
+                    <p>Patient ID: {{appointment.patient.patientId}}</p>
+                    <v-spacer></v-spacer>
+                    <p>Name: <span class="font-weight-medium">{{appointment.patient.firstName}} {{appointment.patient.lastName}}</span></p>
+
+                </v-card-actions> -->
+                 
+            </v-card>
+        </div>  
 <doctor-card/>
     </div>
 </template>
@@ -43,13 +73,18 @@ export default {
     },
     methods: {
         setDate() {
-            return this.currentDate 
+           this.$store.commit("SET_CURRENT_DATE", this.currentDate);
+           this.getTimeSlots();
+            
         },
         getTimeSlots(){
-            AppointmentService.viewTimeSlots(this.$store.state.currentDoctor.doctorId,this.currentDate)
+            AppointmentService.viewTimeSlots(this.$store.state.currentDoctor.doctorId,this.$store.state.currentDate)
                 .then(response => {
-                    this.$store.state.timeSlots = response.data;
-                    console.log(this.currentDate);
+                    if (response.status == 200) {
+                        this.$store.commit("SET_TIME_SLOTS", response.data);
+                    }
+                   
+                    
                     
                 } )
                 .catch( error =>{
