@@ -136,7 +136,7 @@ import TimeSlotCard from '@/components/TimeSlotCard'
 
 
 export default {
-    name: "office-info",
+    name: "appointment-info",
     components: {
         //AvailabilityForm,
         SearchAppointment,
@@ -192,9 +192,10 @@ export default {
     
     computed: {
         doctor() {
-            return this.$store.state.doctors.find(doctor => {
-                return doctor.userId == this.$store.state.user.id;
-            })
+            return this.$store.state.currentDoctor;
+                
+                // return doctor.userId == this.$store.state.user.id;
+        
         },
         doctorsList() {
             return this.$store.state.doctors.filter(doctor => {

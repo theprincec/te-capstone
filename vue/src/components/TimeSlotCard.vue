@@ -26,7 +26,7 @@
             <!-- <div v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`">{{time}}   
 
             </div> -->
-            <div  v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`">
+            <div  v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`" >
             <v-card color="#FFF8DC" class="ma-5" elevation="10" outlined style="border-radius: 20px">
 
                 <v-card-actions class="px-5 pb-0 mb-0">
@@ -43,8 +43,9 @@
                     <p>Name: <span class="font-weight-medium">{{appointment.patient.firstName}} {{appointment.patient.lastName}}</span></p>
 
                 </v-card-actions> -->
-                 
+                  <book-appointment @click="setCurrentTime(index)"/>
             </v-card>
+          
         </div>  
 <doctor-card/>
     </div>
@@ -53,22 +54,25 @@
 <script>
 import DoctorCard from '@/components/DoctorCard'
 import AppointmentService from "@/services/AppointmentService.js"
+import BookAppointment from '@/components/BookAppointment'
 
 
 export default {
     name: "time-slot",
     components: {
-        DoctorCard
+        DoctorCard,
+        BookAppointment       
     },
     data(){
         
-        return {
-            // doctorid = doctorFromRouter
-            timeSlot:[{
 
-            }],
+         return {
+            timeSlot:[{}],
             doctorId: "",
-            currentDate:""
+            currentDate:"",
+            appointment:{
+                timeStart:""
+            },
         }
     },
     methods: {
@@ -77,15 +81,16 @@ export default {
            this.getTimeSlots();
             
         },
+        setCurrentTime(index) {
+            this.appointment.timeStart = this.$store.state.timeSlots[index];
+            this.$store.commit("SET_CURRENT_APPOINTMENT", this.appointment)
+        },
         getTimeSlots(){
             AppointmentService.viewTimeSlots(this.$store.state.currentDoctor.doctorId,this.$store.state.currentDate)
                 .then(response => {
                     if (response.status == 200) {
                         this.$store.commit("SET_TIME_SLOTS", response.data);
                     }
-                   
-                    
-                    
                 } )
                 .catch( error =>{
                     console.error(error);

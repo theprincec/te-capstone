@@ -6,5 +6,8 @@ public interface PatientDAO {
 	
 	Patient getPatientById(int id);
 	
+	Patient getPatientByUsername(String username);
+
+	
 
 }

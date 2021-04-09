@@ -133,7 +133,7 @@ export default {
                     const newPatient = response.data;
                     this.appointment.patient.firstName = newPatient.firstName;
                     this.appointment.patient.lastName = newPatient.lastName;
-                    this.getUpdatedAppointments();
+                    //this.getUpdatedAppointments();
 
                     this.$store.commit("ADD_APPOINTMENT", this.appointment);
                     this.clearForm();

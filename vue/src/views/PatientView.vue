@@ -47,10 +47,12 @@ import AppointmentInfo from '@/components/AppointmentInfo'
 
 
 export default {
-  name: "home",
+  name: "patient",
   components: {
+
     AppointmentInfo
     // TimeSlotCard
+
 
   }
 };
