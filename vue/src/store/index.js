@@ -75,8 +75,8 @@ export default new Vuex.Store({
     SET_CURRENT_DOCTOR(state, currentDoctor) {
       state.currentDoctor = currentDoctor;
     },
-    SET_CURRENT_APPOINTMENT(state, currentAppointment) {
-      state.currentAppointment = currentAppointment
+    SET_CURRENT_APPOINTMENT(state, time) {
+      state.currentAppointment.timeStart = time;
     },
     SET_APPOINTMENTS(state, appointments) {
       state.appointments = appointments;

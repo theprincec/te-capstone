@@ -46,8 +46,8 @@
                 <label for="startTime" style="color:rgb(118, 118, 118)">Start Time: </label>
                 <input id="startTime" name="startTime" type="time" required v-model="appointment.timeStart"/>
             </div> -->
-            <p>Start time: {{appointment.timeStart}}</p>
-            <p>End time: {{appointment.timeEnd}}</p>
+            <p>Start time: {{convertTime(time)}}</p>
+            <p>End time: {{convertTime(calculateTimeEnd)}}</p>
 
 
             <!-- <div class="field">
@@ -80,6 +80,7 @@ import patientService from '@/services/PatientService';
 
 export default {
     name: "book-appointment", 
+    props: ['time'],
     data() {
         return {
             dialog: false,
@@ -91,7 +92,7 @@ export default {
                     lastName: ""
                 },            
                 date: this.$store.state.currentDate, 
-                timeStart: this.$store.state.currentAppointment.timeStart, 
+                timeStart: "", 
                 timeEnd: "", 
                 appointmentType: "Appointment"
             }
@@ -108,15 +109,21 @@ export default {
 
     },
     computed: {
-        // calculateTimeEnd() {
-        //     let hours = this.timeStart.slice(0, 2);
-        //     if(hours < 12) {
-        //         hours += 1;
-        //     } else{
-        //         hours = 1;
-        //     }   
-        //     return hours + this.timeStart.slice(2);
-        // }
+        // calculateTimeStart() {
+        //     const time = convertTime(this.time);
+        //     return time;
+        // },
+        calculateTimeEnd() {
+            //09:00:00
+            let hours = parseInt(this.time.slice(0, 2));
+            if(hours < 12) {
+                hours += 1;
+            } else{
+                hours = 1;
+            }   
+            let fullTime = hours + this.time.slice(2);
+            return fullTime;
+        }
     },
     methods: {
         addAnAppointment() {
@@ -129,6 +136,18 @@ export default {
                 console.log(error);
             })
         }, 
+        convertTime(time) { // 18:00:00
+            let convertedTime = time.slice(0, 5); // 18:00
+            let result;
+            if (convertedTime.length > 1) { // If time format correct
+                convertedTime = convertedTime.split (":");  // Remove full string match value - 18 00
+                let timeUnder = (convertedTime[0] - 12 >= 0 || convertedTime[0] == 12) ? 'PM' : 'AM'; // Set AM/PM
+                let hours = convertedTime[0] > 12 ? convertedTime[0] - 12 : convertedTime[0]; // Adjust hours
+                let minutes = convertedTime[1];
+                result = hours + ":" + minutes + " "+ timeUnder;
+            }
+            return result;
+        },
         getUpdatedAppointments() {
             appointmentService.getAppointments().then(response => {
                 if(response.status == 200) {

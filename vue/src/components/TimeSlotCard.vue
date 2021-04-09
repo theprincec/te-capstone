@@ -43,7 +43,7 @@
                     <p>Name: <span class="font-weight-medium">{{appointment.patient.firstName}} {{appointment.patient.lastName}}</span></p>
 
                 </v-card-actions> -->
-                  <book-appointment @click="setCurrentTime(index)"/>
+                  <book-appointment v-bind:time="time"/>
             </v-card>
           
         </div>  
@@ -81,9 +81,9 @@ export default {
            this.getTimeSlots();
             
         },
-        setCurrentTime(index) {
-            this.appointment.timeStart = this.$store.state.timeSlots[index];
-            this.$store.commit("SET_CURRENT_APPOINTMENT", this.appointment)
+        setCurrentTime(time) {
+            //this.appointment.timeStart = this.$store.state.timeSlots[index];
+            this.$store.commit("SET_CURRENT_APPOINTMENT", time)
         },
         getTimeSlots(){
             AppointmentService.viewTimeSlots(this.$store.state.currentDoctor.doctorId,this.$store.state.currentDate)
