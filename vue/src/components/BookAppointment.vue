@@ -11,6 +11,7 @@
                         dark
                         v-bind="attrs"
                         v-on="on"
+                        @click="appointment.timeStart = time, appointment.timeEnd = calculateTimeEnd"
                     >
                     Book appointment
                 </v-btn>
@@ -85,7 +86,7 @@ export default {
         return {
             dialog: false,
             appointment: {
-                doctorId: this.$store.state.currentDoctor.doctorId,
+                doctorId: "",
                 patient: {
                     patientId: "",
                     firstName: "",
@@ -116,17 +117,19 @@ export default {
         calculateTimeEnd() {
             //09:00:00
             let hours = parseInt(this.time.slice(0, 2));
-            if(hours < 12) {
+           
                 hours += 1;
-            } else{
-                hours = 1;
-            }   
+            
             let fullTime = hours + this.time.slice(2);
+
             return fullTime;
         }
     },
     methods: {
         addAnAppointment() {
+            this.appointment.timeStart = this.time;
+            this.appointment.timeEnd = this.calculateTimeEnd;
+            this.appointment.doctorId = this.$store.state.currentDoctor.doctorId;
             appointmentService.addAppointment(this.appointment).then(response => {
                 if(response.status == 201) {
                     alert("Appointment successfully booked");

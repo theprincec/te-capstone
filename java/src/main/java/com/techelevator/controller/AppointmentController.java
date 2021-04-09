@@ -45,9 +45,13 @@ public class AppointmentController {
 	@RequestMapping(path="/appointments", method=RequestMethod.POST)
 	public void createAppointment (Principal principal, @RequestBody Appointment appointment) {
 	
-		Doctor doctor = doctordao.getDoctor(principal.getName());
-		
-		appointment.setDoctorId(doctor.getDoctorId());
+		//if principal is a doctor
+		if(appointment.getDoctorId() == 0) {
+			Doctor doctor = doctordao.getDoctor(principal.getName());
+			
+			appointment.setDoctorId(doctor.getDoctorId());
+
+		}
 		
 		appointmentdao.updateAvailablity(appointment);
 		
