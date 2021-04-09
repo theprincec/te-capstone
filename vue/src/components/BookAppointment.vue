@@ -21,7 +21,7 @@
             flat>
 
             <v-card-title>
-                <span class="headline">Update Availability</span>
+                <span class="headline">Book an appointment with Dr. {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</span>
             </v-card-title>
 
         <form id="booking-form" class="px-9 pb-9"  v-on:submit.prevent="addAnAppointment()">
@@ -33,33 +33,38 @@
                 v-if="isAppointmentReqiured()"
                 required
             ></v-text-field> -->
-            <p>{{appointment.patient.firstName}} {{appointment.patient.lastName}}</p>
+            <p>Patient: {{appointment.patient.firstName}} {{appointment.patient.lastName}}</p>
 
-             <div class="field">
+             <!-- <div class="field">
                 <label for="date">Date: </label>
                 <input id="date" name="date" type="date" required v-model="appointment.date"/>
-            </div>
+            </div> -->
 
-            <div class="field">
+            <p>Appointment date: {{appointment.date}}</p>
+
+            <!-- <div class="field">
                 <label for="startTime" style="color:rgb(118, 118, 118)">Start Time: </label>
                 <input id="startTime" name="startTime" type="time" required v-model="appointment.timeStart"/>
-            </div>
+            </div> -->
+            <p>Start time: {{appointment.timeStart}}</p>
+            <p>End time: {{appointment.timeEnd}}</p>
 
-            <div class="field">
+
+            <!-- <div class="field">
                 <label for="endTime" style="color:rgb(118, 118, 118)">End Time: </label>
                 <input id="endTime" name="endTime" type="time" required v-model="appointment.timeEnd"/>
-            </div>
+            </div> -->
 
             <v-btn
                 form="booking-form"
                 class="mr-4"
                 type="submit"
-                @click="toggleDialog"                
+                @click="dialog=false"                
             >
-            submit
+            Confirm Appointment
             </v-btn>
-            <v-btn @click="clearForm, dialog=false">
-            cancel
+            <v-btn @click="dialog=false">
+            Cancel
             </v-btn>
         </form>
 
@@ -85,9 +90,9 @@ export default {
                     firstName: "",
                     lastName: ""
                 },            
-                date: "", 
+                date: this.$store.state.currentDate, 
                 timeStart: this.$store.state.currentAppointment.timeStart, 
-                timeEnd: "", 
+                timeEnd: calculateTimeEnd(), 
                 appointmentType: "Appointment"
             }
         }
@@ -102,13 +107,22 @@ export default {
             })
 
     },
+    computed: {
+        calculateTimeEnd() {
+            let hours = this.timeStart.slice(0, 2);
+            if(hours < 12) {
+                hours += 1;
+            } else{
+                hours = 1;
+            }   
+            return hours + this.timeStart.slice(2);
+        }
+    },
     methods: {
         addAnAppointment() {
             appointmentService.addAppointment(this.appointment).then(response => {
                 if(response.status == 201) {
-                    this.getPatientById();
-
-                    alert("Appointment successfully saved");
+                    alert("Appointment successfully booked");
                 }
             })
             .catch(error => {
@@ -126,24 +140,25 @@ export default {
             })
         },
         
-        clearForm() {
-            this.appointment =  {
-                patient: {},
-                date: "", 
-                timeStart: "", 
-                timeEnd: "", 
-                appointmentType: "Personal"
-            }
-        },
-        isAppointmentReqiured() {
-            return this.appointment.appointmentType == 'Personal' ? false : true;
-        },
-        toggleDialog() {
-            (this.appointment.date == "" || this.appointment.timeStart == "" || this.appointment.timeEnd == "") 
-                    ? this.dialog = true : this.dialog = false;
-        }
-    },
+        // clearForm() {
+        //     this.appointment =  {
+        //         patient: {},
+        //         date: "", 
+        //         timeStart: "", 
+        //         timeEnd: "", 
+        //         appointmentType: "Appointment"
+        //     }
+        // },
+        // isAppointmentReqiured() {
+        //     return this.appointment.appointmentType == 'Personal' ? false : true;
+        // },
+        // toggleDialog() {
+            // (this.appointment.date == "" || this.appointment.timeStart == "" || this.appointment.timeEnd == "") 
+            //         ? this.dialog = true : this.dialog = false;
+        //}
+    }
 }
+
 </script>
 
 <style>
