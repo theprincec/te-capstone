@@ -34,20 +34,26 @@
    
       
       <appointment-info />
-     
+     <time-slot-card/>
     
 </v-container>
 </template>
 
 <script>
 import AppointmentInfo from '@/components/AppointmentInfo'
+import TimeSlotCard from '@/components/TimeSlotCard'
+
 
 
 
 export default {
   name: "home",
   components: {
-    AppointmentInfo
+
+    AppointmentInfo,
+    TimeSlotCard
+
   }
 };
 </script>
+   
