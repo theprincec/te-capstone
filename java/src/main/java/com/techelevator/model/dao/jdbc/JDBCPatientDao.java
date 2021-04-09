@@ -28,6 +28,21 @@ public class JDBCPatientDao implements PatientDAO{
 		return patient;
 	}
 	
+	@Override
+	public Patient getPatientByUsername(String username) {
+		String sql = "SELECT patient_id, first_name, last_name FROM patients " + 
+				"JOIN users ON users.user_id = patients.user_id " + 
+				"WHERE username = ?";
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, username);
+		Patient patient = new Patient();
+		while(rows.next()) {
+			patient = mapRowsToPatient(rows);
+		}
+		return patient;
+	}
+
+	
+	
 	private Patient mapRowsToPatient(SqlRowSet row) {
 		Patient patient = new Patient();
 		patient.setPatientId(row.getInt("patient_id"));
@@ -35,5 +50,7 @@ public class JDBCPatientDao implements PatientDAO{
 		patient.setLastName(row.getString("last_name"));
 		return patient;
 	}
+	
+
 
 }

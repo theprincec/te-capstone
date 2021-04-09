@@ -1,74 +1,162 @@
 <template>
-     <form id="appointment-form" class="px-9 pb-9"  v-on:submit.prevent="addAnAppointment()">
+  <v-row justify="center">
+            <v-dialog
+                v-model="dialog"
+                persistent
+                max-width="600px"
+            >
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        color="primary"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                    Book appointment
+                </v-btn>
+                
+            </template>
+    <v-card id="appointments"
+            min-height="368" class="mt-5"
+            flat>
 
-            <!-- <v-select
-                v-model="appointment.appointmentType"
-                :items="items"
-                label="Appointment Type"
-            ></v-select> -->
+            <v-card-title>
+                <span class="headline">Update Availability</span>
+            </v-card-title>
+
+        <form id="booking-form" class="px-9 pb-9"  v-on:submit.prevent="addAnAppointment()">
+
 
             <!-- <v-text-field
-                v-model="appointment.patientId"
+                v-model="appointment.patient.patientId"
                 label="Patient ID"
                 v-if="isAppointmentReqiured()"
                 required
             ></v-text-field> -->
+            <p>{{appointment.patient.firstName}} {{appointment.patient.lastName}}</p>
 
              <div class="field">
                 <label for="date">Date: </label>
-                <input id="date" name="date" type="date"  v-model="appointment.date"/>
+                <input id="date" name="date" type="date" required v-model="appointment.date"/>
             </div>
 
             <div class="field">
                 <label for="startTime" style="color:rgb(118, 118, 118)">Start Time: </label>
-                <input id="startTime" name="startTime" type="time"  v-model="appointment.timeStart"/>
+                <input id="startTime" name="startTime" type="time" required v-model="appointment.timeStart"/>
             </div>
 
             <div class="field">
                 <label for="endTime" style="color:rgb(118, 118, 118)">End Time: </label>
-                <input id="endTime" name="endTime" type="time" v-model="appointment.timeEnd"/>
+                <input id="endTime" name="endTime" type="time" required v-model="appointment.timeEnd"/>
             </div>
 
             <v-btn
-                form="appointment-form"
+                form="booking-form"
                 class="mr-4"
                 type="submit"
+                @click="toggleDialog"                
             >
             submit
             </v-btn>
-            <v-btn @click="clearForm">
-            clear
+            <v-btn @click="clearForm, dialog=false">
+            cancel
             </v-btn>
         </form>
 
-     
+    </v-card>
+     </v-dialog>
+  </v-row>
+
 </template>
 
 <script>
-import AppointmentService from "@/services/AppointmentService.js"
-
+import appointmentService from '@/services/AppointmentService';
+import patientService from '@/services/PatientService';
 
 export default {
-    name: "book-appointment",
+    name: "book-appointment", 
     data() {
         return {
-            appointment: {}
+            dialog: false,
+            appointment: {
+                doctorId: this.$store.state.currentDoctor.doctorId,
+                patient: {
+                    patientId: "",
+                    firstName: "",
+                    lastName: ""
+                },            
+                date: "", 
+                timeStart: this.$store.state.currentAppointment.timeStart, 
+                timeEnd: "", 
+                appointmentType: "Appointment"
+            }
+        }
+    }, 
+    created() {
+        patientService.getCurrentPatient()
+            .then(response => {
+                this.appointment.patient = response.data
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+    },
+    methods: {
+        addAnAppointment() {
+            appointmentService.addAppointment(this.appointment).then(response => {
+                if(response.status == 201) {
+                    this.getPatientById();
+
+                    alert("Appointment successfully saved");
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }, 
+        getUpdatedAppointments() {
+            appointmentService.getAppointments().then(response => {
+                if(response.status == 200) {
+                    this.$store.commit("SET_APPOINTMENTS", response.data);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
+        
+        clearForm() {
+            this.appointment =  {
+                patient: {},
+                date: "", 
+                timeStart: "", 
+                timeEnd: "", 
+                appointmentType: "Personal"
+            }
+        },
+        isAppointmentReqiured() {
+            return this.appointment.appointmentType == 'Personal' ? false : true;
+        },
+        toggleDialog() {
+            (this.appointment.date == "" || this.appointment.timeStart == "" || this.appointment.timeEnd == "") 
+                    ? this.dialog = true : this.dialog = false;
         }
     },
-
-    methods: {
-        getAppointments(doctorId){
-            AppointmentService.viewTimeSlots(doctorId)
-                .then(response => {
-                    this.appointment = response.data;
-                } )
-                // .catch( error =>{
-                //     console.error(error);
-                // })
-        }
-    }}
+}
 </script>
 
 <style>
-
+#startTime, #endTime, #date {
+    padding: 8px 0 8px 8px;
+    line-height: 20px;
+    border-bottom: 1px solid rgb(118, 118, 118);
+    width: 100%;
+    border-color: (rgb(118, 118, 118), rgb(133, 133, 133));
+    color: rgb(133, 133, 133);
+    max-height: 32px;
+}
+.field {
+    padding: 8px 0 8px 
+}
 </style>

@@ -7,6 +7,11 @@ export default {
     getPatient(patientId) {
         
         return axios.get(`/patients/${patientId}`);
+    },
+
+    getCurrentPatient() {
+        
+        return axios.get("/patients");
     }
 
 }

@@ -133,7 +133,7 @@ import AppointmentsList from '@/components/AppointmentsList'
 //import OfficeCard from '@/components/OfficeCard'
 
 export default {
-    name: "office-info",
+    name: "appointment-info",
     components: {
         //AvailabilityForm,
         SearchAppointment,

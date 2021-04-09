@@ -26,7 +26,6 @@ export default new Vuex.Store({
     currentDoctor: {},
     appointments: [],
     currentAppointment: {
-        appointment: {    
           doctorId: "",    
           patient: {
               patientId: "",
@@ -37,7 +36,7 @@ export default new Vuex.Store({
           timeStart: "", 
           timeEnd: "", 
           appointmentType: "Personal"
-  },},
+  },
     selectedDate: {}
   },
   mutations: {

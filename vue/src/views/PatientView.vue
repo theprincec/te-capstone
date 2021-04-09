@@ -33,21 +33,21 @@
     <!-- appointtent availablity -->
    
       
-      <office-info />
+      <appointment-info />
      
     
 </v-container>
 </template>
 
 <script>
-import OfficeInfo from '@/components/OfficeInfo'
+import AppointmentInfo from '@/components/AppointmentInfo'
 
 
 
 export default {
   name: "home",
   components: {
-    OfficeInfo
+    AppointmentInfo
   }
 };
 </script>
