@@ -131,13 +131,15 @@ import officeService from '@/services/OfficeService'
 import SearchAppointment from '@/components/SearchAppointment'
 import AppointmentsList from '@/components/AppointmentsList'
 //import OfficeCard from '@/components/OfficeCard'
+import TimeSlotCard from '@/components/TimeSlotCard'
 
 export default {
     name: "office-info",
     components: {
         //AvailabilityForm,
         SearchAppointment,
-        AppointmentsList
+        AppointmentsList,
+        TimeSlotCard
     },
     data(){
         return{
