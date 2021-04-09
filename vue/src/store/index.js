@@ -24,7 +24,21 @@ export default new Vuex.Store({
     office: {},
     timeSlots:{},
     currentDoctor: {},
-    appointments: []
+    appointments: [],
+    currentAppointment: {
+        appointment: {    
+          doctorId: "",    
+          patient: {
+              patientId: "",
+              firstName: "",
+              lastName: ""
+          },            
+          date: "", 
+          timeStart: "", 
+          timeEnd: "", 
+          appointmentType: "Personal"
+  },},
+    selectedDate: {}
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
