@@ -33,21 +33,26 @@
     <!-- appointtent availablity -->
    
       
-      <office-info />
-     
+      <appointment-info />
+     <time-slot-card/>
     
 </v-container>
 </template>
 
 <script>
-import OfficeInfo from '@/components/OfficeInfo'
+import AppointmentInfo from '@/components/AppointmentInfo'
+import TimeSlotCard from '@/components/TimeSlotCard'
+
 
 
 
 export default {
   name: "home",
   components: {
-    OfficeInfo
+    AppointmentInfo,
+    TimeSlotCard
+
   }
 };
 </script>
+   
