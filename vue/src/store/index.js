@@ -83,6 +83,7 @@ export default new Vuex.Store({
     },
     ADD_APPOINTMENT(state, appointment) {
       state.appointments.push(appointment);
+      
     }
   }
 })

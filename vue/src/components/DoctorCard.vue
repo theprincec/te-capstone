@@ -6,7 +6,7 @@
         
            <div class="d-flex justify-space-between subtitle-1">
                 <p class="ma-1">Office name: {{doctor.office.name}}</p>
-                <p class="ma-1">{{doctor.office.openTime}} - {{doctor.office.closeTime}}</p>
+                <p class="ma-1">{{convertTime(doctor.office.openTime)}} - {{convertTime(doctor.office.closeTime)}}</p>
             </div>
 
             <div class="body-2">
@@ -64,8 +64,21 @@ export default {
         setCurrentDoctor(doctor) {
             this.$store.commit("SET_CURRENT_DOCTOR", doctor);
             this.$router.push('/patient');
+        },
+        convertTime(time) { // 18:00:00
+            let convertedTime = time.slice(0, 5); // 18:00
+            let result;
+            if (convertedTime.length > 1) { // If time format correct
+                convertedTime = convertedTime.split (":");  // Remove full string match value - 18 00
+                let timeUnder = (convertedTime[0] - 12 >= 0 || convertedTime[0] == 12) ? 'PM' : 'AM'; // Set AM/PM
+                let hours = convertedTime[0] > 12 ? convertedTime[0] - 12 : convertedTime[0]; // Adjust hours
+                let minutes = convertedTime[1];
+                result = hours + ":" + minutes + " "+ timeUnder;
+            }
+            return result;
         }
-    }
+    },
+    
     // components: { 
     //   OfficeInfo 
     // }
