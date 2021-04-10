@@ -4,18 +4,28 @@
         <v-col cols="12" md="12">
             <v-card id="docs"
                 rounded="lg"
-                min-height="100">
-                <h1>Dr Info</h1>
+                max-height="120">
+                <v-row>
+                    <v-col col="12" md="2">
+                        <v-card class="ml-4">
+                            <v-img
+                                height="90"
+                                
+                                src="../assets/placeholder.jpg"
+                            ></v-img>
+                        </v-card>
+                    </v-col>
+                     <v-col col="12" md="4" class="d-flex align-content-end">
+                        <v-card-title class="text-h4 pb-0 pt-10 px-2 ">Dr {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
+  
+                     </v-col>
+                </v-row>
+
             </v-card>
         </v-col>
     </v-row>
     <v-row>
-    </v-row>
-        <v-col cols="12"
-                md="12" class="px-0 py-3">
-            <search-appointment />
-        </v-col>
-    <v-row>
+   
         
         <v-col cols="12"
             md="6" class="pb-0 pt-3">
@@ -55,12 +65,12 @@
                 </v-card-text>
                     <v-divider></v-divider>
                 <v-card-actions class="px-10">
-                        <a style="text-decoration: none" class="blue--text" @click="showForm = true" v-if="!showForm"
+                        <!-- <a style="text-decoration: none" class="blue--text" @click="showForm = true" v-if="!showForm"
                         > Edit Office Info</a>
                       
                         <v-spacer></v-spacer>
                         <a style="text-decoration: none" class="blue--text" @click="showDoctorForm = true"
-                        > Update Doctors</a>
+                        > Update Doctors</a> -->
                         <v-spacer></v-spacer>
                         <p class="mb-0 grey-text display-1"> ${{doctor.office.officeRate}}</p>
                 </v-card-actions>
@@ -68,7 +78,7 @@
 
             <!--Update form-->
 
-                <v-form v-on:submit.prevent="commitOfficeUpdate()" v-if="showForm">
+                <!-- <v-form v-on:submit.prevent="commitOfficeUpdate()" v-if="showForm">
                
                 <v-card-title class="h3 py-5 px-10">Update Office Details</v-card-title>
                     <v-text-field class="px-10" label="Office Name" outlined dense v-model="office.name">
@@ -100,7 +110,7 @@
                     >SUBMIT FORM</v-btn>
                 </v-card-actions>
 
-                </v-form>
+                </v-form> -->
 
                 <div class="field" v-show="showDoctorForm" >
                     <label for="doctors">Doctors List: </label>
@@ -129,7 +139,6 @@
 import doctorService from '@/services/DoctorService'
 import officeService from '@/services/OfficeService'
 //import AvailabilityForm from '@/components/AvailabilityForm'
-import SearchAppointment from '@/components/SearchAppointment'
 // import AppointmentsList from '@/components/AppointmentsList'
 //import OfficeCard from '@/components/OfficeCard'
 import TimeSlotCard from '@/components/TimeSlotCard'
@@ -139,7 +148,7 @@ export default {
     name: "appointment-info",
     components: {
         //AvailabilityForm,
-        SearchAppointment,
+
         // AppointmentsList,
         TimeSlotCard
     },
@@ -226,6 +235,7 @@ export default {
         },
         commitOfficeUpdate(){
             officeService.updateOfficeInfo(this.office).then(response => {
+                
                 if(response.status == 200) {
                     this.autoPopulateOfficeInfo();
                 }

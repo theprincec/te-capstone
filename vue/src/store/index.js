@@ -83,13 +83,13 @@ export default new Vuex.Store({
     },
     ADD_APPOINTMENT(state, appointment) {
       state.appointments.push(appointment);
-      const apptTime = appointment.timeStart;
-      for(let i = 0; i < state.appointments.length; i++) {
-        if(state.appointments[i].timeStart > apptTime) {
-          //insert appointment @ i
-          state.appointment.insert(i, appointment);
-        }
-      }
+      // const apptTime = appointment.timeStart;
+      // for(let i = 0; i < state.appointments.length; i++) {
+      //   if(state.appointments[i].timeStart > apptTime) {
+      //     //insert appointment @ i
+      //     state.appointment.insert(i, appointment);
+      //   }
+      // }
 
     }
   }

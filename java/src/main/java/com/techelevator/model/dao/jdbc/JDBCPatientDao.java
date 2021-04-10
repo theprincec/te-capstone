@@ -28,6 +28,8 @@ public class JDBCPatientDao implements PatientDAO{
 		return patient;
 	}
 	
+	
+	
 	@Override
 	public Patient getPatientByUsername(String username) {
 		String sql = "SELECT patient_id, first_name, last_name FROM patients " + 

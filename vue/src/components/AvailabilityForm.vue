@@ -31,22 +31,28 @@
                 :items="items"
                 label="Appointment Type"
             ></v-select>
-
-            <v-text-field
-                v-model="appointment.patient.patientId"
-                label="Patient ID"
-                v-if="isAppointmentReqiured()"
-                required
-            ></v-text-field>
-
+            <v-card-text>
+                 <v-autocomplete
+                    v-model="appointment.patient.patientId"
+                    :items="$store.state.appointments"
+                    :filter="customFilter"
+                    item-text="patient.lastName"
+                    item-value="patient.patientId"
+                    label="Patient Name"
+                    v-if="isAppointmentReqiured()"
+                    required
+                    clearable
+                ></v-autocomplete>
+            </v-card-text>
+           
              <div class="field">
                 <label for="date">Date: </label>
-                <input id="date" name="date" type="date" required v-model="appointment.date"/>
+                <input id="date" name="date" type="date" :min="todayDate" required v-model="appointment.date"/>
             </div>
 
             <div class="field">
                 <label for="startTime" style="color:rgb(118, 118, 118)">Start Time: </label>
-                <input id="startTime" name="startTime" type="time" required v-model="appointment.timeStart"/>
+                <input id="startTime" name="startTime" type="time" :step="60" required v-model="appointment.timeStart"/>
             </div>
 
             <div class="field">
@@ -108,6 +114,8 @@ export default {
                     //ADD POST FOR PAITIENT BY ID
                     //this.$store.commit("ADD_APPOINTMENT", this.appointment);
                     //this.getUpdatedAppointments();
+                    
+
                     this.getPatientById();
 
                     alert("Appointment successfully saved");
@@ -117,15 +125,13 @@ export default {
                 console.log(error);
             })
         }, 
-        getUpdatedAppointments() {
-            appointmentService.getAppointments().then(response => {
-                if(response.status == 200) {
-                    this.$store.commit("SET_APPOINTMENTS", response.data);
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        customFilter (item, queryText) {
+            const textOne = item.patient.firstName.toLowerCase()
+            const textTwo = item.patient.lastName.toLowerCase()
+            const searchText = queryText.toLowerCase()
+
+            return textOne.indexOf(searchText) > -1 ||
+            textTwo.indexOf(searchText) > -1
         },
         getPatientById() {
             patientService.getPatient(this.appointment.patient.patientId)
@@ -161,7 +167,24 @@ export default {
                     ? this.dialog = true : this.dialog = false;
         }
     },
+
+    created() {
+        appointmentService.getAppointments().then(response => {
+            if(response.status == 200) {
+                this.$store.commit("SET_APPOINTMENTS", response.data);
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    },
+    computed: {
+        todayDate() {
+            return new Date().toISOString().split('T')[0];
+        }  
+    }
 }
+
 </script>
 
 <style>

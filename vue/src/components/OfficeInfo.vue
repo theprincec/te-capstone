@@ -10,12 +10,12 @@
         </v-col>
     </v-row>
     <v-row>
-    </v-row>
+    <!-- </v-row>
         <v-col cols="12"
                 md="12" class="px-0 py-3">
             <search-appointment />
         </v-col>
-    <v-row>
+    <v-row> -->
         
         <v-col cols="12"
             md="6" class="pb-0 pt-3">
@@ -128,7 +128,7 @@
 import doctorService from '@/services/DoctorService'
 import officeService from '@/services/OfficeService'
 //import AvailabilityForm from '@/components/AvailabilityForm'
-import SearchAppointment from '@/components/SearchAppointment'
+//import SearchAppointment from '@/components/SearchAppointment'
 import AppointmentsList from '@/components/AppointmentsList'
 //import OfficeCard from '@/components/OfficeCard'
 
@@ -136,7 +136,7 @@ export default {
     name: "office-info",
     components: {
         //AvailabilityForm,
-        SearchAppointment,
+        //SearchAppointment,
         AppointmentsList
     },
     data(){
@@ -209,16 +209,19 @@ export default {
         getOfficeData(doctor){
             this.office.officeId= doctor.office.officeId;
             this.office.name= doctor.office.name;
-            this.office.phoneNumber= doctor.office.phoneNumber;
-            this.office.openTime= doctor.office.openTime;
-            this.office.closeTime= doctor.office.closeTime;
-            this.office.officeRate= doctor.office.officeRate;
+            this.office.phoneNumber= this.convertNumber(doctor.office.phoneNumber);
+            this.office.openTime= this.convertTime(doctor.office.openTime);
+            this.office.closeTime= this.convertTime(doctor.office.closeTime);
+            this.office.officeRate= doctor.office.officeRate + "$";
             this.office.address.addressLine= doctor.office.address.addressLine;
             this.office.address.city= doctor.office.address.city;
             this.office.address.district= doctor.office.address.district;
             this.office.address.postalCode= doctor.office.address.postalCode;           
         },
         commitOfficeUpdate(){
+            this.office.openTime = this.doctor.office.openTime;
+            this.office.closeTime = this.doctor.office.closeTime;
+            this.office.officeRate = this.doctor.office.officeRate;
             officeService.updateOfficeInfo(this.office).then(response => {
                 if(response.status == 200) {
                     this.autoPopulateOfficeInfo();

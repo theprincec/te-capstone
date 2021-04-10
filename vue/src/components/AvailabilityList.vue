@@ -10,7 +10,7 @@
            
       <div class="field">
             <label for="date">Select Date: </label>
-            <input id="date" name="date" type="date"  v-model="todayDate" @change="toggleShowAppointment()"/>
+            <input id="date" name="date" type="date" v-model="todayDate" @change="toggleShowAppointment()"/>
         </div>
 
        
@@ -78,7 +78,7 @@ export default {
             return this.$store.state.appointments.filter(appointment => {
                 return appointment.date == this.todayDate;
             })
-        }
+        } 
     },
     methods: {
         convertTime(time) { // 18:00:00
