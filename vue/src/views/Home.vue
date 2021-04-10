@@ -1,5 +1,7 @@
 <template>
-<v-container grid-list-md fluid color="primary">
+<div>
+  <doctor-home v-if="isDoctor"></doctor-home>
+<v-container grid-list-md fluid color="primary" v-if="!isDoctor">
 
   <v-app-bar class="px-5" app color="primary" flat>
     <v-tabs
@@ -21,7 +23,7 @@
     <v-divider vertical></v-divider>
 
     </v-tabs>
-     <strong class="pa-3">Username</strong> 
+     <strong class="pa-3">Welcome, {{$store.state.user.username}}!</strong> 
      <v-avatar
         class="hidden-sm-and-down"
         color="grey darken-1 shrink"
@@ -41,10 +43,12 @@
     <!--<office-info />-->
     
 </v-container>
+</div>
 </template>
 
 <script>
 import DoctorsList from '@/components/DoctorsList'
+import DoctorHome from '@/views/DoctorHome'
 // import TimeSlotCard from '@/components/TimeSlotCard.vue'
 //import OfficeInfo from '@/components/OfficeInfo'
 
@@ -52,7 +56,18 @@ export default {
   name: "home",
   components: {
     DoctorsList,
+    DoctorHome
     // TimeSlotCard
+  }, 
+  data() {
+    return {
+      isDoctor: false
+    }
+  }, 
+  created() {
+    if(this.$store.state.user.authorities[0].name == 'ROLE_DOCTOR') {
+      this.isDoctor = true;
+    }
   }
 };
 </script>

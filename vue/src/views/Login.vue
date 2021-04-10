@@ -99,7 +99,13 @@ export default {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
-            this.$router.push("/");
+            //IF WE WANT TO ROUTE TO A COMPLETELY DIFFERENT HOME PAGE FOR DOCTORS UNCOMMENT BELOW
+            // if(this.$store.state.user.authorities[0].name == "ROLE_DOCTOR") {
+            //   console.log("It should be working");
+            //   this.$router.push("/doctor-home");
+            // } else {
+              this.$router.push("/");
+            //}
           }
         })
         .catch(error => {

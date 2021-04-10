@@ -31,14 +31,14 @@ const router = new Router({
         requiresAuth: true
       }
     },
-    {
-      path: '/doctor-home',
-      name: 'doctor-home',
-      component: DoctorHome,
-      meta: {
-        requiresAuth: true
-      }
-    },
+    // {
+    //   path: '/doctor-home',
+    //   name: 'doctor-home',
+    //   component: DoctorHome,
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    // },
     {
       path: '/patient',
       name: 'patient',

@@ -104,13 +104,19 @@ export default {
         addAnAppointment() {
             appointmentService.addAppointment(this.appointment).then(response => {
                 if(response.status == 201) {
+                    alert("Appointment successfully saved");
+
                     //UPDATE APPOINTMENTS LIST IN OUR STORE
                     //ADD POST FOR PAITIENT BY ID
                     //this.$store.commit("ADD_APPOINTMENT", this.appointment);
-                    //this.getUpdatedAppointments();
-                    this.getPatientById();
+                    this.getUpdatedAppointments();
+                    this.getPatientById().then(response => {
+                        this.$store.commit("ADD_APPOINTMENT", this.appointment);
 
-                    alert("Appointment successfully saved");
+                        this.getUpdatedAppointments();
+
+                    });
+
                 }
             })
             .catch(error => {
@@ -135,7 +141,7 @@ export default {
                     this.appointment.patient.lastName = newPatient.lastName;
                     //this.getUpdatedAppointments();
 
-                    this.$store.commit("ADD_APPOINTMENT", this.appointment);
+                    // this.$store.commit("ADD_APPOINTMENT", this.appointment);
                     this.clearForm();
 
                 })

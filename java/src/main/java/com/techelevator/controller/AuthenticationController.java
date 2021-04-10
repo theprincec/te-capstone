@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.techelevator.dao.UserDAO;
+import com.techelevator.model.Doctor;
+import com.techelevator.model.Patient;
+import com.techelevator.model.dao.DoctorDAO;
+import com.techelevator.model.dao.PatientDAO;
 import com.techelevator.security.jwt.JWTFilter;
 import com.techelevator.security.jwt.TokenProvider;
 import com.techelevator.userModel.LoginDTO;
@@ -28,11 +32,16 @@ public class AuthenticationController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private UserDAO userDAO;
+    private DoctorDAO doctorDao;
+    private PatientDAO patientDao;
 
-    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserDAO userDAO) {
+    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, 
+    									UserDAO userDAO, DoctorDAO doctorDao, PatientDAO patientDao) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDAO = userDAO;
+        this.doctorDao = doctorDao;
+        this.patientDao = patientDao;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -59,7 +68,20 @@ public class AuthenticationController {
             User user = userDAO.findByUsername(newUser.getUsername());
             throw new UserAlreadyExistsException();
         } catch (UsernameNotFoundException e) {
-            userDAO.create(newUser.getUsername(),newUser.getPassword(), newUser.getRole());
+            userDAO.create(newUser.getUsername(),newUser.getPassword(), newUser.getRole(), newUser.getEmail());
+            //Add new doctor or patient based on client side selection (need ID to insert new doctor or patient into database)
+            int id = userDAO.findIdByUsername(newUser.getUsername());
+            if(newUser.getRole().equals("doctor")) {
+            	Doctor doctor = new Doctor();
+            	doctor.setFirstName(newUser.getFirstName());
+            	doctor.setLastName(newUser.getLastName());
+            	doctorDao.addDoctor(doctor, id);
+            } else if(newUser.getRole().equals("user")) {
+            	Patient patient = new Patient();
+            	patient.setFirstName(newUser.getFirstName());
+            	patient.setLastName(newUser.getLastName());
+            	patientDao.addPatient(patient, id);
+            }
         }
     }
 

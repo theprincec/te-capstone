@@ -54,6 +54,42 @@
               @click:append="showConfirmPassword = ! showConfirmPassword"
               required
             />
+            <!-- EMAIL -->
+            <v-text-field 
+              prepend-icon="mdi-email"
+              :rules="[v => !!v || 'Email is required']"
+              v-model="user.email"
+              label="Email Address"
+              required
+            />
+            <v-text-field 
+              prepend-icon="mdi-email"
+              :rules="[v => !!v || 'First name is required']"
+              v-model="user.firstName"
+              label="First Name"
+              required
+            />
+            <v-text-field 
+              prepend-icon="mdi-email"
+              :rules="[v => !!v || 'Last name is required']"
+              v-model="user.lastName"
+              label="Last Name"
+              required
+            />
+
+            
+          <center>
+            <p class="pt-4">Are you a patient or a doctor?</p>
+          </center>
+          
+          <v-radio-group class="pr-15 pl-15" v-model="user.role" row align-center mandatory>       
+              <v-radio label="Patient" value="user" name="role"></v-radio>
+              <v-spacer></v-spacer>
+              <v-radio label="Doctor" value="doctor" name="role"></v-radio>
+          </v-radio-group>
+
+
+
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -89,7 +125,10 @@ export default {
         username: '',
         password: '',
         confirmPassword: '',
+        email: '',
         role: 'user',
+        firstName: '',
+        lastName: ''
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
@@ -107,7 +146,7 @@ export default {
             if (response.status == 201) {
               this.$router.push({
                 path: '/login',
-                query: { registration: 'success' },
+                query: { registration: 'success' }
               });
             }
           })
@@ -149,4 +188,5 @@ export default {
   width: 100%;
   padding-left: 60px;
 }
+
 </style>
