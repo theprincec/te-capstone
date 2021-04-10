@@ -63,14 +63,14 @@
               required
             />
             <v-text-field 
-              prepend-icon="mdi-email"
+              prepend-icon="mdi-account-outline"
               :rules="[v => !!v || 'First name is required']"
               v-model="user.firstName"
               label="First Name"
               required
             />
             <v-text-field 
-              prepend-icon="mdi-email"
+              prepend-icon="mdi-account-outline"
               :rules="[v => !!v || 'Last name is required']"
               v-model="user.lastName"
               label="Last Name"
