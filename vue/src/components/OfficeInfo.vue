@@ -70,27 +70,36 @@
                 <v-form v-on:submit.prevent="commitOfficeUpdate()" v-if="showForm">
                
                 <v-card-title class="h3 py-5 px-10">Update Office Details</v-card-title>
-                    <v-text-field class="px-10" label="Office Name" outlined dense v-model="office.name">
+                    <v-text-field class="px-10" label="Office Name"  dense v-model="office.name">
                     </v-text-field>
-                    <v-text-field class="px-10" label="Address" outlined dense v-model="office.address.addressLine">
+
+                    <v-file-input
+                        class="px-10"
+                        dense
+                        small-chips
+                        multiple
+                        label="File input w/ small chips"
+                    ></v-file-input>
+
+                    <v-text-field class="px-10" label="Address" dense v-model="office.address.addressLine">
                     </v-text-field>
                     <div class="d-flex justify-space-between">
-                        <v-text-field class="pl-10 pr-2" label="City" outlined dense v-model="office.address.city">
+                        <v-text-field class="pl-10 pr-2" label="City" dense v-model="office.address.city">
                         </v-text-field>
-                        <v-text-field class="px-2" label="State" outlined dense v-model="office.address.district" >
+                        <v-text-field class="px-2" label="State" dense v-model="office.address.district" >
                         </v-text-field>
-                        <v-text-field class="pr-10 pl-2" label="ZipCode" outlined dense v-model="office.address.postalCode">
+                        <v-text-field class="pr-10 pl-2" label="ZipCode" dense v-model="office.address.postalCode">
                         </v-text-field>
                     </div>
-                    <v-text-field class=" px-10" label="Phone Number" outlined dense v-model="office.phoneNumber">
+                    <v-text-field class=" px-10" label="Phone Number" dense v-model="office.phoneNumber">
                     </v-text-field>
                     <div class="d-flex justify-space-between">
-                        <v-text-field class=" pl-10 pr-2" label="Open Time" outlined dense v-model="office.openTime">
+                        <v-text-field class=" pl-10 pr-2" label="Open Time" dense v-model="office.openTime">
                         </v-text-field>
-                        <v-text-field class=" pr-10 pl-2" label="Close Time" outlined dense v-model="office.closeTime">
+                        <v-text-field class=" pr-10 pl-2" label="Close Time" dense v-model="office.closeTime">
                         </v-text-field>
                     </div>
-                    <v-text-field class=" px-10" label="Office Rate" outlined dense v-model="office.officeRate">
+                    <v-text-field class=" px-10" label="Office Rate" dense v-model="office.officeRate">
                     </v-text-field>
                     
                  <v-divider></v-divider>
