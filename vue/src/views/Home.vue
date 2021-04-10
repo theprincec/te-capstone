@@ -1,7 +1,8 @@
 <template>
 <div>
   <doctor-home v-if="isDoctor"></doctor-home>
-<v-container grid-list-md fluid color="primary" v-if="!isDoctor">
+
+  <v-container grid-list-md fluid color="primary" v-if="!isDoctor">
 
   <v-app-bar class="px-5" app color="primary" flat>
     <v-tabs

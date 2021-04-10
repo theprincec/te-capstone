@@ -111,23 +111,22 @@ export default {
             appointmentService.addAppointment(this.appointment).then(response => {
                 if(response.status == 201) {
                     alert("Appointment successfully saved");
-
                     //UPDATE APPOINTMENTS LIST IN OUR STORE
                     //ADD POST FOR PAITIENT BY ID
                     //this.$store.commit("ADD_APPOINTMENT", this.appointment);
                     this.getUpdatedAppointments();
-                    this.getPatientById().then(response => {
-                        this.$store.commit("ADD_APPOINTMENT", this.appointment);
-
-                        this.getUpdatedAppointments();
+                    this.getPatientById()
+                        .then(response => {
+                            if(response.status == 200) {
+                                this.$store.commit("ADD_APPOINTMENT", this.appointment);
+                                this.getUpdatedAppointments();
+                            }
 
                     });
-//                     //this.getUpdatedAppointments();
+                // this.getUpdatedAppointments();
                     
 
 //                     this.getPatientById();
-
-
                 }
             })
             .catch(error => {
@@ -150,7 +149,7 @@ export default {
                     this.appointment.patient.lastName = newPatient.lastName;
                     //this.getUpdatedAppointments();
 
-                    // this.$store.commit("ADD_APPOINTMENT", this.appointment);
+                    //this.$store.commit("ADD_APPOINTMENT", this.appointment);
                     this.clearForm();
 
                 })
@@ -174,7 +173,15 @@ export default {
         toggleDialog() {
             (this.appointment.date == "" || this.appointment.timeStart == "" || this.appointment.timeEnd == "") 
                     ? this.dialog = true : this.dialog = false;
+        }, 
+        getUpdatedAppointments() {
+            appointmentService.getAppointments().then(response => {
+                if(response.status == 200) {
+                    this.$store.commit("SET_APPOINTMENTS", response.data);
+                }
+            })
         }
+
     },
 
     created() {
