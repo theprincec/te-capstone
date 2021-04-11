@@ -4,7 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
-import DoctorHome from '../views/DoctorHome.vue'
+//import DoctorHome from '../views/DoctorHome.vue'
 import store from '../store/index'
 import PatientView from '../views/PatientView.vue'
 

@@ -33,11 +33,58 @@
                         class="mx-auto my-5"
                         max-width="480"
                     >
+        <!-- IMAGE UPLOAD -->
                         <v-img
-                        height="250"
+                        max-height="250"
+                        v-if="!fileUrl"
                         src="../assets/placeholder.jpg"
                         ></v-img>
+                        <v-img
+                        max-height="250"
+                        contain v-if="fileUrl"
+                        :src="fileUrl"
+                        alt="Office Image"
+                        ></v-img>
                     </v-card>
+
+                            <!-- FILE INPUT -->
+                    <v-file-input
+                        v-model="myFile"
+                        accept="image/png, image/jpeg"
+                        placeholder="Click to upload file"
+                        @change="fileInput"
+                        :disabled="processing"
+                        class="px-10"
+                        dense
+                        small-chips
+                        label="Update office image"
+                        v-if="showEditImage"
+                        prepend-icon="mdi-camera"
+    
+                    > <template v-slot:append-outer>
+                        <v-progress-circular
+                        v-if="processing"
+                        color="grey"
+                        indeterminate
+                        small
+                        />
+                    </template>
+                    </v-file-input>
+                      <div class="text-center">
+                        <v-btn
+                            color="blue-grey"
+                            class="ma-2 white--text"
+                            @click="showEditImage=!showEditImage"                   
+                            >
+                            Edit Office Image
+                        <v-icon
+                            right
+                            dark
+                        >
+                            mdi-cloud-upload
+                        </v-icon>
+                    </v-btn>
+                      </div>
                
                 <v-card-title class="h4 py-2 px-10">{{doctor.office.name}} </v-card-title>
                 <v-card-text class="py-2 px-10">
@@ -72,15 +119,7 @@
                 <v-card-title class="h3 py-5 px-10">Update Office Details</v-card-title>
                     <v-text-field class="px-10" label="Office Name"  dense v-model="office.name">
                     </v-text-field>
-
-                    <v-file-input
-                        class="px-10"
-                        dense
-                        small-chips
-                        multiple
-                        label="File input w/ small chips"
-                    ></v-file-input>
-
+        
                     <v-text-field class="px-10" label="Address" dense v-model="office.address.addressLine">
                     </v-text-field>
                     <div class="d-flex justify-space-between">
@@ -140,6 +179,7 @@ import officeService from '@/services/OfficeService'
 //import SearchAppointment from '@/components/SearchAppointment'
 import AppointmentsList from '@/components/AppointmentsList'
 //import OfficeCard from '@/components/OfficeCard'
+import firebase from 'firebase/app'
 
 export default {
     name: "office-info",
@@ -150,6 +190,13 @@ export default {
     },
     data(){
         return{
+            showEditImage: false,
+            processing: false,
+            myFile: null,
+            fileUrl: null,
+            
+            // loader: null,
+            // loading: false,
             office: {
                 officeId: "",
                 name:"",
@@ -162,7 +209,7 @@ export default {
                 phoneNumber: "",
                 openTime: "",
                 closeTime: "",
-                officeRate: ""
+                officeRate: "",
             }, 
             showForm: false,
             showDoctorForm: false,
@@ -193,6 +240,16 @@ export default {
             }
         }
     },
+    // watch: {
+    // loader () {
+    //     const l = this.loader
+    //     this[l] = !this[l]
+
+    //     setTimeout(() => (this[l] = false), 3000)
+
+    //     this.loader = null
+    //   }
+    // },
     
     computed: {
         doctor() {
@@ -228,17 +285,19 @@ export default {
             this.office.address.postalCode= doctor.office.address.postalCode;           
         },
         commitOfficeUpdate(){
+            this.office.phoneNumber = this.doctor.office.phoneNumber;
             this.office.openTime = this.doctor.office.openTime;
             this.office.closeTime = this.doctor.office.closeTime;
             this.office.officeRate = this.doctor.office.officeRate;
             officeService.updateOfficeInfo(this.office).then(response => {
                 if(response.status == 200) {
+                    alert("Form has been succesfully updated")
                     this.autoPopulateOfficeInfo();
                 }
                 this.showForm = false;
-            });
-
-
+            }).catch(e => {
+                console.log(e)
+            })
         },
         autoPopulateOfficeInfo(){
             doctorService.getDoctors()
@@ -254,7 +313,6 @@ export default {
             });
         },
         removeDoctorFromOffice() {
-            // const currentDoctor = this.doctor;
             doctorService.updateOfficeForDoctor(this.newDoctor)
                 .then(response => {
                     if(response.status == 200) {
@@ -282,10 +340,91 @@ export default {
             let secondNum = phone.slice(3, 6);
             let thirdNum = phone.slice(6);
             return "(" + firstNum + ")" + " " + secondNum + "-" + thirdNum;
+        },
+        // uploadOffice(payload) {
+        //     const office = {
+        //         officeId: payload.officeId,
+        //         image: payload.image
+        //     }
+       
+        // firebase.database().ref('offices').push(office)
+        //     .then((data) => {
+        //         const key = data.key;
+                // commit('uploadOffice'), {
+                //     ...office,
+                //     id: key
+                // }
+                // return key;
+
+        //     })
+        //     .then(key=> {
+
+        //     }).catch(e => {
+        //         console.log(e)
+        //     })
+        //  },
+    
+        
+        async fileInput(file) {
+        try {
+          if (file && file.name) {
+            this.processing = true;
+
+            const fr = new FileReader();
+            fr.readAsDataURL(file);
+            fr.addEventListener("load", () => {
+            //   this is to load image on the UI
+            //   .. not related to file upload
+              this.fileUrl = fr.result;
+            });
+   
+            const imgData = new FormData();
+            imgData.append("image", this.myFile);
+            const filePath = `offices/${this.doctor.doctorId}-${Date.now()}-${file.name}`;
+            const metadata = { contentType: this.myFile.type };
+
+            const uploadTask = firebase.storage().ref()
+              .child(filePath)
+              .put(this.myFile, metadata);
+
+            await uploadTask;
+            
+            uploadTask.snapshot.ref.getDownloadURL().then(url => {
+                this.fileUrl = url;
+            })
+            const office = {
+                officeId: this.office.officeId,
+                link: this.fileUrl
+            }
+            firebase.firestore().collection("offices").add(office).then(() => {
+                alert("Image added succesfully")
+            })
+            firebase.firestore().collection("offices").where("officeId", "==", this.officeId)
+            .get()
+            .then((querySnapShot) => {
+                querySnapShot.forEach((doc) => {
+                    console.log(doc.id, " => ", doc.data());
+                })
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+              this.showEditImage = false;
+         
+             // this.$store.commit("ADD_FILE", this.fileUrl)
+        
+          //  console.log("filePath: ", filePath);
+          }
+        } catch (e) {
+          console.error(e);
+        } finally {
+          this.processing = false;
         }
+     },
     },
      created() {
         this.autoPopulateOfficeInfo();
+        
     } 
 }
 
@@ -305,23 +444,40 @@ export default {
 .field {
     padding: 8px 0 8px 
 }
-/* .office-info {
-    background-color: whitesmoke;
-    border: 1px solid red;
-    margin: 0 auto;
-    width: 50%;
-    text-align: center;
-}
-#appointments{
-    background-color:aquamarine;
-}
-#docs{
-    background-color:blueviolet;
-    width: 100%;
-}
-form input{
-    border: 1pt solid gray;
-    border-radius: 2pt;
-    box-shadow: 2px 2px #aaaaaaaa;
-} */
+.custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 </style>

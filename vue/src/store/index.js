@@ -37,7 +37,8 @@ export default new Vuex.Store({
           timeEnd: "", 
           appointmentType: "Appointment"
   },
-    selectedDate: {}
+    selectedDate: {},
+    myFile: null
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
