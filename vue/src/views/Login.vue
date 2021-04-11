@@ -4,7 +4,7 @@
       <v-flex md5 class="primary" id="background">
       </v-flex>
       <v-flex md7 align-self-center>
-        <v-card elevation="0" class="d-flex justify-center" mx-auto>
+        <v-card elevation="0" class="d-flex justify-center mb-10" mx-auto>
           <v-img src="../assets/carehub.png" max-height="170" max-width="134">
           </v-img>
         </v-card>

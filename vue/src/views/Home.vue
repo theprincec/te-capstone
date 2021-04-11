@@ -5,7 +5,7 @@
   <v-container grid-list-md fluid color="primary" v-if="($store.state.currentUserRole == 'ROLE_USER')">
 
   <v-app-bar class="px-5" app color="primary" flat>
-    <v-tabs
+    <v-tabs 
       class="ml-n9"
       color="grey darken-1"
     >

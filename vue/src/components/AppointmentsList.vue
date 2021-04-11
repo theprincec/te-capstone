@@ -1,12 +1,12 @@
 <template>
 
-  <v-card class="pa-5">
+  <v-card class="pa-5" flat color="transparent">
 
-      <v-card-title>
-                <span class="headline">Upcoming Appointments</span>
-                <v-spacer></v-spacer>
-                 <availability-form />
-            </v-card-title>
+        <v-card-title>
+            <span class="headline">Upcoming Appointments</span>
+            <v-spacer></v-spacer>
+            <availability-form />
+        </v-card-title>
            
       <div class="field">
             <label for="date">Select Date: </label>

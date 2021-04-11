@@ -4,19 +4,19 @@
         <v-col cols="12" md="12">
             <v-card id="docs"
                 rounded="lg"
-                max-height="120">
+                min-height="100"
+                flat>
                 <v-row>
                     <v-col col="12" md="2">
-                        <v-card class="ml-4">
-                            <v-img
-                                height="90"
-                                
+                        <v-card class="ml-10" max-height="110">
+                            <v-img class="hidden-md-and-down"
+                                height="100"
                                 src="../assets/placeholder.jpg"
                             ></v-img>
                         </v-card>
                     </v-col>
-                     <v-col col="12" md="4" class="d-flex align-content-end">
-                        <v-card-title class="text-h4 pb-0 pt-10 px-2 ">Dr {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
+                     <v-col col="12" md="4">
+                        <v-card-title class="text-h4 pt-10  ">Dr {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
   
                      </v-col>
                 </v-row>
@@ -235,7 +235,7 @@ export default {
         },
         commitOfficeUpdate(){
             officeService.updateOfficeInfo(this.office).then(response => {
-                
+
                 if(response.status == 200) {
                     this.autoPopulateOfficeInfo();
                 }

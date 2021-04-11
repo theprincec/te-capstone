@@ -5,13 +5,13 @@
       <v-flex md5 class="primary" id="background">
       </v-flex>
       <v-flex md7 align-self-center>
-        <v-card elevation="0" class="d-flex justify-center" mx-auto>
+        <v-card elevation="0" class="d-flex justify-center mx-auto mb-10">
           <v-img src="../assets/carehub.png" max-height="150" max-width="134">
           </v-img>
         </v-card>
-        <v-card width="400" class="mx-auto mt-5">
-          <v-card-title id="title-container">
-          <h1 class="display-1">Create Account</h1>
+        <v-card width="500" class="mx-auto mt-5">
+          <v-card-title class=" display-1" id="title-container">
+          Create Account
         </v-card-title>
         <v-card-text>
 
@@ -182,7 +182,7 @@ export default {
 }
 #title-container{
   width: 100%;
-  padding-left: 80px;
+  /* padding-left: 80px; */
 }
 #log-in-text{
   width: 100%;

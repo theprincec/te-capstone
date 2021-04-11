@@ -4,8 +4,26 @@
         <v-col cols="12" md="12">
             <v-card id="docs"
                 rounded="lg"
-                min-height="100">
-                <h1>Dr Info</h1>
+                min-height="100"
+                flat>
+
+                <v-row>
+                    <v-col col="12" md="2">
+                        <v-card class="ml-10" max-height="110">
+                            <v-img class="hidden-md-and-down"
+                                height="100"
+                          
+                                
+                                src="../assets/placeholder.jpg"
+                            ></v-img>
+                        </v-card>
+                    </v-col>
+                     <v-col col="12" md="4" >
+                         <v-card-title class="headline pb-0">Welcome to Homepage</v-card-title>
+                        <v-card-title class="text-h4 pt-1  ">Dr {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
+  
+                     </v-col>
+                </v-row>
             </v-card>
         </v-col>
     </v-row>
@@ -47,6 +65,14 @@
                         ></v-img>
                     </v-card>
 
+                     <template v-slot:append-outer>
+                        <v-progress-circular
+                        v-if="processing"
+                        color="grey"
+                        indeterminate
+                        small
+                        />
+                    </template>
                             <!-- FILE INPUT -->
                     <v-file-input
                         v-model="myFile"
@@ -61,15 +87,9 @@
                         v-if="showEditImage"
                         prepend-icon="mdi-camera"
     
-                    > <template v-slot:append-outer>
-                        <v-progress-circular
-                        v-if="processing"
-                        color="grey"
-                        indeterminate
-                        small
-                        />
-                    </template>
+                    >
                     </v-file-input>
+                   
                       <div class="text-center">
                         <v-btn
                             color="blue-grey"
@@ -106,7 +126,9 @@
                       
                         <v-spacer></v-spacer>
                         <a style="text-decoration: none" class="blue--text" @click="showDoctorForm = true"
-                        > Update Doctors</a>
+                        v-if="!showDoctorForm"> Update Doctors</a>
+                        <a style="text-decoration: none" class="blue--text" @click="showDoctorForm = false"
+                         v-if="showDoctorForm"> Cancel </a>
                         <v-spacer></v-spacer>
                         <p class="mb-0 grey-text display-1"> ${{doctor.office.officeRate}}</p>
                 </v-card-actions>
@@ -143,8 +165,11 @@
                     
                  <v-divider></v-divider>
                 <v-card-actions>
-                    <v-btn block type="submit" success="accent"
+                    <v-btn class="mx-7" type="submit" success="accent"
                     >SUBMIT FORM</v-btn>
+                        <v-spacer></v-spacer>
+                     <v-btn class="mx-7" @click="showForm=false" success="accent"
+                    >Cancel</v-btn>
                 </v-card-actions>
 
                 </v-form>
@@ -397,19 +422,19 @@ export default {
                 link: this.fileUrl
             }
             firebase.firestore().collection("offices").add(office).then(() => {
-                alert("Image added succesfully")
+                this.showEditImage = false;
             })
-            firebase.firestore().collection("offices").where("officeId", "==", this.officeId)
-            .get()
-            .then((querySnapShot) => {
-                querySnapShot.forEach((doc) => {
-                    console.log(doc.id, " => ", doc.data());
-                })
-            })
-            .catch((error) => {
-                console.log("Error getting documents: ", error);
-            });
-              this.showEditImage = false;
+            // firebase.firestore().collection("offices").where("officeId", "==", this.officeId)
+            // .get()
+            // .then((querySnapShot) => {
+            //     querySnapShot.forEach((doc) => {
+            //         console.log(doc.id, " => ", doc.data());
+            //     })
+            // })
+            // .catch((error) => {
+            //     console.log("Error getting documents: ", error);
+            // });
+              
          
              // this.$store.commit("ADD_FILE", this.fileUrl)
         
