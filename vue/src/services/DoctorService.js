@@ -10,16 +10,16 @@ export default {
 
     updateOfficeForDoctor(doctor) {
         return axios.put('/doctors', doctor);
-    }
+    },
 
-    // getDoctor() {
-    //     return http.get('/doctor');
-    // }
+    getDoctor() {
+        return axios.get('/doctor');
+    },
 
-    // getOfficeInfo(doctorId) {
+    getOfficeInfo(doctorId) {
         
-    //     return http.get(`/doctors/${doctorId}/offices`)
-    // }
+        return axios.get(`/doctors/${doctorId}/offices`)
+    }
 
 //   login(user) {
 //     return axios.post('/login', user)

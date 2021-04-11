@@ -6,7 +6,7 @@
       class="ml-n9"
       color="grey darken-1"
     >
-    <!-- <router-link :to="{ name: 'home' }" style="text-decoration: none" >
+    <router-link :to="{ name: 'home' }" style="text-decoration: none" >
       <v-tab class="pa-6 mx-auto" style="color:white">Home</v-tab>
     </router-link>
     <v-divider vertical></v-divider>
@@ -15,11 +15,11 @@
       v-if="$store.state.token != ''"
       style="text-decoration: none">
       <v-tab class="pa-6 mx-auto" style="color:white">Logout</v-tab>
-    </router-link> -->
+    </router-link>
     <v-divider vertical></v-divider>
 
     </v-tabs>
-     <strong class="pa-3">Username</strong> 
+     <strong class="pa-3">Welcome, {{$store.state.currentPatient.firstName}} {{$store.state.currentPatient.lastName}}!</strong> 
      <v-avatar
         class="hidden-sm-and-down"
         color="grey darken-1 shrink"

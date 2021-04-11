@@ -19,7 +19,7 @@
     <v-divider vertical></v-divider>
 
     </v-tabs>
-     <strong class="pa-3">Welcome, {{$store.state.user.username}}!</strong> 
+     <strong class="pa-3">Welcome, {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}!</strong> 
      <v-avatar
         class="hidden-sm-and-down"
         color="grey darken-1 shrink"
@@ -33,7 +33,23 @@
     <!-- appointtent availablity -->
    
       
-      <office-info />
+      <office-info v-if="$store.state.currentDoctor.office != null"/>
+     
+        
+
+      <v-container v-else>
+        <v-row>
+          <v-col cols="12" md="12">
+              <v-card id="docs"
+                  rounded="lg"
+                  min-height="100">
+                  <p>You have not yet been assigned to an office. </p>
+                  <p>Administration has been notified that you have registered an account.</p>
+              </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+
      
     
 </v-container>

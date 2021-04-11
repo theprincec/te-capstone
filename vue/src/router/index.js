@@ -44,7 +44,9 @@ const router = new Router({
       name: 'patient',
       component: PatientView,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresPatient: true
+    
       }
     },
     {
@@ -52,7 +54,7 @@ const router = new Router({
       name: "login",
       component: Login,
       meta: {
-        requiresAuth: false
+        requiresAuth: false, 
       }
     },
     {
@@ -78,13 +80,28 @@ router.beforeEach((to, from, next) => {
   // Determine if the route requires Authentication
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
 
+  const requiresPatient = to.matched.some(x => x.meta.requiresPatient);
+
+  const requiresDoctor = to.matched.some(x => x.meta.requiresDoctor);
+
+  const requiresAdmin = to.matched.some(x => x.meta.requiresAdmin);
+
+
   // If it does and they are not logged in, send the user to "/login"
-  if (requiresAuth && store.state.token === '') {
+  if (requiresPatient && store.state.user.authorities[0].name != "ROLE_USER") {
+    next("/login");
+  }else if (requiresDoctor && store.state.user.authorities[0].name != "ROLE_DOCTOR") {
+    next("/login");
+  } else if (requiresAdmin && store.state.user.authorities[0].name != "ROLE_ADMIN") {
+    next("/login"); 
+  } else if (requiresAuth && store.state.token === '') {
     next("/login");
   } else {
     // Else let them go to their next destination
     next();
   }
+
+  
 });
 
 export default router;
