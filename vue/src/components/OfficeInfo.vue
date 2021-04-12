@@ -10,17 +10,16 @@
                 <v-row>
                     <v-col col="12" md="2">
                         <v-card class="ml-10" max-height="110">
-                            <v-img class="hidden-md-and-down"
-                                height="100"
-                          
-                                
+                            <!-- <v-img class="hidden-md-and-down"
+                                height="100"  
                                 src="../assets/placeholder.jpg"
-                            ></v-img>
+                            ></v-img> -->
+                            <doctor-image></doctor-image>
                         </v-card>
                     </v-col>
                      <v-col col="12" md="4" >
                          <v-card-title class="headline pb-0">Welcome to Homepage</v-card-title>
-                        <v-card-title class="text-h4 pt-1  ">Dr {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
+                        <v-card-title class="text-h4 pt-1  ">Dr. {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
   
                      </v-col>
                 </v-row>
@@ -207,7 +206,7 @@ import officeService from '@/services/OfficeService'
 //import AvailabilityForm from '@/components/AvailabilityForm'
 //import SearchAppointment from '@/components/SearchAppointment'
 import AppointmentsList from '@/components/AppointmentsList'
-//import OfficeCard from '@/components/OfficeCard'
+import DoctorImage from '@/components/DoctorImage'
 import firebase from 'firebase/app'
 
 export default {
@@ -215,7 +214,8 @@ export default {
     components: {
         //AvailabilityForm,
         //SearchAppointment,
-        AppointmentsList
+        AppointmentsList, 
+        DoctorImage
     },
     data(){
         return{

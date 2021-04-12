@@ -31,14 +31,12 @@
       </v-avatar>
       </v-tab >
     </v-tabs >
-    </v-app-bar>
-    <!-- appointtent availablity -->
-   
+    </v-app-bar>   
       
      
         
 
-      <v-container >
+      <!-- <v-container >
         <v-row>
           <v-col cols="12" md="12">
               <v-card id="docs"
@@ -48,17 +46,22 @@
               </v-card>
           </v-col>
         </v-row>
-      </v-container>
+      </v-container> -->
 
-     
+     <office-assignment></office-assignment>
     
 </v-container>
 </template>
 
 <script>
 
+import officeAssignment from "@/components/OfficeAssignment"
+
 export default {
   name: "admin_home",
+  components: {
+    officeAssignment
+  }
  
 };
 </script>
