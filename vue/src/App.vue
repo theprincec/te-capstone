@@ -1,3 +1,4 @@
+
 <template>
   <v-app id="everything">
     <v-app-bar class="px-5" app color="primary" flat>
@@ -16,17 +17,21 @@
     <v-main>
       
       <router-view />
+       
   
     </v-main>
   </v-app>
+  
 </template>
 
 <script>
+
 
 export default {
   name: 'App',
 
   components: {
+   
   }
 
 };
