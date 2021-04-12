@@ -7,13 +7,13 @@
         <v-col cols="12" md="12">
             <h1 id="doctor-title">View list of Doctors</h1>
         </v-col>
-        <v-col cols="12" md="3">
+        <!-- <v-col cols="12" md="3">
             <v-card
                 rounded="lg"
                 min-height="368">
                 <v-card-title>
                     Narrow doctors search:
-                </v-card-title>
+                </v-card-title> 
                 <v-card-text>
                     <v-text-field
                         class="my-5"
@@ -41,20 +41,24 @@
                     ></v-text-field>
                 </v-card-text>
             </v-card>
-        </v-col>
+        </v-col> -->
         <!-- vertical column for doctor's list -->
-        <v-col cols="12" md="6">             
+        <v-col cols="12" md="7">             
              <doctor-card class="mb-5" v-for="doctor in $store.state.doctors" 
              :key="doctor.doctorId" :doctor="doctor" />
         </v-col>
-        <v-col cols="12" md="3">
+
+ <!-- UPDATE WITH MAP COMPONENT -->
+        <v-col cols="12" md="5">
             <v-card
             
                 rounded="lg"
-                min-height="368">
+
+                min-height="620">
                 <book-appointment/>
                 <Mapper/>
                 
+
             </v-card>
         </v-col>
     </v-row>
@@ -68,12 +72,14 @@ import Mapper from '@/components/Mapper'
 
 
 
+
 export default {
     name: "doctors-list",
     components: {
-        BookAppointment,
+        // BookAppointment,
         DoctorCard,
         Mapper
+
        
     },
     methods: {

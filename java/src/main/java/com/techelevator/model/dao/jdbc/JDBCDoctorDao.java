@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.techelevator.model.Address;
 import com.techelevator.model.Doctor;
 import com.techelevator.model.Office;
+import com.techelevator.model.Patient;
 import com.techelevator.model.dao.DoctorDAO;
 
 
@@ -84,6 +85,13 @@ public class JDBCDoctorDao implements DoctorDAO{
 	public void updateOfficeForDoctor(Doctor doctor) {
 		jdbcTemplate.update("UPDATE doctors SET office_id = null WHERE doctor_id = ?", doctor.getDoctorId());
 		
+	}
+	
+	@Override
+	public void addDoctor(Doctor doctor, int userId) {
+		String sql = "INSERT INTO doctors (doctor_id, user_id, first_name, last_name) " +
+				"VALUES (DEFAULT, ?, ?, ?)";
+		jdbcTemplate.update(sql, userId, doctor.getFirstName(), doctor.getLastName());
 	}
 	
 	private Doctor mapDoctorToRow (SqlRowSet row) {

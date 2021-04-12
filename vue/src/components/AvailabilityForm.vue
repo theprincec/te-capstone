@@ -1,12 +1,21 @@
 <template>
-  <v-row justify="center">
+  <v-row justify="end">
             <v-dialog
                 v-model="dialog"
                 persistent
                 max-width="600px"
             >
                 <template v-slot:activator="{ on, attrs }">
-                    <v-btn
+                
+                <v-btn fab small color="primary" class="hidden-lg-and-up hidden-sm-only mx-5"
+                    v-bind="attrs"
+                        v-on="on"
+                >
+                        <v-icon  dark>
+                            mdi-plus
+                        </v-icon>
+                 </v-btn>
+                     <v-btn class="hidden-md-only hidden-xs-only"
                         color="primary"
                         dark
                         v-bind="attrs"
@@ -14,7 +23,6 @@
                     >
                     Add appointment
                 </v-btn>
-                
             </template>
     <v-card id="appointments"
             min-height="368" class="mt-5"
@@ -31,22 +39,28 @@
                 :items="items"
                 label="Appointment Type"
             ></v-select>
-
-            <v-text-field
-                v-model="appointment.patient.patientId"
-                label="Patient ID"
-                v-if="isAppointmentReqiured()"
-                required
-            ></v-text-field>
-
+            <v-card-text>
+                 <v-autocomplete
+                    v-model="appointment.patient.patientId"
+                    :items="$store.state.appointments"
+                    :filter="customFilter"
+                    item-text="patient.lastName"
+                    item-value="patient.patientId"
+                    label="Patient Name"
+                    v-if="isAppointmentReqiured()"
+                    required
+                    clearable
+                ></v-autocomplete>
+            </v-card-text>
+           
              <div class="field">
                 <label for="date">Date: </label>
-                <input id="date" name="date" type="date" required v-model="appointment.date"/>
+                <input id="date" name="date" type="date" :min="todayDate" required v-model="appointment.date"/>
             </div>
 
             <div class="field">
                 <label for="startTime" style="color:rgb(118, 118, 118)">Start Time: </label>
-                <input id="startTime" name="startTime" type="time" required v-model="appointment.timeStart"/>
+                <input id="startTime" name="startTime" type="time" :step="60" required v-model="appointment.timeStart"/>
             </div>
 
             <div class="field">
@@ -104,28 +118,36 @@ export default {
         addAnAppointment() {
             appointmentService.addAppointment(this.appointment).then(response => {
                 if(response.status == 201) {
+                    alert("Appointment successfully saved");
                     //UPDATE APPOINTMENTS LIST IN OUR STORE
                     //ADD POST FOR PAITIENT BY ID
                     //this.$store.commit("ADD_APPOINTMENT", this.appointment);
-                    //this.getUpdatedAppointments();
-                    this.getPatientById();
+                    this.getUpdatedAppointments();
+                    this.getPatientById()
+                        .then(response => {
+                            if(response.status == 200) {
+                                this.$store.commit("ADD_APPOINTMENT", this.appointment);
+                                this.getUpdatedAppointments();
+                            }
 
-                    alert("Appointment successfully saved");
+                    });
+                // this.getUpdatedAppointments();
+                    
+
+//                     this.getPatientById();
                 }
             })
             .catch(error => {
                 console.log(error);
             })
         }, 
-        getUpdatedAppointments() {
-            appointmentService.getAppointments().then(response => {
-                if(response.status == 200) {
-                    this.$store.commit("SET_APPOINTMENTS", response.data);
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        customFilter (item, queryText) {
+            const textOne = item.patient.firstName.toLowerCase()
+            const textTwo = item.patient.lastName.toLowerCase()
+            const searchText = queryText.toLowerCase()
+
+            return textOne.indexOf(searchText) > -1 ||
+            textTwo.indexOf(searchText) > -1
         },
         getPatientById() {
             patientService.getPatient(this.appointment.patient.patientId)
@@ -135,7 +157,7 @@ export default {
                     this.appointment.patient.lastName = newPatient.lastName;
                     //this.getUpdatedAppointments();
 
-                    this.$store.commit("ADD_APPOINTMENT", this.appointment);
+                    //this.$store.commit("ADD_APPOINTMENT", this.appointment);
                     this.clearForm();
 
                 })
@@ -159,9 +181,34 @@ export default {
         toggleDialog() {
             (this.appointment.date == "" || this.appointment.timeStart == "" || this.appointment.timeEnd == "") 
                     ? this.dialog = true : this.dialog = false;
+        }, 
+        getUpdatedAppointments() {
+            appointmentService.getAppointments().then(response => {
+                if(response.status == 200) {
+                    this.$store.commit("SET_APPOINTMENTS", response.data);
+                }
+            })
         }
+
     },
+
+    created() {
+        appointmentService.getAppointments().then(response => {
+            if(response.status == 200) {
+                this.$store.commit("SET_APPOINTMENTS", response.data);
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    },
+    computed: {
+        todayDate() {
+            return new Date().toISOString().split('T')[0];
+        }  
+    }
 }
+
 </script>
 
 <style>

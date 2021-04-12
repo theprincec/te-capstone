@@ -3,8 +3,8 @@
     <div class="time-slot"> 
         <!-- <h1 v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`">{{time}}</h1> -->
         <form id = "appointment-time-slot" v-on:submit.prevent="addAnAppointment()">
-            <div>
-                <label for="slotDate">Date:</label>
+            <div class="field" >
+                <label for="slotDate">Select Date:</label>
                 <input required id="slotDate" name="slotDate" type="date" v-model="currentDate" @change="setDate()"/>
             </div>
 
@@ -26,13 +26,21 @@
             <!-- <div v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`">{{time}}   
 
             </div> -->
-            <div  v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`" >
-            <v-card color="#FFF8DC" class="ma-5" elevation="10" outlined style="border-radius: 20px">
+            <div   v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`" >
+            <v-card  id="timeslotcard"  class="ma-5" elevation="10" outlined >
 
-                <v-card-actions class="px-5 pb-0 mb-0">
-                    <p class=" pt-2 mb-0 font-weight-medium"> <v-icon class="pr-2" meduim>mdi-account-clock</v-icon>
-                    {{time}}</p>
-                      <v-spacer></v-spacer>
+                <v-card-actions class="px-5 py-5 mb-0">
+                    <div id="icon">
+                        <v-icon class="pr-2" meduim>mdi-account-clock</v-icon>
+                    </div>
+                    <div id="time-container"> 
+                    <p class=" pt-2 mb-0 font-weight-medium"> 
+                        
+                    {{convertTime(time)}}</p>
+                    </div>
+                     <div id="button-container">
+                  <book-appointment v-bind:time="time"/>
+                </div>
                     <!-- <p class="pt-3 mb-0">{{time}}</p> -->
                 </v-card-actions>
                
@@ -41,9 +49,10 @@
                     <p>Patient ID: {{appointment.patient.patientId}}</p>
                     <v-spacer></v-spacer>
                     <p>Name: <span class="font-weight-medium">{{appointment.patient.firstName}} {{appointment.patient.lastName}}</span></p>
-
+                
                 </v-card-actions> -->
-                  <book-appointment v-bind:time="time"/>
+
+               
             </v-card>
           
         </div>  
@@ -95,6 +104,18 @@ export default {
                 .catch( error =>{
                     console.error(error);
                 })
+        },
+         convertTime(time) { // 18:00:00
+            let convertedTime = time.slice(0, 5); // 18:00
+            let result;
+            if (convertedTime.length > 1) { // If time format correct
+                convertedTime = convertedTime.split (":");  // Remove full string match value - 18 00
+                let timeUnder = (convertedTime[0] - 12 >= 0 || convertedTime[0] == 12) ? 'PM' : 'AM'; // Set AM/PM
+                let hours = convertedTime[0] > 12 ? convertedTime[0] - 12 : convertedTime[0]; // Adjust hours
+                let minutes = convertedTime[1];
+                result = hours + ":" + minutes + " "+ timeUnder;
+            }
+            return result;
         }
     },
     created() {
@@ -126,5 +147,39 @@ export default {
 /* div {
     border: 1px solid red;
 } */
+#timeslotcard {
+   
+    min-height: 60px;
+    background-color: #fff8dc;
+    border-radius: 20px
+}
+#timeslotcard:hover {
+    background-color: #f48e115d;
+}
 
+.field {
+    margin: 0 20px 0 20px
+}
+#slotDate {
+    padding: 8px 0 8px 8px;
+    line-height: 20px;
+    border-bottom: 1px solid rgb(118, 118, 118);
+    width: 100%;
+    border-color: (rgb(118, 118, 118), rgb(133, 133, 133));
+    color: rgb(133, 133, 133);
+    max-height: 32px;
+}
+#icon {
+    display: inline-block;
+    width: 30px
+}
+#time-container {
+    display: inline-block;
+    width: 50%
+}
+/* #button-container  {
+    display: inline-block;
+    width: 100px;
+  
+} */
 </style>

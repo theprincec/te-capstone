@@ -1,17 +1,17 @@
 <template>
 
 
-<v-container grid-list-md fluid color="primary">
+<div>
+  <doctor-home v-if="$store.state.currentUserRole == 'ROLE_DOCTOR'"></doctor-home>
 
-<!-- <gmap-map
-  :center={lat:10,lng:10}
-  :zoom="7"
-  style="width: 100%; height: 320px;"
-  ></gmap-map> -->
+  <v-container grid-list-md fluid color="primary" v-if="($store.state.currentUserRole == 'ROLE_USER')">
+
+
+
   
 
   <v-app-bar class="px-5" app color="primary" flat>
-    <v-tabs
+    <v-tabs 
       class="ml-n9"
       color="grey darken-1"
     >
@@ -30,7 +30,7 @@
     <v-divider vertical></v-divider>
 
     </v-tabs>
-     <strong class="pa-3">Username</strong> 
+     <strong class="pa-3">Welcome, {{$store.state.currentPatient.firstName}} {{$store.state.currentPatient.lastName}}!</strong> 
      <v-avatar
         class="hidden-sm-and-down"
         color="grey darken-1 shrink"
@@ -46,29 +46,23 @@
 
        
       <doctors-list />
-      <!-- <time-slot-card/> -->
-    <!--<office-info />-->
-    <!-- <mapper /> -->
-    
+
 </v-container>
+</div>
 </template>
 
 <script>
 import DoctorsList from '@/components/DoctorsList'
-// import TimeSlotCard from '@/components/TimeSlotCard.vue'
-//import OfficeInfo from '@/components/OfficeInfo'
-// import Mapper from '@/components/Mapper'
-
-
+import DoctorHome from '@/views/DoctorHome'
 
 export default {
   name: "home",
   components: {
     DoctorsList,
-    // Mapper
-  
-  },
-  
+    DoctorHome
+  }
 };
 
+
 </script>
+

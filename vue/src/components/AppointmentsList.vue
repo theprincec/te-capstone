@@ -1,18 +1,18 @@
 <template>
 
-  <v-card class="pa-5">
+  <v-card class="pa-5" flat color="transparent">
 
-      <v-card-title>
-                <span class="headline">Upcoming Appointments</span>
-                <v-spacer></v-spacer>
-                 <availability-form />
-            </v-card-title>
+        <v-card-title>
+            <span class="headline">Upcoming Appointments</span>
+            <v-spacer></v-spacer>
+            <availability-form />
+        </v-card-title>
            
       <div class="field">
             <label for="date">Select Date: </label>
             <input id="date" name="date" type="date"  v-model="todayDate" @change="toggleShowAppointment()"/>
         </div>
-           <time-slot-card/>
+           <!-- <time-slot-card/> -->
 
        
          <!-- availability Form -->
@@ -42,7 +42,17 @@
         </div>  
       </div>
        <div v-if="!showAppointments">
-           <h4>No appointments for today</h4>
+           <v-alert
+      text
+      dense
+      color="teal"
+      icon="mdi-clock-fast"
+      border="left"
+      class="ma-4"
+    >
+      No appointments for today.
+    </v-alert>
+    <!-- <h4 class="pa-5">No appointments for today</h4> -->
        </div>
   </v-card>
 </template>
@@ -50,13 +60,13 @@
 <script>
 import appointmentService from '@/services/AppointmentService'
 import AvailabilityForm from '@/components/AvailabilityForm'
-import TimeSlotCard from '@/components/TimeSlotCard'
+//import TimeSlotCard from '@/components/TimeSlotCard'
 
 export default {
     name: "appointments-list",
     components: {
-        AvailabilityForm,
-        TimeSlotCard
+        AvailabilityForm
+        //TimeSlotCard
     },
     data() {
         return {

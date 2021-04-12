@@ -14,4 +14,7 @@ public interface DoctorDAO {
 	
 	void updateOfficeForDoctor(Doctor doctor);
 	
+	void addDoctor(Doctor doctor, int userId);
+
+	
 }

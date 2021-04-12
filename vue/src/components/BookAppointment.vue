@@ -1,12 +1,12 @@
 <template>
-  <v-row justify="center">
+  <v-row  justify="end" >
             <v-dialog
                 v-model="dialog"
                 persistent
                 max-width="600px"
             >
                 <template v-slot:activator="{ on, attrs }">
-                    <v-btn
+                    <v-btn class="mx-5 px-2" rounded small
                         color="primary"
                         dark
                         v-bind="attrs"

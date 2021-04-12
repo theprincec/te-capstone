@@ -28,6 +28,8 @@ public class JDBCPatientDao implements PatientDAO{
 		return patient;
 	}
 	
+	
+	
 	@Override
 	public Patient getPatientByUsername(String username) {
 		String sql = "SELECT patient_id, first_name, last_name FROM patients " + 
@@ -39,6 +41,14 @@ public class JDBCPatientDao implements PatientDAO{
 			patient = mapRowsToPatient(rows);
 		}
 		return patient;
+	}
+	
+	
+	@Override
+	public void addPatient(Patient patient, int userId) {
+		String sql = "INSERT INTO patients (patient_id, user_id, first_name, last_name) " +
+				"VALUES (DEFAULT, ?, ?, ?)";
+		jdbcTemplate.update(sql, userId, patient.getFirstName(), patient.getLastName());
 	}
 
 	

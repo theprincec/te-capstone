@@ -4,7 +4,7 @@
       <v-flex md5 class="primary" id="background">
       </v-flex>
       <v-flex md7 align-self-center>
-        <v-card elevation="0" class="d-flex justify-center" mx-auto>
+        <v-card elevation="0" class="d-flex justify-center mb-10" mx-auto>
           <v-img src="../assets/carehub.png" max-height="170" max-width="134">
           </v-img>
         </v-card>
@@ -76,6 +76,8 @@
 
 <script>
 import authService from "../services/AuthService";
+import doctorService from "../services/DoctorService";
+import patientService from "../services/PatientService";
 
 export default {
   name: "login",
@@ -91,6 +93,9 @@ export default {
       invalidCredentials: false
     };
   },
+  created() {
+    this.$store.commit("LOGOUT");
+  },
   methods: {
     login() {
       authService
@@ -99,7 +104,10 @@ export default {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
-            this.$router.push("/");
+            this.$store.commit("SET_USER_ROLE", this.$store.state.user.authorities[0].name)
+            this.setCurrentUserInfo(this.$store.state.user.authorities[0].name);
+            
+              this.$router.push("/");
           }
         })
         .catch(error => {
@@ -112,7 +120,25 @@ export default {
     },
     validate () {
         this.$refs.form.validate()
-      },
+    },
+    setCurrentUserInfo(role) {
+        if(role == "ROLE_USER") {
+          patientService.getCurrentPatient()
+              .then(response => {
+                  this.$store.commit("SET_CURRENT_PATIENT", response.data);
+              }).catch( error => {
+                  console.error( error );
+              });
+
+        } else if(role == "ROLE_DOCTOR") {
+            doctorService.getDoctor()
+              .then(response => {
+                  this.$store.commit("SET_CURRENT_DOCTOR", response.data);
+              }).catch( error => {
+                  console.error( error );
+              });
+        }
+    }
   }
 };
 </script>

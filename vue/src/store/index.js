@@ -20,10 +20,13 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
+    //currentUserRole will = ROLE_USER (patient) or ROLE_DOCTOR or ROLE_ADMIN
+    currentUserRole: '',
     doctors: [],
     office: {},
     timeSlots:[],
     currentDoctor: {},
+    currentPatient: {},
     appointments: [],
     currentAppointment: {
           doctorId: "",    
@@ -37,7 +40,8 @@ export default new Vuex.Store({
           timeEnd: "", 
           appointmentType: "Appointment"
   },
-    selectedDate: {}
+    selectedDate: {},
+    myFile: null
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -48,6 +52,9 @@ export default new Vuex.Store({
     SET_USER(state, user) {
       state.user = user;
       localStorage.setItem('user',JSON.stringify(user));
+    },
+    SET_USER_ROLE(state, role) {
+      state.currentUserRole = role;
     },
     LOGOUT(state) {
       localStorage.removeItem('token');
@@ -75,6 +82,9 @@ export default new Vuex.Store({
     SET_CURRENT_DOCTOR(state, currentDoctor) {
       state.currentDoctor = currentDoctor;
     },
+    SET_CURRENT_PATIENT(state, currentPatient) {
+      state.currentPatient = currentPatient;
+    },
     SET_CURRENT_APPOINTMENT(state, time) {
       state.currentAppointment.timeStart = time;
     },
@@ -83,14 +93,6 @@ export default new Vuex.Store({
     },
     ADD_APPOINTMENT(state, appointment) {
       state.appointments.push(appointment);
-      const apptTime = appointment.timeStart;
-      for(let i = 0; i < state.appointments.length; i++) {
-        if(state.appointments[i].timeStart > apptTime) {
-          //insert appointment @ i
-          state.appointment.insert(i, appointment);
-        }
-      }
-
     }
   }
 })

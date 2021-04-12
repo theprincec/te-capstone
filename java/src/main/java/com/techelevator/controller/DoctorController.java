@@ -28,11 +28,13 @@ public class DoctorController {
 		return doctorDao.getDoctors();
 	}
 	
+	
 	@RequestMapping(path="/doctor", method=RequestMethod.GET)
 	public Doctor getDoctor(Principal principal) {
 		return doctorDao.getDoctor(principal.getName());
 	}
 	
+    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR')")
 	@RequestMapping(path="/doctors", method=RequestMethod.PUT)
 	public void updateDoctor(@RequestBody Doctor doctor) {
 		doctorDao.updateOfficeForDoctor(doctor);

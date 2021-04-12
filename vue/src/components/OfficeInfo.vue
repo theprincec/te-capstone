@@ -4,18 +4,36 @@
         <v-col cols="12" md="12">
             <v-card id="docs"
                 rounded="lg"
-                min-height="100">
-                <h1>Dr Info</h1>
+                min-height="100"
+                flat>
+
+                <v-row>
+                    <v-col col="12" md="2">
+                        <v-card class="ml-10" max-height="110">
+                            <v-img class="hidden-md-and-down"
+                                height="100"
+                          
+                                
+                                src="../assets/placeholder.jpg"
+                            ></v-img>
+                        </v-card>
+                    </v-col>
+                     <v-col col="12" md="4" >
+                         <v-card-title class="headline pb-0">Welcome to Homepage</v-card-title>
+                        <v-card-title class="text-h4 pt-1  ">Dr {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
+  
+                     </v-col>
+                </v-row>
             </v-card>
         </v-col>
     </v-row>
     <v-row>
-    </v-row>
+    <!-- </v-row>
         <v-col cols="12"
                 md="12" class="px-0 py-3">
             <search-appointment />
         </v-col>
-    <v-row>
+    <v-row> -->
         
         <v-col cols="12"
             md="6" class="pb-0 pt-3">
@@ -33,11 +51,60 @@
                         class="mx-auto my-5"
                         max-width="480"
                     >
+        <!-- IMAGE UPLOAD -->
                         <v-img
-                        height="250"
+                        max-height="250"
+                        v-if="!fileUrl"
                         src="../assets/placeholder.jpg"
                         ></v-img>
+                        <v-img
+                        max-height="250"
+                        contain v-if="fileUrl"
+                        :src="fileUrl"
+                        alt="Office Image"
+                        ></v-img>
                     </v-card>
+
+                     <template v-slot:append-outer>
+                        <v-progress-circular
+                        v-if="processing"
+                        color="grey"
+                        indeterminate
+                        small
+                        />
+                    </template>
+                            <!-- FILE INPUT -->
+                    <v-file-input
+                        v-model="myFile"
+                        accept="image/png, image/jpeg"
+                        placeholder="Click to upload file"
+                        @change="fileInput"
+                        :disabled="processing"
+                        class="px-10"
+                        dense
+                        small-chips
+                        label="Update office image"
+                        v-if="showEditImage"
+                        prepend-icon="mdi-camera"
+    
+                    >
+                    </v-file-input>
+                   
+                      <div class="text-center">
+                        <v-btn
+                            color="blue-grey"
+                            class="ma-2 white--text"
+                            @click="showEditImage=!showEditImage"                   
+                            >
+                            Edit Office Image
+                        <v-icon
+                            right
+                            dark
+                        >
+                            mdi-cloud-upload
+                        </v-icon>
+                    </v-btn>
+                      </div>
                
                 <v-card-title class="h4 py-2 px-10">{{doctor.office.name}} </v-card-title>
                 <v-card-text class="py-2 px-10">
@@ -59,7 +126,9 @@
                       
                         <v-spacer></v-spacer>
                         <a style="text-decoration: none" class="blue--text" @click="showDoctorForm = true"
-                        > Update Doctors</a>
+                        v-if="!showDoctorForm"> Update Doctors</a>
+                        <a style="text-decoration: none" class="blue--text" @click="showDoctorForm = false"
+                         v-if="showDoctorForm"> Cancel </a>
                         <v-spacer></v-spacer>
                         <p class="mb-0 grey-text display-1"> ${{doctor.office.officeRate}}</p>
                 </v-card-actions>
@@ -70,33 +139,37 @@
                 <v-form v-on:submit.prevent="commitOfficeUpdate()" v-if="showForm">
                
                 <v-card-title class="h3 py-5 px-10">Update Office Details</v-card-title>
-                    <v-text-field class="px-10" label="Office Name" outlined dense v-model="office.name">
+                    <v-text-field class="px-10" label="Office Name"  dense v-model="office.name">
                     </v-text-field>
-                    <v-text-field class="px-10" label="Address" outlined dense v-model="office.address.addressLine">
-                    </v-text-field>
-                    <div class="d-flex justify-space-between">
-                        <v-text-field class="pl-10 pr-2" label="City" outlined dense v-model="office.address.city">
-                        </v-text-field>
-                        <v-text-field class="px-2" label="State" outlined dense v-model="office.address.district" >
-                        </v-text-field>
-                        <v-text-field class="pr-10 pl-2" label="ZipCode" outlined dense v-model="office.address.postalCode">
-                        </v-text-field>
-                    </div>
-                    <v-text-field class=" px-10" label="Phone Number" outlined dense v-model="office.phoneNumber">
+        
+                    <v-text-field class="px-10" label="Address" dense v-model="office.address.addressLine">
                     </v-text-field>
                     <div class="d-flex justify-space-between">
-                        <v-text-field class=" pl-10 pr-2" label="Open Time" outlined dense v-model="office.openTime">
+                        <v-text-field class="pl-10 pr-2" label="City" dense v-model="office.address.city">
                         </v-text-field>
-                        <v-text-field class=" pr-10 pl-2" label="Close Time" outlined dense v-model="office.closeTime">
+                        <v-text-field class="px-2" label="State" dense v-model="office.address.district" >
+                        </v-text-field>
+                        <v-text-field class="pr-10 pl-2" label="ZipCode" dense v-model="office.address.postalCode">
                         </v-text-field>
                     </div>
-                    <v-text-field class=" px-10" label="Office Rate" outlined dense v-model="office.officeRate">
+                    <v-text-field class=" px-10" label="Phone Number" dense v-model="office.phoneNumber">
+                    </v-text-field>
+                    <div class="d-flex justify-space-between">
+                        <v-text-field class=" pl-10 pr-2" label="Open Time" dense v-model="office.openTime">
+                        </v-text-field>
+                        <v-text-field class=" pr-10 pl-2" label="Close Time" dense v-model="office.closeTime">
+                        </v-text-field>
+                    </div>
+                    <v-text-field class=" px-10" label="Office Rate" dense v-model="office.officeRate">
                     </v-text-field>
                     
                  <v-divider></v-divider>
                 <v-card-actions>
-                    <v-btn block type="submit" success="accent"
+                    <v-btn class="mx-7" type="submit" success="accent"
                     >SUBMIT FORM</v-btn>
+                        <v-spacer></v-spacer>
+                     <v-btn class="mx-7" @click="showForm=false" success="accent"
+                    >Cancel</v-btn>
                 </v-card-actions>
 
                 </v-form>
@@ -128,19 +201,27 @@
 import doctorService from '@/services/DoctorService'
 import officeService from '@/services/OfficeService'
 //import AvailabilityForm from '@/components/AvailabilityForm'
-import SearchAppointment from '@/components/SearchAppointment'
+//import SearchAppointment from '@/components/SearchAppointment'
 import AppointmentsList from '@/components/AppointmentsList'
 //import OfficeCard from '@/components/OfficeCard'
+import firebase from 'firebase/app'
 
 export default {
     name: "office-info",
     components: {
         //AvailabilityForm,
-        SearchAppointment,
+        //SearchAppointment,
         AppointmentsList
     },
     data(){
         return{
+            showEditImage: false,
+            processing: false,
+            myFile: null,
+            fileUrl: null,
+            
+            // loader: null,
+            // loading: false,
             office: {
                 officeId: "",
                 name:"",
@@ -153,7 +234,7 @@ export default {
                 phoneNumber: "",
                 openTime: "",
                 closeTime: "",
-                officeRate: ""
+                officeRate: "",
             }, 
             showForm: false,
             showDoctorForm: false,
@@ -184,6 +265,16 @@ export default {
             }
         }
     },
+    // watch: {
+    // loader () {
+    //     const l = this.loader
+    //     this[l] = !this[l]
+
+    //     setTimeout(() => (this[l] = false), 3000)
+
+    //     this.loader = null
+    //   }
+    // },
     
     computed: {
         doctor() {
@@ -209,24 +300,29 @@ export default {
         getOfficeData(doctor){
             this.office.officeId= doctor.office.officeId;
             this.office.name= doctor.office.name;
-            this.office.phoneNumber= doctor.office.phoneNumber;
-            this.office.openTime= doctor.office.openTime;
-            this.office.closeTime= doctor.office.closeTime;
-            this.office.officeRate= doctor.office.officeRate;
+            this.office.phoneNumber= this.convertNumber(doctor.office.phoneNumber);
+            this.office.openTime= this.convertTime(doctor.office.openTime);
+            this.office.closeTime= this.convertTime(doctor.office.closeTime);
+            this.office.officeRate= doctor.office.officeRate + "$";
             this.office.address.addressLine= doctor.office.address.addressLine;
             this.office.address.city= doctor.office.address.city;
             this.office.address.district= doctor.office.address.district;
             this.office.address.postalCode= doctor.office.address.postalCode;           
         },
         commitOfficeUpdate(){
+            this.office.phoneNumber = this.doctor.office.phoneNumber;
+            this.office.openTime = this.doctor.office.openTime;
+            this.office.closeTime = this.doctor.office.closeTime;
+            this.office.officeRate = this.doctor.office.officeRate;
             officeService.updateOfficeInfo(this.office).then(response => {
                 if(response.status == 200) {
+                    alert("Form has been succesfully updated")
                     this.autoPopulateOfficeInfo();
                 }
                 this.showForm = false;
-            });
-
-
+            }).catch(e => {
+                console.log(e)
+            })
         },
         autoPopulateOfficeInfo(){
             doctorService.getDoctors()
@@ -242,7 +338,6 @@ export default {
             });
         },
         removeDoctorFromOffice() {
-            // const currentDoctor = this.doctor;
             doctorService.updateOfficeForDoctor(this.newDoctor)
                 .then(response => {
                     if(response.status == 200) {
@@ -270,10 +365,91 @@ export default {
             let secondNum = phone.slice(3, 6);
             let thirdNum = phone.slice(6);
             return "(" + firstNum + ")" + " " + secondNum + "-" + thirdNum;
+        },
+        // uploadOffice(payload) {
+        //     const office = {
+        //         officeId: payload.officeId,
+        //         image: payload.image
+        //     }
+       
+        // firebase.database().ref('offices').push(office)
+        //     .then((data) => {
+        //         const key = data.key;
+                // commit('uploadOffice'), {
+                //     ...office,
+                //     id: key
+                // }
+                // return key;
+
+        //     })
+        //     .then(key=> {
+
+        //     }).catch(e => {
+        //         console.log(e)
+        //     })
+        //  },
+    
+        
+        async fileInput(file) {
+        try {
+          if (file && file.name) {
+            this.processing = true;
+
+            const fr = new FileReader();
+            fr.readAsDataURL(file);
+            fr.addEventListener("load", () => {
+            //   this is to load image on the UI
+            //   .. not related to file upload
+              this.fileUrl = fr.result;
+            });
+   
+            const imgData = new FormData();
+            imgData.append("image", this.myFile);
+            const filePath = `offices/${this.doctor.doctorId}-${Date.now()}-${file.name}`;
+            const metadata = { contentType: this.myFile.type };
+
+            const uploadTask = firebase.storage().ref()
+              .child(filePath)
+              .put(this.myFile, metadata);
+
+            await uploadTask;
+            
+            uploadTask.snapshot.ref.getDownloadURL().then(url => {
+                this.fileUrl = url;
+            })
+            const office = {
+                officeId: this.office.officeId,
+                link: this.fileUrl
+            }
+            firebase.firestore().collection("offices").add(office).then(() => {
+                this.showEditImage = false;
+            })
+            // firebase.firestore().collection("offices").where("officeId", "==", this.officeId)
+            // .get()
+            // .then((querySnapShot) => {
+            //     querySnapShot.forEach((doc) => {
+            //         console.log(doc.id, " => ", doc.data());
+            //     })
+            // })
+            // .catch((error) => {
+            //     console.log("Error getting documents: ", error);
+            // });
+              
+         
+             // this.$store.commit("ADD_FILE", this.fileUrl)
+        
+          //  console.log("filePath: ", filePath);
+          }
+        } catch (e) {
+          console.error(e);
+        } finally {
+          this.processing = false;
         }
+     },
     },
      created() {
         this.autoPopulateOfficeInfo();
+        
     } 
 }
 
@@ -293,23 +469,40 @@ export default {
 .field {
     padding: 8px 0 8px 
 }
-/* .office-info {
-    background-color: whitesmoke;
-    border: 1px solid red;
-    margin: 0 auto;
-    width: 50%;
-    text-align: center;
-}
-#appointments{
-    background-color:aquamarine;
-}
-#docs{
-    background-color:blueviolet;
-    width: 100%;
-}
-form input{
-    border: 1pt solid gray;
-    border-radius: 2pt;
-    box-shadow: 2px 2px #aaaaaaaa;
-} */
+.custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 </style>
