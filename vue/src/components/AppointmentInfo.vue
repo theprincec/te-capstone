@@ -8,14 +8,14 @@
                 flat>
                 <v-row>
                     <v-col col="12" md="2">
-                        <v-card class="ml-10" max-height="110">
+                        <v-card class="ml-10" max-height="110" max-width="120">
                             <v-img class="hidden-md-and-down"
                                 height="100"
                                 src="../assets/placeholder.jpg"
                             ></v-img>
                         </v-card>
                     </v-col>
-                     <v-col col="12" md="4">
+                     <v-col col="12" md="10">
                         <v-card-title class="text-h4 pt-10  ">Dr {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
   
                      </v-col>
@@ -120,12 +120,12 @@
                     </select>
                 </div>
 
-                <v-divider v-if="showDoctorForm"></v-divider>
+                <!-- <v-divider v-if="showDoctorForm"></v-divider>
 
                 <v-card-actions v-if="showDoctorForm">
                     <v-btn block type="button" success="accent" @click="removeDoctorFromOffice()"
                     >REMOVE DOCTOR</v-btn>
-                </v-card-actions>
+                </v-card-actions> -->
 
             </v-card>
         </v-col>

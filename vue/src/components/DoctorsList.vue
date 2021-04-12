@@ -53,9 +53,9 @@
             <v-card
             
                 rounded="lg"
-
+                class="hidden-md-and-down"
                 min-height="620">
-                <book-appointment/>
+                <!-- <book-appointment/> -->
                 <Mapper/>
                 
 
