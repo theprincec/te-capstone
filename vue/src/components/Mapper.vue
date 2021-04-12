@@ -1,50 +1,86 @@
-
-
 <template>
 
   <div>
       <google-map
         :center="{lat:39.9622601,lng:-83.0007065}"
         :zoom="11"
+<<<<<<< HEAD
         class="ma-0"
         style="width:652px; height:620px; align:center;"
+||||||| merged common ancestors
+        class="hidden-md-and-down"
+        style="width:620px; height:620px; align:center;"
+=======
+        class="hidden-md-and-down"
+        style="width:600px; height:620px; align:center;"
+>>>>>>> 4dc97199f394387c9bf633909fa0904bd40ca69e
         ref="mapRef"
  
       >
-      <gmap-info-window
-        :options="infoWindowOptions"
-        :position="infoWindowPosition"
-        :opened="infoWindowOpened"
-      >
-        <div class="info-window">
-            <h2>Office</h2>
-            <h5>Hours</h5>
-            <p>Address</p>
-            <p>City, State</p>
-
-        </div>
-      </gmap-info-window>
       <!-- TREECARE -->
       <google-map-marker
         :position="{lat:39.95217514038086,lng:-82.98344421386719}"
         :clickable="true"     
         :draggable="false" 
-        @click="activeOffice = 'TreeCare'; infoWindowOpened = true"
+        @click="this.openWindow1"
+        
+
+        />
+        <gmap-info-window 
+            @closeclick="window_open1=false" 
+            :opened="window_open1" 
+            :position="{lat:39.95217514038086,lng:-82.98344421386719}"
+            :options="{
+          pixelOffset: {
+            width: 0,
+            height: -35
+          }
+        }"
+        >
+            <p>Office: TreeCare<br>Address: 591 E Livingston Ave, Columbus, OH 43215<br>Hours: 9:00AM - 5:00PM</p> 
+        </gmap-info-window>
       />
       <!-- PARROTCARE -->
       <google-map-marker
         :position="{lat:39.98872375488281,lng:-83.04320526123047}"
         :clickable="true"     
         :draggable="false" 
-        @click="activeOffice = 'ParrotCare'; infoWindowOpened = true"
+        @click="this.openWindow2"
       />
+
+      <gmap-info-window 
+            @closeclick="window_open2=false" 
+            :opened="window_open2" 
+            :position="{lat:39.98872375488281,lng:-83.04320526123047}"
+            :options="{
+          pixelOffset: {
+            width: 0,
+            height: -35
+          }
+        }"
+        >
+            <p>Office: ParrotCare<br>Address: 1495 W 5th Ave, Columbus, OH 43212<br>Hours: 9:00AM - 5:00PM</p>
+        </gmap-info-window>
       <!-- AARDVARKCARE -->
       <google-map-marker
         :position="{lat:40.040836334228516,lng:-82.96101379394531}"
         :clickable="true"     
         :draggable="false" 
-        @click="activeOffice = 'AardvarkCare'; infoWindowOpened = true"
+       @click="this.openWindow3"
       />
+      <gmap-info-window 
+            @closeclick="window_open3=false" 
+            :opened="window_open3" 
+            :position="{lat:40.040836334228516,lng:-82.96101379394531}"
+            :options="{
+          pixelOffset: {
+            width: 0,
+            height: -35
+          }
+        }"
+        >
+            <p>Office: AardvarkCare<br>Address: 3100 Cleveland Ave, Columbus, OH 43224<br>Hours: 9:00AM - 5:00PM</p> 
+        </gmap-info-window>
       
       </google-map>
   </div>
@@ -59,14 +95,21 @@ export default {
                 lat: 0,
                 lng: 0
             },
-            infoWindowOptions: {
-                pixelOffset: {
-                    width: 0,
-                    height: -35
+            markers: [
+                {
+                    label: "A",
+                    position: {lat:39.95217514038086,lng:-82.98344421386719}
+                }, 
+                {
+                    label: "B",
+                    position: {lat: 11.0, lng: 11.0}
                 }
-            },
-            activeOffice: "",
-            infoWindowOpened: false
+            ],
+            info_marker: null,
+            infowindow: {lat: 10, lng: 10.0},
+            window_open1: false,
+            window_open2: false,
+            window_open3: false
         }
     },
     created() {
@@ -78,6 +121,15 @@ export default {
             .catch(error => alert(error));
     },
     methods: {
+        openWindow1() {
+            this.window_open1 = true
+        },
+        openWindow2 () {
+            this.window_open2 = true
+        },
+        openWindow3 () {
+            this.window_open3 = true
+        }
 
     },
     mounted() {

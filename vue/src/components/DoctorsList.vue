@@ -69,7 +69,7 @@
 <script>
 import doctorService from '@/services/DoctorService'
 import DoctorCard from '@/components/DoctorCard'
-//import BookAppointment from './BookAppointment.vue'
+// import BookAppointment from './BookAppointment.vue'
 import Mapper from '@/components/Mapper'
 
 
