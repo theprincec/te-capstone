@@ -1,5 +1,9 @@
 <template>
 <div>
+  <v-img v-if="!$store.state.currentUserRole" src="../assets/background.png">
+
+  </v-img>
+
   <doctor-home v-if="$store.state.currentUserRole == 'ROLE_DOCTOR'"></doctor-home>
 
   <v-container grid-list-md fluid color="primary" v-if="($store.state.currentUserRole == 'ROLE_USER')">
