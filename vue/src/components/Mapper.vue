@@ -1,5 +1,3 @@
-
-
 <template>
 
   <div>
@@ -28,7 +26,7 @@
         :position="{lat:39.95217514038086,lng:-82.98344421386719}"
         :clickable="true"     
         :draggable="false" 
-        @click="activeOffice = 'TreeCare'; infoWindowOpened = true"
+        @click="toggleInfoWindow(m,index); infowWindowOpened = true"
       />
       <!-- PARROTCARE -->
       <google-map-marker
