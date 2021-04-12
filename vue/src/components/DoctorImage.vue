@@ -123,13 +123,13 @@ export default {
         async fileInput(file) {
             try {
             if (file && file.name) {
-                firebase.storage().refFromURL(fileUrl)
-                .then(response => {
-                    console.log("Image deleted");
-                })
-                .catch(err => {
-                    console.log("Failed");
-                })
+                // firebase.storage().refFromURL(fileUrl).delete()
+                // .then(response => {
+                //     console.log("Image deleted");
+                // })
+                // .catch(err => {
+                //     console.log("Failed");
+                // })
 
 
                 this.processing = true;
