@@ -1,5 +1,14 @@
 <template>
+
+
 <v-container grid-list-md fluid color="primary">
+
+<!-- <gmap-map
+  :center={lat:10,lng:10}
+  :zoom="7"
+  style="width: 100%; height: 320px;"
+  ></gmap-map> -->
+  
 
   <v-app-bar class="px-5" app color="primary" flat>
     <v-tabs
@@ -35,10 +44,11 @@
 
 
 
-   
+       
       <doctors-list />
       <!-- <time-slot-card/> -->
     <!--<office-info />-->
+    <!-- <mapper /> -->
     
 </v-container>
 </template>
@@ -47,14 +57,18 @@
 import DoctorsList from '@/components/DoctorsList'
 // import TimeSlotCard from '@/components/TimeSlotCard.vue'
 //import OfficeInfo from '@/components/OfficeInfo'
+// import Mapper from '@/components/Mapper'
+
+
 
 export default {
   name: "home",
   components: {
     DoctorsList,
-    // TimeSlotCard
-  }
+    // Mapper
+  
+  },
+  
 };
-</script>
 
-    TimeSlotCard
+</script>
