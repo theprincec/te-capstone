@@ -1,8 +1,14 @@
 <template>
+
+
 <div>
   <doctor-home v-if="$store.state.currentUserRole == 'ROLE_DOCTOR'"></doctor-home>
 
   <v-container grid-list-md fluid color="primary" v-if="($store.state.currentUserRole == 'ROLE_USER')">
+
+
+
+  
 
   <v-app-bar class="px-5" app color="primary" flat>
     <v-tabs 
@@ -38,9 +44,9 @@
 
 
 
-   
+       
       <doctors-list />
-     
+
 </v-container>
 </div>
 </template>
@@ -56,6 +62,7 @@ export default {
     DoctorHome
   }
 };
+
+
 </script>
 
-    

@@ -53,9 +53,12 @@
             <v-card
             
                 rounded="lg"
+
                 min-height="620">
-                <!-- <book-appointment/>
-                <time-slot-card/> -->
+                <book-appointment/>
+                <Mapper/>
+                
+
             </v-card>
         </v-col>
     </v-row>
@@ -64,8 +67,9 @@
 <script>
 import doctorService from '@/services/DoctorService'
 import DoctorCard from '@/components/DoctorCard'
-// import BookAppointment from './BookAppointment.vue'
-// import TimeSlotCard from '@/components/TimeSlotCard.vue'
+import BookAppointment from './BookAppointment.vue'
+import Mapper from '@/components/Mapper'
+
 
 
 
@@ -74,7 +78,8 @@ export default {
     components: {
         // BookAppointment,
         DoctorCard,
-        // TimeSlotCard
+        Mapper
+
        
     },
     methods: {
