@@ -14,7 +14,7 @@
       
       </v-tabs>
     </v-app-bar>
-    <v-main>
+    <v-main >
       
       <router-view />
        
@@ -38,10 +38,9 @@ export default {
 </script>
 
 <style scoped>
-.flex {
-  border: 1px solid red;
-}
+
 #everything{
   background-image: linear-gradient(#ffffff,#ffffff, #cccccc);
+  
 }
 </style>

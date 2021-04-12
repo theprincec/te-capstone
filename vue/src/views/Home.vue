@@ -1,8 +1,11 @@
 <template>
 <div>
-  <v-img v-if="!$store.state.currentUserRole" src="../assets/background.png" >
+  <v-container class="fill-height pa-0" fluid>
+    <v-img :aspect-ratio="16/9" :cover="true"
+          width="1920" v-if="!$store.state.currentUserRole" src="../assets/background.png" >
 
-  </v-img>
+    </v-img>
+  </v-container>
 
   <doctor-home v-if="$store.state.currentUserRole == 'ROLE_DOCTOR'"></doctor-home>
 
