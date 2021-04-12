@@ -3,7 +3,9 @@
         
     
 
-    <v-row>
+    <v-row  v-resize="onResize"
+            align="center"
+            justify="center">
         <v-col cols="12" md="12">
             <h1 id="doctor-title">View list of Doctors</h1>
         </v-col>

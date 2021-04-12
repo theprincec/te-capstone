@@ -1,5 +1,5 @@
 <template>
-<v-container>
+<v-container >
     <v-row>
         <v-col cols="12" md="12">
             <v-card id="docs"
@@ -24,11 +24,11 @@
             </v-card>
         </v-col>
     </v-row>
-    <v-row>
-   
+    <v-row justify="space-around">
+        
         
         <v-col cols="12"
-            md="6" class="pb-0 pt-3">
+            md="5" class="pb-0 pt-3">
        <!-- appointments -->
             <!-- <appointments-list /> -->
             <time-slot-card/>
@@ -37,7 +37,7 @@
 
         </v-col>
         <v-col cols="12"
-                md="6" class="py-3">
+                md="5" class="py-3">
             <v-card class="mx-auto pa-2 mb-5">
                 <v-form v-if="!showForm">
                     <v-card
@@ -129,6 +129,7 @@
 
             </v-card>
         </v-col>
+       
     </v-row>
     
 
