@@ -23,9 +23,7 @@
                     color="primary"
                     dark
                     v-bind="attrs"
-                    v-on="on"
-                    @click="appointment.timeStart = time, appointment.timeEnd = calculateTimeEnd"
-                >
+                    v-on="on"                >
                 Change image
             </v-btn>
                 
@@ -102,6 +100,8 @@
 </template>
 
 <script>
+import firebase from 'firebase/app'
+
 export default {
     name: "doctor-image", 
     data() {
@@ -110,7 +110,8 @@ export default {
             showEditImage: false,
             processing: false,
             myFile: null,
-            fileUrl: null 
+            fileUrl: null, 
+            oldFileUrl: null 
         }
     }, 
     computed: {
@@ -122,6 +123,15 @@ export default {
         async fileInput(file) {
             try {
             if (file && file.name) {
+                firebase.storage().refFromURL(fileUrl)
+                .then(response => {
+                    console.log("Image deleted");
+                })
+                .catch(err => {
+                    console.log("Failed");
+                })
+
+
                 this.processing = true;
 
                 const fr = new FileReader();
@@ -153,9 +163,10 @@ export default {
                     this.showEditImage = false;
                 })
                 //ACCESS COLLECTION FROM FIRESTORE
-        
+             
+
              firebase.firestore().collection("doctors")
-             .where("doctorId", "==", this.$store.state.currentDoctor.doctorId)
+             .where("doctorId", "==", this.doctor.doctorId)
             .onSnapshot((querySnapShot) => {
                 const lastDoc = querySnapShot.docs[querySnapShot.docs.length - 1];
                 console.log(lastDoc.id, " => ", lastDoc.data());
@@ -178,7 +189,7 @@ export default {
     }, 
     created() {
         firebase.firestore().collection("doctors")
-         .where("doctorId", "==", this.$store.state.currentDoctor.doctorId)
+         .where("doctorId", "==", this.doctor.doctorId)
         //  .orderBy("date", "desc")
                     .get()
                     .then((querySnapShot) => {
