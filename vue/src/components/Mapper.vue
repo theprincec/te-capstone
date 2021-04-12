@@ -29,9 +29,7 @@
           }
         }"
         >
-            <p>Office:TreeCare<br>
-            Address:591 E Livingston Ave, Columbus, OH 43215<br>
-            Hours: 9:00AM - 5:00PM</p> 
+            <p>Office: TreeCare<br>Address: 591 E Livingston Ave, Columbus, OH 43215<br>Hours: 9:00AM - 5:00PM</p> 
         </gmap-info-window>
       />
       <!-- PARROTCARE -->
@@ -53,7 +51,7 @@
           }
         }"
         >
-            <p>Office:ParrotCare<br>Address:1495 W 5th Ave, Columbus, OH 43212<br>Hours: 9:00AM - 5:00PM</p>
+            <p>Office: ParrotCare<br>Address: 1495 W 5th Ave, Columbus, OH 43212<br>Hours: 9:00AM - 5:00PM</p>
         </gmap-info-window>
       <!-- AARDVARKCARE -->
       <google-map-marker
@@ -73,7 +71,7 @@
           }
         }"
         >
-            <p>Office:AardvarkCare<br>Address:3100 Cleveland Ave, Columbus, OH 43224<br>Hours: 9:00AM - 5:00PM</p> 
+            <p>Office: AardvarkCare<br>Address: 3100 Cleveland Ave, Columbus, OH 43224<br>Hours: 9:00AM - 5:00PM</p> 
         </gmap-info-window>
       
       </google-map>
