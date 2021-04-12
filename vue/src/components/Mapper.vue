@@ -6,7 +6,8 @@
       <google-map
         :center="{lat:39.9622601,lng:-83.0007065}"
         :zoom="11"
-        style="width:320px; height:340px; align:center;"
+        class="hidden-md-and-down"
+        style="width:620px; height:620px; align:center;"
         ref="mapRef"
  
       >

@@ -53,9 +53,9 @@
             <v-card
             
                 rounded="lg"
-
+                class="hidden-md-and-down"
                 min-height="620">
-                <book-appointment/>
+                <!-- <book-appointment/> -->
                 <Mapper/>
                 
 
@@ -67,7 +67,7 @@
 <script>
 import doctorService from '@/services/DoctorService'
 import DoctorCard from '@/components/DoctorCard'
-import BookAppointment from './BookAppointment.vue'
+//import BookAppointment from './BookAppointment.vue'
 import Mapper from '@/components/Mapper'
 
 
