@@ -3,17 +3,8 @@
   <div>
       <google-map
         :center="{lat:39.9622601,lng:-83.0007065}"
-        :zoom="11"
-<<<<<<< HEAD
-        class="ma-0"
+        class="ma-0 hidden-md-and-down"
         style="width:652px; height:620px; align:center;"
-||||||| merged common ancestors
-        class="hidden-md-and-down"
-        style="width:620px; height:620px; align:center;"
-=======
-        class="hidden-md-and-down"
-        style="width:600px; height:620px; align:center;"
->>>>>>> 4dc97199f394387c9bf633909fa0904bd40ca69e
         ref="mapRef"
  
       >
