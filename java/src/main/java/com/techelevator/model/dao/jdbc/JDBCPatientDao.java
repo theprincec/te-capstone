@@ -58,6 +58,7 @@ public class JDBCPatientDao implements PatientDAO{
 		patient.setPatientId(row.getInt("patient_id"));
 		patient.setFirstName(row.getString("first_name"));
 		patient.setLastName(row.getString("last_name"));
+		patient.setEmail(row.getString("email"));
 		return patient;
 	}
 	

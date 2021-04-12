@@ -119,6 +119,7 @@
                         v-bind:key="doctorFromOffice.doctorId" v-bind:value="{id: doctorFromOffice.doctorId}">Dr. {{doctorFromOffice.firstName}} {{doctorFromOffice.lastName}}</option>
                     </select>
                 </div>
+                
 
                 <!-- <v-divider v-if="showDoctorForm"></v-divider>
 
@@ -142,6 +143,7 @@ import officeService from '@/services/OfficeService'
 // import AppointmentsList from '@/components/AppointmentsList'
 //import OfficeCard from '@/components/OfficeCard'
 import TimeSlotCard from '@/components/TimeSlotCard'
+
 
 
 export default {
