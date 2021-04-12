@@ -53,7 +53,7 @@ public class JDBCDoctorDao implements DoctorDAO{
 		String sql = "SELECT doctor_id, users.user_id as user_id, first_name, last_name, doctors.office_id as office_id, " + 
 				"office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate " + 
 				"FROM doctors " + 
-				"JOIN offices ON doctors.office_id = offices.office_id " + 
+				"LEFT JOIN offices ON doctors.office_id = offices.office_id " + 
 				"JOIN users ON users.user_id = doctors.user_id " + 
 				"WHERE username = ?";
 		
@@ -96,12 +96,15 @@ public class JDBCDoctorDao implements DoctorDAO{
 	
 	private Doctor mapDoctorToRow (SqlRowSet row) {
 		Doctor doctor = new Doctor();
-		Office office = mapRowToOffice(row);
+		if(row.getInt("office_id") != 0) {
+			Office office = mapRowToOffice(row);
+			doctor.setOffice(office);
+		}
 		doctor.setDoctorId(row.getInt("doctor_id"));
 		doctor.setUserId(row.getInt("user_id"));
 		doctor.setFirstName(row.getString("first_name"));
 		doctor.setLastName(row.getString("last_name"));
-		doctor.setOffice(office);
+		
 		return doctor;
 	}
 	

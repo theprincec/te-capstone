@@ -45,7 +45,8 @@
         </v-col>
         <v-col cols="12"
                 md="6" class="py-3">
-            <v-card class="mx-auto pa-2 mb-5">
+            
+            <v-card class="mx-auto pa-2 mb-5" v-if="$store.state.currentDoctor.office != null">
                 <v-form v-if="!showForm">
                     <v-card
                         class="mx-auto my-5"
@@ -189,6 +190,9 @@
                     >REMOVE DOCTOR</v-btn>
                 </v-card-actions>
 
+            </v-card>
+            <v-card class="mx-auto pa-2 mb-5" v-if="$store.state.currentDoctor.office == null">
+                <p>You have not yet been assigned to an office by administration. </p>
             </v-card>
         </v-col>
     </v-row>
