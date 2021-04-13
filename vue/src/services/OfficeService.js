@@ -16,6 +16,10 @@ export default {
 
     getOffices() {
         return axios.get('/offices')
+    }, 
+
+    getDoctorsInOffice(officeId) {
+        return axios.get(`/offices/${officeId}/doctors`)
     }
 
 //   login(user) {
