@@ -293,6 +293,11 @@ export default {
     //     this.loader = null
     //   }
     // },
+    watch: {
+        doctor: function(newDoctor, oldDoctor) {
+            this.updateOfficeImage(newDoctor);
+        }
+    },
     
     computed: {
         doctor() {
@@ -306,6 +311,23 @@ export default {
           
     },
     methods: {
+        updateOfficeImage(newDoctor) {
+            const officeIdFromStore = newDoctor.office.officeId;
+            firebase.firestore().collection("offices").doc(`${officeIdFromStore}`)
+            .get()
+            .then((doc) => {
+                if(doc.exists) {
+                    console.log(doc.id, " => ", doc.data());
+                    this.fileUrl = doc.data().link;
+                } else {
+                    console.log(doc.data().timestamp)
+                }   
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            })
+        },
+        
         selectedDoctor() {
             this.doctorsList.find( doctor => {
                 if(this.slctDoctor.id == doctor.doctorId){
@@ -458,40 +480,31 @@ export default {
        this.getUpdateImage
      },
      getUpdateImage() {
-         const id = this.$store.state.currentDoctor.office.officeId;
-                firebase.firestore().collection("offices").doc(`${id}`)
-                    .get()
-                    .then((doc) => {
-                        if(doc.exists) {
-                            console.log(doc.id, " => ", doc.data());
-                            this.fileUrl = doc.data().link;
-                        } else {
-                            console.log(doc.data().timestamp)
-                        }   
-                    })
+         const id = this.$store.state.user.id;
+            firebase.firestore().collection("offices").doc(`${id}`)
+                .get()
+                .then((doc) => {
+                    if(doc.exists) {
+                        console.log(doc.id, " => ", doc.data());
+                        this.fileUrl = doc.data().link;
+                    } else {
+                        console.log(doc.data().timestamp)
+                    }   
+                })
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             })
      }
      
     },
-     mounted() {
+     created() {
         this.autoPopulateOfficeInfo();
 //ACCESS COLLECTION FROM FIRESTORE
-        const id = this.$store.state.currentDoctor.office.officeId;
-         firebase.firestore().collection("offices").doc(`${id}`)
-            .get()
-            .then((doc) => {
-                if(doc.exists) {
-                    console.log(doc.id, " => ", doc.data());
-                    this.fileUrl = doc.data().link;
-                } else {
-                    console.log(doc.data().timestamp)
-                }   
-            })
-            .catch((error) => {
-                console.log("Error getting documents: ", error);
-            })
+        // const id = this.$store.state.user.id;
+        // if(id == this.$store.state.currentDoctor.userId) {
+            
+        // }
+        
 //  //ACCESS COLLECTION FROM FIRESTORE
 //         const docId = this.$store.state.currentDoctor.doctorId;
 //          firebase.firestore().collection("doctors").doc(`${docId}`)

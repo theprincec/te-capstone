@@ -33,7 +33,8 @@ export default new Vuex.Store({
           patient: {
               patientId: "",
               firstName: "",
-              lastName: ""
+              lastName: "",
+              email: ""
           },            
           date: "", 
           timeStart: "", 

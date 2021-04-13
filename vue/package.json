@@ -12,6 +12,8 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^2.6.5",
+    "email-js": "^2.0.2",
+    "emailjs-com": "^2.6.4",
     "firebase": "^8.3.3",
     "google-maps": "^4.3.3",
     "vue": "^2.6.10",

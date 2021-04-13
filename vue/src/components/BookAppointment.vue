@@ -78,6 +78,7 @@
 <script>
 import appointmentService from '@/services/AppointmentService';
 import patientService from '@/services/PatientService';
+import emailService from '@/services/EmailService';
 
 export default {
     name: "book-appointment", 
@@ -132,6 +133,7 @@ export default {
             this.appointment.doctorId = this.$store.state.currentDoctor.doctorId;
             appointmentService.addAppointment(this.appointment).then(response => {
                 if(response.status == 201) {
+                    emailService.sendAppointmentEmail();
                     alert("Appointment successfully booked");
                 }
             })
