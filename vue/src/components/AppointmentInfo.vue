@@ -6,17 +6,23 @@
                 rounded="lg"
                 min-height="100"
                 flat>
-                <v-row>
-                    <v-col col="12" md="2">
+                <v-row >
+                    <!-- <v-col col="12" md="2">
                         <v-card class="ml-10" max-height="110" max-width="120">
                             <v-img class="hidden-md-and-down"
                                 height="100"
-                                src="../assets/placeholder.jpg"
+                                src="src/assets/img.png"
                             ></v-img>
                         </v-card>
-                    </v-col>
-                     <v-col col="12" md="10">
-                        <v-card-title class="text-h4 pt-10  ">Dr {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
+                    </v-col> -->
+                     <v-col col="12" md="12">
+                         <v-card class="ml-10" max-height="110" max-width="120" id="doctor-image-container">
+                            <img 
+                                height="100px"
+                                src="assets/img.png"
+                            >
+                        </v-card>
+                        <v-card-title id="doctor-title" class="text-h4 pt-10  ">Dr {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
   
                      </v-col>
                 </v-row>
@@ -31,6 +37,7 @@
             md="5" class="pb-0 pt-3">
        <!-- appointments -->
             <!-- <appointments-list /> -->
+            <!-- <email/> -->
             <time-slot-card/>
     <!-- availability-form -->
             <!-- <availability-form /> -->
@@ -154,6 +161,7 @@ import officeService from '@/services/OfficeService'
 //import OfficeCard from '@/components/OfficeCard'
 import TimeSlotCard from '@/components/TimeSlotCard'
 import firebase from 'firebase/app'
+//import email from '@/components/Email'
 
 
 
@@ -164,6 +172,7 @@ export default {
 
         // AppointmentsList,
         TimeSlotCard
+
     },
     data(){
    
@@ -337,6 +346,12 @@ export default {
 }
 .field {
     padding: 8px 0 8px 
+}
+#doctor-image-container, #doctor-title{
+    display: inline-block;
+}
+#doctor-image-container{
+    margin-right: 20px;
 }
 /* .office-info {
     background-color: whitesmoke;
