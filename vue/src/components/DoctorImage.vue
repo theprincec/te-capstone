@@ -115,12 +115,36 @@ export default {
             fileDoctorUrl: null 
         }
     }, 
+    watch: {
+        doctor: function(newDoctor, oldDoctor) {
+            this.updatedDoctorImage(newDoctor);
+        }
+    },
     computed: {
         doctor() {
             return this.$store.state.currentDoctor;
         }
     },
     methods: {
+        updatedDoctorImage(newDoctor) {
+            //ACCESS COLLECTION FROM FIRESTORE
+            const id = newDoctor.doctorId;
+            firebase.firestore().collection("doctors").doc(`${id}`)
+                .get()
+                .then((doc) => {
+                    if(doc.exists) {
+                        console.log(doc.id, " => ", doc.data());
+                        this.fileDoctorUrl = doc.data().link;
+                    } else {
+                        console.log(doc.data().timestamp)
+                    }   
+
+                })
+
+                .catch((error) => {
+                    console.log("Error getting documents: ", error);
+                })
+        },
         async myFileInput(file) {
 
         try {
@@ -196,23 +220,7 @@ export default {
      }
     },
     created() {
-//ACCESS COLLECTION FROM FIRESTORE
-        const id = this.$store.state.currentDoctor.doctorId;
-        firebase.firestore().collection("doctors").doc(`${id}`)
-            .get()
-            .then((doc) => {
-                if(doc.exists) {
-                    console.log(doc.id, " => ", doc.data());
-                    this.fileDoctorUrl = doc.data().link;
-                } else {
-                    console.log(doc.data().timestamp)
-                }   
 
-            })
-
-            .catch((error) => {
-                console.log("Error getting documents: ", error);
-            })
 
         } 
     }

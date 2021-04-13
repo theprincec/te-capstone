@@ -95,7 +95,7 @@ export default {
             this.$store.commit("SET_CURRENT_APPOINTMENT", time)
         },
         getTimeSlots(){
-            AppointmentService.viewTimeSlots(this.$store.state.currentDoctor.doctorId,this.$store.state.currentDate)
+            AppointmentService.viewTimeSlots(this.$store.state.currentDoctor.doctorId, this.$store.state.currentDate)
                 .then(response => {
                     if (response.status == 200) {
                         this.$store.commit("SET_TIME_SLOTS", response.data);
