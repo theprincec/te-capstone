@@ -1,7 +1,7 @@
 
 <template>
   <v-app id="everything">
-    <v-app-bar class="px-5" app color="primary" flat>
+    <!-- <v-app-bar class="px-5" app color="primary" flat>
       <v-tabs 
         class="ml-n9"
         color="grey darken-1"
@@ -13,7 +13,7 @@
       
       
       </v-tabs>
-    </v-app-bar>
+    </v-app-bar> -->
     <v-main >
       
       <router-view />
