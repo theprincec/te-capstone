@@ -14,6 +14,19 @@
                                 height="100"  
                                 src="../assets/placeholder.jpg"
                             ></v-img> -->
+                        <!-- <v-img
+                            class="hidden-xs-and-down"
+                            max-height="100"
+                            v-if="!fileDoctorUrl"
+                            src="../assets/placeholder.jpg"
+                            ></v-img>
+                            <v-img
+                            max-height="100"
+                            contain v-if="fileDoctorUrl"
+                            :src="fileDoctorUrl"
+                            alt="Office Image"
+                        ></v-img> -->
+
                             <doctor-image></doctor-image>
                         </v-card>
                     </v-col>
@@ -115,7 +128,7 @@
                     <p class="pa-1 ma-0 subtitle-2">
                         <v-icon small class="px-2">mdi-clock</v-icon>
                         {{convertTime(doctor.office.openTime)}} - {{convertTime(doctor.office.closeTime)}} <br>
-                         <!-- CHANGE -->
+             <!-- CHANGE -->
                         <v-icon small class="px-2">mdi-phone</v-icon>{{convertNumber(doctor.office.phoneNumber)}} </p>
                 </div>
                 </v-card-text>
@@ -215,7 +228,7 @@ export default {
         //AvailabilityForm,
         //SearchAppointment,
         AppointmentsList, 
-        DoctorImage
+       DoctorImage
     },
     data(){
         return{
@@ -223,6 +236,7 @@ export default {
             processing: false,
             myFile: null,
             fileUrl: null,
+           // fileDoctorUrl: null,
             
             // loader: null,
             // loading: false,
@@ -282,9 +296,7 @@ export default {
     
     computed: {
         doctor() {
-            return this.$store.state.doctors.find(doctor => {
-                return doctor.userId == this.$store.state.user.id;
-            })
+            return this.$store.state.currentDoctor;
         },
         doctorsList() {
             return this.$store.state.doctors.filter(doctor => {
@@ -370,31 +382,9 @@ export default {
             let thirdNum = phone.slice(6);
             return "(" + firstNum + ")" + " " + secondNum + "-" + thirdNum;
         },
-        // uploadOffice(payload) {
-        //     const office = {
-        //         officeId: payload.officeId,
-        //         image: payload.image
-        //     }
        
-        // firebase.database().ref('offices').push(office)
-        //     .then((data) => {
-        //         const key = data.key;
-                // commit('uploadOffice'), {
-                //     ...office,
-                //     id: key
-                // }
-                // return key;
-
-        //     })
-        //     .then(key=> {
-
-        //     }).catch(e => {
-        //         console.log(e)
-        //     })
-        //  },
-    
-        
         async fileInput(file) {
+
         try {
           if (file && file.name) {
             this.processing = true;
@@ -402,92 +392,121 @@ export default {
             const fr = new FileReader();
             fr.readAsDataURL(file);
             fr.addEventListener("load", () => {
-            //   this is to load image on the UI
-            //   .. not related to file upload
+    //   this is to load image on the UI
+    //   .. not related to file upload
               this.fileUrl = fr.result;
             });
 //    CREATE METADATA FOR FIREBASE
             const imgData = new FormData();
             imgData.append("image", this.myFile);
             const filePath = `offices/${this.doctor.doctorId}-${Date.now()}-${file.name}`;
-            const metadata = { contentType: this.myFile.type };
-// UPLOADING
+            // const metadata = { contentType: this.myFile.type };
+// UPLOADING AND GETTING URL FROM FIREBASE
             const uploadTask = firebase.storage().ref()
               .child(filePath)
-              .put(this.myFile, metadata);
-
-            await uploadTask;
-            
-            uploadTask.snapshot.ref.getDownloadURL().then(url => {
-                console.log("File at:" + url);
+              .put(this.myFile)
+              .then((snapshot) => {
+               return snapshot.ref.getDownloadURL()   
+              })
+              .then(url => {
+//TEST console.log("File at:" + url);
                  this.fileUrl = url; //this should save fileUrl to url from firebase
+              })
+              .catch(e => {console.log(e)});
+//WAITING ON WHEN UPLOAD IS FINISHED
+            await uploadTask;
 
-                 const office = {
-                    officeId: this.office.officeId,
-                    date: new Date(),
+                let office = {
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                     link: this.fileUrl
                 }
-// ADDING COLLECTION TO FIRESTORE AND ADDING ONE OFFICE TO COLLECTION
-                 firebase.firestore().collection("offices").add(office).then(() => {
-                this.showEditImage = false;
-                console.log(office.link)
-                console.log(office.date)
-//ACCESS COLLECTION FROM FIRESTORE
-        
-         firebase.firestore().collection("offices")
-         .where("officeId", "==", this.$store.state.currentDoctor.office.officeId)
-            .onSnapshot((querySnapShot) => {
-                const lastDoc = querySnapShot.docs[querySnapShot.docs.length - 1];
-                console.log(lastDoc.id, " => ", lastDoc.data());
-                this.fileUrl = lastDoc.data().link;
-                // querySnapShot.forEach((doc) => {
-                //     console.log(doc.id, " => ", doc.data());
-
-                //     this.fileUrl = doc.data().link;
-                // })
-            })
-            
-        
-        })
-    })
-            
+                const newId = this.$store.state.currentDoctor.office.officeId;
+    
+// ADDING COLLECTION TO FIRESTORE BY OFFICE ID
+// UPDATE IF OFFICEID ALREADY EXISTS
+// SET IF DOES NOT
+                const docRef = firebase.firestore().collection("offices").doc(`${newId}`);
+                docRef.get().then((doc) => {
+                    if (doc.exists) {
+                        docRef.update(office)
+                    .then(() => {  
+                        console.log("updated")   
+                        this.showEditImage = false;   
+                    }).catch((e) => {
+                        console.log(e)
+                    })
+                    } else {
+                        docRef.set(office)
+                        .then(() => {
+//TEST console.log("set")
+                            this.showEditImage = false;   
+                        }).catch((e) => {
+                            console.log(e)
+                        })
+                    }
+                }).catch(e => {
+                    console.log(e)
+                })
            
-            
-              
-         
-      //       this.$store.commit("ADD_FILE", this.fileUrl)
-        
-           console.log("filePath: ", filePath);
+// TEST   console.log("filePath: ", filePath);
           }
         } catch (e) {
           console.error(e);
         } finally {
           this.processing = false;
         }
+       this.getUpdateImage
      },
+     getUpdateImage() {
+         const id = this.$store.state.currentDoctor.office.officeId;
+                firebase.firestore().collection("offices").doc(`${id}`)
+                    .get()
+                    .then((doc) => {
+                        if(doc.exists) {
+                            console.log(doc.id, " => ", doc.data());
+                            this.fileUrl = doc.data().link;
+                        } else {
+                            console.log(doc.data().timestamp)
+                        }   
+                    })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            })
+     }
+     
     },
      created() {
         this.autoPopulateOfficeInfo();
 //ACCESS COLLECTION FROM FIRESTORE
-        
-         firebase.firestore().collection("offices")
-         .where("officeId", "==", this.$store.state.currentDoctor.office.officeId)
-        //  .orderBy("date", "desc")
-                    .get()
-                    .then((querySnapShot) => {
-                        const lastDoc = querySnapShot.docs[querySnapShot.docs.length - 1];
-                        console.log(lastDoc.id, " => ", lastDoc.data());
-                        this.fileUrl = lastDoc.data().link;
-                        // querySnapShot.forEach((doc) => {
-                        //     console.log(doc.id, " => ", doc.data());
-
-                        //     this.fileUrl = doc.data().link;
-                        // })
-                    })
-                    .catch((error) => {
-                        console.log("Error getting documents: ", error);
-                    });
-        
+        const id = this.$store.state.currentDoctor.office.officeId;
+         firebase.firestore().collection("offices").doc(`${id}`)
+            .get()
+            .then((doc) => {
+                if(doc.exists) {
+                    console.log(doc.id, " => ", doc.data());
+                    this.fileUrl = doc.data().link;
+                } else {
+                    console.log(doc.data().timestamp)
+                }   
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            })
+//  //ACCESS COLLECTION FROM FIRESTORE
+//         const docId = this.$store.state.currentDoctor.doctorId;
+//          firebase.firestore().collection("doctors").doc(`${docId}`)
+//             .get()
+//             .then((doc) => {
+//                 if(doc.exists) {
+//                     console.log(doc.id, " => ", doc.data());
+//                     this.fileDoctorUrl = doc.data().link;
+//                 } else {
+//                     console.log(doc.data().timestamp)
+//                 }   
+//             })
+//             .catch((error) => {
+//                 console.log("Error getting documents: ", error);
+//             })
     } 
 }
 
