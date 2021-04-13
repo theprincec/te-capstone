@@ -111,12 +111,12 @@ export default {
         }
         
     },
-    computed: {
-        getDoctors() {
-            //Use this computed property in each for loop to get the doctors that should 
-            //be shown in that office (or in the unassigned category - this may need to be found separately)
-        }
-    },
+    // computed: {
+        // getDoctors() {
+        //     //Use this computed property in each for loop to get the doctors that should 
+        //     //be shown in that office (or in the unassigned category - this may need to be found separately)
+        // }
+
     created() {
         officeService.getOffices()
         .then(response => {
