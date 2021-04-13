@@ -10,17 +10,16 @@
                 <v-row>
                     <v-col col="12" md="2">
                         <v-card class="ml-10" max-height="110">
-                            <v-img class="hidden-md-and-down"
-                                height="100"
-                          
-                                
+                            <!-- <v-img class="hidden-md-and-down"
+                                height="100"  
                                 src="../assets/placeholder.jpg"
-                            ></v-img>
+                            ></v-img> -->
+                            <doctor-image></doctor-image>
                         </v-card>
                     </v-col>
                      <v-col col="12" md="4" >
                          <v-card-title class="headline pb-0">Welcome to Homepage</v-card-title>
-                        <v-card-title class="text-h4 pt-1  ">Dr {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
+                        <v-card-title class="text-h4 pt-1  ">Dr. {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
   
                      </v-col>
                 </v-row>
@@ -45,7 +44,8 @@
         </v-col>
         <v-col cols="12"
                 md="6" class="py-3">
-            <v-card class="mx-auto pa-2 mb-5">
+            
+            <v-card class="mx-auto pa-2 mb-5" v-if="$store.state.currentDoctor.office != null">
                 <v-form v-if="!showForm">
                     <v-card
                         class="mx-auto my-5"
@@ -190,6 +190,9 @@
                 </v-card-actions>
 
             </v-card>
+            <v-card class="mx-auto pa-2 mb-5" v-if="$store.state.currentDoctor.office == null">
+                <p>You have not yet been assigned to an office by administration. </p>
+            </v-card>
         </v-col>
     </v-row>
     
@@ -203,7 +206,7 @@ import officeService from '@/services/OfficeService'
 //import AvailabilityForm from '@/components/AvailabilityForm'
 //import SearchAppointment from '@/components/SearchAppointment'
 import AppointmentsList from '@/components/AppointmentsList'
-//import OfficeCard from '@/components/OfficeCard'
+import DoctorImage from '@/components/DoctorImage'
 import firebase from 'firebase/app'
 
 export default {
@@ -211,7 +214,8 @@ export default {
     components: {
         //AvailabilityForm,
         //SearchAppointment,
-        AppointmentsList
+        AppointmentsList, 
+        DoctorImage
     },
     data(){
         return{
@@ -394,7 +398,7 @@ export default {
         try {
           if (file && file.name) {
             this.processing = true;
-
+// LOADING IMAGE TO THE PAGE
             const fr = new FileReader();
             fr.readAsDataURL(file);
             fr.addEventListener("load", () => {
@@ -402,12 +406,12 @@ export default {
             //   .. not related to file upload
               this.fileUrl = fr.result;
             });
-   
+//    CREATE METADATA FOR FIREBASE
             const imgData = new FormData();
             imgData.append("image", this.myFile);
             const filePath = `offices/${this.doctor.doctorId}-${Date.now()}-${file.name}`;
             const metadata = { contentType: this.myFile.type };
-
+// UPLOADING
             const uploadTask = firebase.storage().ref()
               .child(filePath)
               .put(this.myFile, metadata);
@@ -415,30 +419,45 @@ export default {
             await uploadTask;
             
             uploadTask.snapshot.ref.getDownloadURL().then(url => {
-                this.fileUrl = url;
-            })
-            const office = {
-                officeId: this.office.officeId,
-                link: this.fileUrl
-            }
-            firebase.firestore().collection("offices").add(office).then(() => {
+                console.log("File at:" + url);
+                 this.fileUrl = url; //this should save fileUrl to url from firebase
+
+                 const office = {
+                    officeId: this.office.officeId,
+                    date: new Date(),
+                    link: this.fileUrl
+                }
+// ADDING COLLECTION TO FIRESTORE AND ADDING ONE OFFICE TO COLLECTION
+                 firebase.firestore().collection("offices").add(office).then(() => {
                 this.showEditImage = false;
+                console.log(office.link)
+                console.log(office.date)
+//ACCESS COLLECTION FROM FIRESTORE
+        
+         firebase.firestore().collection("offices")
+         .where("officeId", "==", this.$store.state.currentDoctor.office.officeId)
+            .onSnapshot((querySnapShot) => {
+                const lastDoc = querySnapShot.docs[querySnapShot.docs.length - 1];
+                console.log(lastDoc.id, " => ", lastDoc.data());
+                this.fileUrl = lastDoc.data().link;
+                // querySnapShot.forEach((doc) => {
+                //     console.log(doc.id, " => ", doc.data());
+
+                //     this.fileUrl = doc.data().link;
+                // })
             })
-            // firebase.firestore().collection("offices").where("officeId", "==", this.officeId)
-            // .get()
-            // .then((querySnapShot) => {
-            //     querySnapShot.forEach((doc) => {
-            //         console.log(doc.id, " => ", doc.data());
-            //     })
-            // })
-            // .catch((error) => {
-            //     console.log("Error getting documents: ", error);
-            // });
+            
+        
+        })
+    })
+            
+           
+            
               
          
-             // this.$store.commit("ADD_FILE", this.fileUrl)
+      //       this.$store.commit("ADD_FILE", this.fileUrl)
         
-          //  console.log("filePath: ", filePath);
+           console.log("filePath: ", filePath);
           }
         } catch (e) {
           console.error(e);
@@ -449,6 +468,25 @@ export default {
     },
      created() {
         this.autoPopulateOfficeInfo();
+//ACCESS COLLECTION FROM FIRESTORE
+        
+         firebase.firestore().collection("offices")
+         .where("officeId", "==", this.$store.state.currentDoctor.office.officeId)
+        //  .orderBy("date", "desc")
+                    .get()
+                    .then((querySnapShot) => {
+                        const lastDoc = querySnapShot.docs[querySnapShot.docs.length - 1];
+                        console.log(lastDoc.id, " => ", lastDoc.data());
+                        this.fileUrl = lastDoc.data().link;
+                        // querySnapShot.forEach((doc) => {
+                        //     console.log(doc.id, " => ", doc.data());
+
+                        //     this.fileUrl = doc.data().link;
+                        // })
+                    })
+                    .catch((error) => {
+                        console.log("Error getting documents: ", error);
+                    });
         
     } 
 }

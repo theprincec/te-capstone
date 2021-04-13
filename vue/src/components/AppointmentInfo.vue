@@ -1,5 +1,5 @@
 <template>
-<v-container>
+<v-container >
     <v-row>
         <v-col cols="12" md="12">
             <v-card id="docs"
@@ -24,11 +24,11 @@
             </v-card>
         </v-col>
     </v-row>
-    <v-row>
-   
+    <v-row justify="space-around">
+        
         
         <v-col cols="12"
-            md="6" class="pb-0 pt-3">
+            md="5" class="pb-0 pt-3">
        <!-- appointments -->
             <!-- <appointments-list /> -->
             <time-slot-card/>
@@ -37,16 +37,26 @@
 
         </v-col>
         <v-col cols="12"
-                md="6" class="py-3">
+                md="5" class="py-3">
             <v-card class="mx-auto pa-2 mb-5">
                 <v-form v-if="!showForm">
                     <v-card
                         class="mx-auto my-5"
                         max-width="480"
                     >
+
+    <!-- IMAGE UPDATE FROM DOCTOR -->
+
                         <v-img
-                        height="250"
-                        src="../assets/placeholder.jpg"
+                            max-height="250"
+                            contain v-if="fileUrl"
+                            :src="fileUrl"
+                            alt="Office Image"
+                        ></v-img>
+                        <v-img
+                            v-if="!fileUrl"
+                            max-height="250"
+                            src="../assets/placeholder.jpg"
                         ></v-img>
                     </v-card>
                
@@ -112,13 +122,13 @@
 
                 </v-form> -->
 
-                <div class="field" v-show="showDoctorForm" >
+                <!-- <div class="field" v-show="showDoctorForm" >
                     <label for="doctors">Doctors List: </label>
                     <select id="doctorList" name="doctors" v-model="slctDoctor"  @change="selectedDoctor()">
                         <option v-for="doctorFromOffice in doctorsList" 
                         v-bind:key="doctorFromOffice.doctorId" v-bind:value="{id: doctorFromOffice.doctorId}">Dr. {{doctorFromOffice.firstName}} {{doctorFromOffice.lastName}}</option>
                     </select>
-                </div>
+                </div> -->
 
                 <!-- <v-divider v-if="showDoctorForm"></v-divider>
 
@@ -129,6 +139,7 @@
 
             </v-card>
         </v-col>
+       
     </v-row>
     
 
@@ -142,6 +153,7 @@ import officeService from '@/services/OfficeService'
 // import AppointmentsList from '@/components/AppointmentsList'
 //import OfficeCard from '@/components/OfficeCard'
 import TimeSlotCard from '@/components/TimeSlotCard'
+import firebase from 'firebase/app'
 
 
 export default {
@@ -155,6 +167,7 @@ export default {
     data(){
    
         return{
+            fileUrl: null,
             office: {
                 officeId: "",
                 name:"",
@@ -290,6 +303,21 @@ export default {
     },
      created() {
         this.autoPopulateOfficeInfo();
+        //ACCESS COLLECTION FROM FIRESTORE
+        
+         firebase.firestore().collection("offices")
+         .where("officeId", "==", this.doctor.office.officeId)
+            .onSnapshot((querySnapShot) => {
+                const lastDoc = querySnapShot.docs[querySnapShot.docs.length - 1];
+                console.log(lastDoc.id, " => ", lastDoc.data());
+                this.fileUrl = lastDoc.data().link;
+                // querySnapShot.forEach((doc) => {
+                //     console.log(doc.id, " => ", doc.data());
+
+                //     this.fileUrl = doc.data().link;
+                // })
+            })
+        
     } 
 }
 

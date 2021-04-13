@@ -3,9 +3,8 @@
   <div>
       <google-map
         :center="{lat:39.9622601,lng:-83.0007065}"
-        :zoom="11"
-        class="hidden-md-and-down"
-        style="width:600px; height:620px; align:center;"
+        class="ma-0 hidden-md-and-down"
+        style="width:652px; height:620px; align:center;"
         ref="mapRef"
  
       >

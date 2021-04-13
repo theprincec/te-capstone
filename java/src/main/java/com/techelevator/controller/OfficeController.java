@@ -1,5 +1,7 @@
 package com.techelevator.controller;
 
+import java.util.List;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import com.techelevator.model.dao.OfficeDAO;
 
 @RestController
 @CrossOrigin
+@PreAuthorize("isAuthenticated()")
 public class OfficeController {
 	
 	private OfficeDAO officeDAO;
@@ -32,6 +35,16 @@ public class OfficeController {
 	@RequestMapping(path="/offices", method=RequestMethod.PUT)
 	public void updateOfficeInfo(@RequestBody Office newOffice) {
 		officeDAO.updateOfficeInfo(newOffice);
+	}
+	
+	@RequestMapping(path="/offices", method=RequestMethod.GET)
+	public List<Office> getOffices() {
+		return officeDAO.getOffices();
+	}
+	
+	@RequestMapping(path="/offices/{officeId}/doctors", method=RequestMethod.GET)
+	public List<Doctor> getDoctorsByOffice(@PathVariable int officeId) {
+		return officeDAO.getDoctorsByOfficeId(officeId);
 	}
 	
 }

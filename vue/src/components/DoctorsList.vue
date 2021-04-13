@@ -2,11 +2,12 @@
     
         
     
-
-    <v-row>
+<div>
+    <v-row >
         <v-col cols="12" md="12">
             <h1 id="doctor-title">View list of Doctors</h1>
         </v-col>
+    </v-row>
         <!-- <v-col cols="12" md="3">
             <v-card
                 rounded="lg"
@@ -43,6 +44,7 @@
             </v-card>
         </v-col> -->
         <!-- vertical column for doctor's list -->
+    <v-row justify="space-around">
         <v-col cols="12" md="7">             
              <doctor-card class="mb-5" v-for="doctor in $store.state.doctors" 
              :key="doctor.doctorId" :doctor="doctor" />
@@ -62,6 +64,7 @@
             </v-card>
         </v-col>
     </v-row>
+</div>
 </template>
 
 <script>

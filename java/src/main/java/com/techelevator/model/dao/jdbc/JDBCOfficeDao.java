@@ -1,6 +1,8 @@
 package com.techelevator.model.dao.jdbc;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -19,6 +21,8 @@ public class JDBCOfficeDao implements OfficeDAO {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
+	
+	
 	@Override
 	public Office getOfficeInfo(Doctor doctor) {
 		Office office = new Office();
@@ -45,6 +49,21 @@ public class JDBCOfficeDao implements OfficeDAO {
 									newOffice.getOfficeRate(), newOffice.getOfficeId());
 	}
 	
+	@Override
+	public List<Office> getOffices() {
+		String sql = "SELECT office_id, office_name, address, city, district, " + 
+				"postal_code, phone, open_time, close_time, hourly_rate FROM offices";
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
+		List<Office> offices = new ArrayList<Office>();
+		while(rows.next()) {
+			Office office = mapRowToOffice(rows);
+			offices.add(office);
+		}
+		return offices;
+		
+	}
+	
+
 	private Office mapRowToOffice(SqlRowSet row) {
 		Office office = new Office();
 		Address address = new Address();
@@ -65,7 +84,36 @@ public class JDBCOfficeDao implements OfficeDAO {
 	}
 	
 	
+	private Doctor mapRowsToDoctor (SqlRowSet row) {
+		Doctor doctor = new Doctor();
+//		if(row.getString("office_id").equals(null)) {
+//			Office office = mapRowToOffice(row);
+//			doctor.setOffice(office);
+//		}
+		doctor.setDoctorId(row.getInt("doctor_id"));
+		doctor.setUserId(row.getInt("user_id"));
+		doctor.setFirstName(row.getString("first_name"));
+		doctor.setLastName(row.getString("last_name"));
+		
+		return doctor;
+	}
 
+
+	@Override
+	public List<Doctor> getDoctorsByOfficeId(int officeId) {
+			String sql = "SELECT doctor_id, user_id, first_name, last_name, doctors.office_id as office_id FROM doctors " + 
+					"JOIN offices on offices.office_id = doctors.office_id " + 
+					"WHERE doctors.office_id = ?";
+			SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, officeId);
+			List<Doctor> doctors = new ArrayList<Doctor>();
+			while(rows.next()) {
+				Doctor doctor = mapRowsToDoctor(rows);
+				doctors.add(doctor);
+			}
+			return doctors;
+		
+		
+	}
 	
 
 }

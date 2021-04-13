@@ -35,22 +35,24 @@
     <!-- appointtent availablity -->
    
       
-      <office-info v-if="$store.state.currentDoctor.office != null"/>
+      <office-info/>
      
         
-
+<!-- 
       <v-container v-else>
         <v-row>
           <v-col cols="12" md="12">
               <v-card id="docs"
                   rounded="lg"
                   min-height="100">
-                  <p>You have not yet been assigned to an office. </p>
-                  <p>Administration has been notified that you have registered an account.</p>
+                   <v-icon dark >
+                     exclamation-thick
+                  </v-icon>
+                  <p>You have not yet been assigned to an office by administration. </p>
               </v-card>
           </v-col>
         </v-row>
-      </v-container>
+      </v-container> -->
 
      
     
