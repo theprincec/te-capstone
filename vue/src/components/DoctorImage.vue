@@ -159,7 +159,7 @@ export default {
                     link: this.fileDoctorUrl
                 }
 
-                const newId = this.$store.state.currentDoctor.doctorId;
+                const newId = this.doctor.doctorId;
     
 // ADDING COLLECTION TO FIRESTORE BY OFFICE ID
 // UPDATE IF OFFICEID ALREADY EXISTS
@@ -195,10 +195,10 @@ export default {
         
      }
     },
-    created() {
+    mounted() {
 //ACCESS COLLECTION FROM FIRESTORE
-        const id = this.$store.state.currentDoctor.doctorId;
-        firebase.firestore().collection("doctors").doc(`${id}`)
+        const doctor = this.doctor();
+        firebase.firestore().collection("doctors").doc(`${doctor.doctorId}`)
             .get()
             .then((doc) => {
                 if(doc.exists) {
