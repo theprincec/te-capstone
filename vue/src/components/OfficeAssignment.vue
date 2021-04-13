@@ -4,11 +4,11 @@
     <v-container>
       <v-row>
         <v-col cols="4">
-            <v-card>
+            <v-card>    
             <div style="color:red; font-weight:bold; padding-bottom:30px">Unassigned Doctors:</div>
-            <draggable v-model="doctorsUnassigned" group="offices" >
+            <draggable v-model="unassigned[0]" group="offices" @drop="onDrop($event, 0)">
 
-                <div v-for="doctor in doctorsUnassigned" :key="doctor.id" style="font-weight:bold;">
+                <div v-for="doctor in unassigned[0].doctors" :key="doctor.id" style="font-weight:bold;">
                 {{doctor.firstName}} {{doctor.lastName}}
                 </div>
             </draggable>
@@ -18,9 +18,9 @@
         <v-col cols="8">
             <v-card v-for="office in offices" v-bind:key="office.officeId">
 
-                <div style="color:red; font-weight:bold; padding-bottom:30px">{{office.name}}</div>
+                <div id=dropZoneTitle style="color:red; font-weight:bold; padding-bottom:30px">{{office.name}}</div>
                 <draggable v-model="offices[office]" group="offices" @drop="onDrop($event, office.officeId)">
-                    <div v-for="doctor in THISOFFICE" :key="doctor.id" style="font-weight:bold;">
+                    <div v-for="doctor in office.doctors" :key="doctor.id" style="font-weight:bold;">
                     {{doctor.firstName}} {{doctor.lastName}}
                     </div>
                 </draggable>
@@ -31,32 +31,6 @@
 
   </v-app>
 </div>
-
-
-    <!-- <div>
-        <draggable class="drop-zone" group="doctors" v-model="doctorsUnassigned"
-            @drop='onDrop($event, 1)' 
-            @dragover.prevent
-            @dragenter.prevent>
-            
-            <div v-for='doctor in doctorsUnassigned' :key='doctor.id' class='drag-obj'
-                draggable @dragstart='startDrag($event, doctor)' style="max-width: 70px">
-                {{ doctor.name }}
-            </div>
-        </draggable>
-        <br>
-        <draggable class="drop-zone" group="doctors" v-model="doctorsAssigned"
-            @drop='onDrop($event, 2)' 
-            @dragover.prevent
-            @dragenter.prevent>
-            <div v-for='doctor in doctorsAssigned' :key='doctor.id' class='drag-obj' 
-                draggable @dragstart='startDrag($event, doctor)' style="max-width: 70px">
-                {{ doctor.name}}
-            </div>
-
-        </draggable>
-
-    </div> -->
     
 </template>
 
@@ -71,38 +45,15 @@ export default {
     },
     data() {
         return {
-            offices: []
-            // doctorsUnassigned: [
-            //     {name: "Doct1",
-            //     id: 1, 
-            //     officeId: 0
-            //     }
-            // ],
-            // office1: [
-            //     {name: "Doct2",
-            //     id: 2, 
-            //     officeId: 1
-            //     } 
-            // ],
-            // office2: [
-            //     {name: "Doct3",
-            //     id: 3, 
-            //     officeId: 2
-            //     },
-            //     {name: "Doct4",
-            //     id: 4, 
-            //     officeId: 2
-            //     } 
-            // ]
+            //Populate @ created
+            //for each office: contains an office name, office id, and a list of doctors assigned to that office
+            offices: [], 
+            //contains an office id = 0, office name = Unassigned, and a list of doctors with no office
+            unassigned: []
         }
     }, 
     
     methods: {
-        // startDrag(event, doctor) {
-        //     event.dataTransfer.dropEffect = 'move'
-        //     event.dataTransfer.effectAllowed = 'move'
-        //     event.dataTransfer.setData('itemID', doctor.id)
-        // }, 
         onDrop (event, officeId) {
             const doctorID = event.dataTransfer.getData('doctorID');
             const doctor = this.doctors.find(doctor => doctor.id == doctorID);
@@ -111,17 +62,41 @@ export default {
         }
         
     },
-    // computed: {
-        // getDoctors() {
-        //     //Use this computed property in each for loop to get the doctors that should 
-        //     //be shown in that office (or in the unassigned category - this may need to be found separately)
-        // }
-
     created() {
+        //Populate offices with doctors assigned to an office
         officeService.getOffices()
         .then(response => {
-            this.offices = response.data;
-        })
+            let offices = response.data;
+            offices.forEach(office => {
+                officeService.getDoctorsInOffice(office.officeId)
+                .then(responseDoctors => {
+                    let doctorsInOffice = responseDoctors.data;
+                    this.offices.push({
+                        officeId: office.officeId,
+                        name: office.name,
+                        doctors: doctorsInOffice
+                        })
+                }).catch(error => {
+                    console.log("failed here" + error.message)
+                })
+                
+            })
+        });
+
+        //Populate unassigned section - this officeId will be 0 (converts to null on the server side)
+        
+        officeService.getDoctorsInOffice(0)
+            .then(responseDoctors => {
+                let doctorsWithNoOffice = responseDoctors.data;
+                this.unassigned.push({
+                    officeId: 0,
+                    name: "Unassigned",
+                    doctors: doctorsWithNoOffice
+                    })
+                }).catch(error => {
+                    console.log("failed here" + error.message)
+                })
+
     }
 
 }
@@ -140,5 +115,7 @@ export default {
     padding: 10px;
     margin: 10px;
 }
+
+
 
 </style>
