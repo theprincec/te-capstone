@@ -55,9 +55,9 @@
                 <label for="endTime" style="color:rgb(118, 118, 118)">End Time: </label>
                 <input id="endTime" name="endTime" type="time" required v-model="appointment.timeEnd"/>
             </div> -->
-
+<!--This button books an appointment-->
             <v-btn
-                form="booking-form"
+                form="booking-form" 
                 class="mr-4"
                 type="submit"
                 @click="dialog=false"                
