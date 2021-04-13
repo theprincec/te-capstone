@@ -30,7 +30,7 @@ import com.techelevator.model.dao.OfficeDAO;
 
 @RestController
 @CrossOrigin
-//@PreAuthorize("isAuthenticated()")
+@PreAuthorize("isAuthenticated()")
 public class AppointmentController {
 	
 	public AppointmentController(AppointmentDAO appointmentDAO , DoctorDAO doctorDAO) {

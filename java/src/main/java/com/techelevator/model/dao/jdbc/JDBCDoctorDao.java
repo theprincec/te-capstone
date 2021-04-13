@@ -24,6 +24,7 @@ public class JDBCDoctorDao implements DoctorDAO{
 	}
 
 	
+	
 	@Override
 	public Doctor getDoctorId(int id) {
 		Doctor doctor = new Doctor();

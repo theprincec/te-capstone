@@ -49,7 +49,7 @@
                 max-height="250"
                 contain v-if="fileUrl"
                 :src="fileUrl"
-                alt="Office Image"
+                alt="Doctor Image"
             ></v-img>
 
              <!-- FILE INPUT -->
@@ -88,9 +88,9 @@
                 </v-icon>
             </v-btn>
 
-            <v-btn @click="dialog=false">
+            <!-- <v-btn @click="dialog=false">
             Cancel
-            </v-btn>
+            </v-btn> -->
         </form>
 
     </v-card>
@@ -123,6 +123,16 @@ export default {
         async fileInput(file) {
             try {
             if (file && file.name) {
+                // firebase.firestore().collection("doctors")
+                // .where("doctorId", "==", this.doctor.doctorId)
+                //     .delete()
+                //     .then(response => {
+                //     console.log("Image deleted");
+                // })
+                // .catch(err => {
+                //     console.log("Failed");
+                // })
+
                 // firebase.storage().refFromURL(fileUrl).delete()
                 // .then(response => {
                 //     console.log("Image deleted");
@@ -144,7 +154,7 @@ export default {
     
                 const imgData = new FormData();
                 imgData.append("image", this.myFile);
-                const filePath = `doctors/${this.doctor.doctorId}-${Date.now()}-${file.name}`;
+                const filePath = `doctors/${this.$store.state.currentDoctor.doctorId}-${Date.now()}-${file.name}`;
                 const metadata = { contentType: this.myFile.type };
 
                 const uploadTask = firebase.storage().ref()
@@ -156,7 +166,7 @@ export default {
                 uploadTask.snapshot.ref.getDownloadURL().then(url => {
                     this.fileUrl = url;
                     const doctor = {
-                    doctorId: this.doctor.doctorId,
+                    doctorId: this.$store.state.currentDoctor.doctorId,
                     link: this.fileUrl
                 }
                 firebase.firestore().collection("doctors").add(doctor).then(() => {
@@ -166,7 +176,7 @@ export default {
              
 
              firebase.firestore().collection("doctors")
-             .where("doctorId", "==", this.doctor.doctorId)
+             .where("doctorId", "==", this.$store.state.currentDoctor.doctorId)
             .onSnapshot((querySnapShot) => {
                 const lastDoc = querySnapShot.docs[querySnapShot.docs.length - 1];
                 console.log(lastDoc.id, " => ", lastDoc.data());
@@ -177,6 +187,14 @@ export default {
                 //     this.fileUrl = doc.data().link;
                 // })
                 })
+
+                const fr = new FileReader();
+                fr.readAsDataURL(file);
+                fr.addEventListener("load", () => {
+                //   this is to load image on the UI
+                //   .. not related to file upload
+                this.fileUrl = fr.result;
+                });
                 
             })
             }
@@ -189,8 +207,8 @@ export default {
     }, 
     created() {
         firebase.firestore().collection("doctors")
-         .where("doctorId", "==", this.doctor.doctorId)
-        //  .orderBy("date", "desc")
+         .where("doctorId", "==", this.$store.state.currentDoctor.doctorId)
+          //.orderBy("date", "desc")
                     .get()
                     .then((querySnapShot) => {
                         const lastDoc = querySnapShot.docs[querySnapShot.docs.length - 1];
