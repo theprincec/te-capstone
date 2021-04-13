@@ -11,7 +11,6 @@
                         <v-card class="ml-10" max-height="110" max-width="120">
                             <v-img class="hidden-sm-and-down"
                                 height="100"
-<<<<<<< HEAD
                                 src="src/assets/img.png"
                             ></v-img>
                         </v-card>
@@ -24,22 +23,6 @@
                             >
                         </v-card>
                         <v-card-title id="doctor-title" class="text-h4 pt-10  ">Dr {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
-=======
-                                src="../assets/placeholder.jpg"
-                                v-if="!fileDoctorUrl"
-                                alt="Doctor Image"
-                            ></v-img>
-                             <v-img class="hidden-sm-and-down"
-                                height="100"
-                                :src="fileDoctorUrl"
-                                contain v-if="fileDoctorUrl"
-                                alt="Doctor Image"
-                            ></v-img>
-                        </v-card>
-                    </v-col>
-                     <v-col col="12" md="10">
-                        <v-card-title class="text-h4 pt-10  ">Dr {{doctor.firstName}} {{doctor.lastName}}</v-card-title>
->>>>>>> 4409c195ecb8085b179a945291f170b41711593b
   
                      </v-col>
                 </v-row>
@@ -134,11 +117,6 @@ export default {
 
         // AppointmentsList,
         TimeSlotCard
-<<<<<<< HEAD
-
-=======
-      
->>>>>>> 4409c195ecb8085b179a945291f170b41711593b
     },
     data(){
    
