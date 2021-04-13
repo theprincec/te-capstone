@@ -19,6 +19,16 @@ export default {
     getOfficeInfo(doctorId) {
         
         return axios.get(`/doctors/${doctorId}/offices`)
+    },
+
+    getImageCount() {
+        
+        return axios.get('/images')
+    },
+
+    updateImageCount() {
+        
+        return axios.put('/images')
     }
 
 //   login(user) {

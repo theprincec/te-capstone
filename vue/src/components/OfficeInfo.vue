@@ -475,7 +475,7 @@ export default {
      }
      
     },
-     created() {
+     mounted() {
         this.autoPopulateOfficeInfo();
 //ACCESS COLLECTION FROM FIRESTORE
         const id = this.$store.state.currentDoctor.office.officeId;

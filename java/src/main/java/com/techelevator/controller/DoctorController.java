@@ -23,6 +23,8 @@ public class DoctorController {
 		this.doctorDao = doctorDao;
 	}
 	
+	
+	
 	@RequestMapping(path="/doctors", method=RequestMethod.GET)
 	public List<Doctor> getDoctors() {
 		return doctorDao.getDoctors();

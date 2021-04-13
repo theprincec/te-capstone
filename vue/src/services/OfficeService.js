@@ -12,6 +12,10 @@ export default {
     },
     updateOfficeInfo(office){
         return axios.put(`/offices`, office)
+    }, 
+
+    getOffices() {
+        return axios.get('/offices')
     }
 
 //   login(user) {

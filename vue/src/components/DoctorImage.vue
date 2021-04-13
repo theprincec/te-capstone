@@ -25,7 +25,6 @@
                     dark
                     v-bind="attrs"
                     v-on="on"
-                
                 >
                 Change image
             </v-btn>
@@ -52,7 +51,7 @@
                 max-height="250"
                 contain v-if="fileDoctorUrl"
                 :src="fileDoctorUrl"
-                alt="Office Image"
+                alt="Doctor Image"
             ></v-img>
 
              <!-- FILE INPUT -->
@@ -159,6 +158,7 @@ export default {
                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                     link: this.fileDoctorUrl
                 }
+
                 const newId = this.$store.state.currentDoctor.doctorId;
     
 // ADDING COLLECTION TO FIRESTORE BY OFFICE ID
@@ -195,7 +195,7 @@ export default {
         
      }
     },
-     beforeCreate() {
+    created() {
 //ACCESS COLLECTION FROM FIRESTORE
         const id = this.$store.state.currentDoctor.doctorId;
          firebase.firestore().collection("doctors").doc(`${id}`)
@@ -207,6 +207,7 @@ export default {
                 } else {
                     console.log(doc.data().timestamp)
                 }   
+
             })
             .catch((error) => {
                 console.log("Error getting documents: ", error);
