@@ -18,8 +18,8 @@ public class JDBCPatientDao implements PatientDAO{
 
 	@Override
 	public Patient getPatientById(int id) {
-		String sql = "SELECT patient_id, first_name, last_name FROM patients " + 
-						"WHERE patient_id = ?";
+		String sql = "SELECT patient_id, first_name, last_name, email FROM patients " + 
+						"JOIN users ON users.user_id = patients.user_id WHERE patient_id = ?";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, id);
 		Patient patient = new Patient();
 		while(rows.next()) {
