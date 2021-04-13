@@ -94,9 +94,11 @@ router.beforeEach((to, from, next) => {
     next("/login");
   } else if (requiresAdmin && store.state.user.authorities[0].name != "ROLE_ADMIN") {
     next("/login"); 
-  } else if (requiresAuth && store.state.token === '') {
-    next("/");
-  } else {
+  } 
+  // else if (requiresAuth && store.state.token === '') {
+  //   next("/login");
+  // } 
+  else {
     // Else let them go to their next destination
     next();
   }

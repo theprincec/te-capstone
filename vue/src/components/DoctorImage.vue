@@ -59,7 +59,7 @@
                 v-model="myFile"
                 accept="image/png, image/jpeg"
                 placeholder="Click to upload file"
-                @change="fileInput"
+                @change="myFileInput"
                 :disabled="processing"
                 class="px-10"
                 dense
