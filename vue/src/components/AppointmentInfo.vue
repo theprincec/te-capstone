@@ -1,20 +1,52 @@
 <template>
-<v-container >
-    <v-row>
+<v-container ><v-row>
+        <v-col cols="12" md="12">
+            <v-card id="docs"
+                rounded="lg"
+                min-height="100"
+                flat>
+
+                <v-row>
+                    <v-col col="12" md="2">
+                        <v-card class="ml-10" max-height="110">
+            <!-- DOCTOR IMAGE -->
+
+                            <v-img
+                                class="hidden-xs-and-down"
+                                max-height="100"
+                                v-if="!fileDoctorUrl"
+                                src="../assets/placeholder.jpg"
+                                ></v-img>
+                                <v-img
+                                max-height="100"
+                                contain v-if="fileDoctorUrl"
+                                :src="fileDoctorUrl"
+                                alt="Doctor Image"
+                            ></v-img>
+                        </v-card>
+                    </v-col>
+                     <v-col col="12" md="4" >
+                        <v-card-title class="text-h4 pt-1  ">Dr. {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
+                     </v-col>
+                </v-row>
+            </v-card>
+        </v-col>
+    </v-row>
+    <!-- <v-row>
         <v-col cols="12" md="12">
             <v-card id="docs"
                 rounded="lg"
                 min-height="100"
                 flat>
                 <v-row >
-                    <!-- <v-col col="12" md="2">
+                    <v-col col="12" md="2">
                         <v-card class="ml-10" max-height="110" max-width="120">
                             <v-img class="hidden-sm-and-down"
                                 height="100"
                                 src="src/assets/img.png"
                             ></v-img>
                         </v-card>
-                    </v-col> -->
+                    </v-col>
                      <v-col col="12" md="12">
                          <v-card class="ml-10" max-height="110" max-width="120" id="doctor-image-container">
                             <img 
@@ -28,8 +60,8 @@
                 </v-row>
 
             </v-card>
-        </v-col>
-    </v-row>
+        </v-col> -->
+    <!-- </v-row> -->
     <v-row justify="space-around">
         
         
@@ -52,7 +84,7 @@
                         max-width="480"
                     >
 
-    <!-- IMAGE UPDATE FROM DOCTOR -->
+    <!-- OFFICE IMAGE UPDATE FROM DOCTOR -->
 
                         <v-img
                             max-height="250"
