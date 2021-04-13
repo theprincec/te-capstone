@@ -101,6 +101,7 @@
 
 <script>
 import firebase from 'firebase/app'
+import doctorService from '@/services/DoctorService'
 
 export default {
     name: "doctor-image", 
@@ -204,25 +205,37 @@ export default {
             this.processing = false;
             }
         },
+        setCurrentUserInfo(role) {
+         if(role == "ROLE_DOCTOR") {
+            doctorService.getDoctor()
+              .then(response => {
+                  this.$store.commit("SET_CURRENT_DOCTOR", response.data);
+              }).catch( error => {
+                  console.error( error );
+              });
+        }
+    }
     }, 
     created() {
-        firebase.firestore().collection("doctors")
-         .where("doctorId", "==", this.$store.state.currentDoctor.doctorId)
-          //.orderBy("date", "desc")
-                    .get()
-                    .then((querySnapShot) => {
-                        const lastDoc = querySnapShot.docs[querySnapShot.docs.length - 1];
-                        console.log(lastDoc.id, " => ", lastDoc.data());
-                        this.fileUrl = lastDoc.data().link;
-                        // querySnapShot.forEach((doc) => {
-                        //     console.log(doc.id, " => ", doc.data());
+        this.setCurrentUserInfo(this.$store.state.user.authorities[0].name);
+            console.log("DONE!");
+            firebase.firestore().collection("doctors")
+            .where("doctorId", "==", this.$store.state.currentDoctor.doctorId)
+            //.orderBy("date", "desc")
+                        .get()
+                        .then((querySnapShot) => {
+                            const lastDoc = querySnapShot.docs[querySnapShot.docs.length - 1];
+                            console.log(lastDoc.id, " => ", lastDoc.data());
+                            this.fileUrl = lastDoc.data().link;
+                            // querySnapShot.forEach((doc) => {
+                            //     console.log(doc.id, " => ", doc.data());
 
-                        //     this.fileUrl = doc.data().link;
-                        // })
-                    })
-                    .catch((error) => {
-                        console.log("Error getting documents: ", error);
-                    });
+                            //     this.fileUrl = doc.data().link;
+                            // })
+                        })
+                        .catch((error) => {
+                            console.log("Error getting documents: ", error);
+                        });
     }
 
 }
