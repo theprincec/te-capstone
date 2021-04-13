@@ -1,5 +1,6 @@
 <template>
 <div>
+  <!-- <img src="https://firebasestorage.googleapis.com/v0/b/image-upload-39110.appspot.com/o/offices%2F2-1618244367464-Asset%2010careHub%20logos.png?alt=media&token=46b5ba0d-9591-4cf0-b439-e9234695dc58"> -->
   <v-img v-if="!$store.state.currentUserRole" src="../assets/background.png" >
 
   </v-img>
