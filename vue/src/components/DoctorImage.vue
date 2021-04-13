@@ -198,7 +198,7 @@ export default {
     created() {
 //ACCESS COLLECTION FROM FIRESTORE
         const id = this.$store.state.currentDoctor.doctorId;
-         firebase.firestore().collection("doctors").doc(`${id}`)
+        firebase.firestore().collection("doctors").doc(`${id}`)
             .get()
             .then((doc) => {
                 if(doc.exists) {
@@ -209,6 +209,7 @@ export default {
                 }   
 
             })
+
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             })

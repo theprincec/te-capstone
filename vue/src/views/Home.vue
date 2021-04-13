@@ -52,6 +52,7 @@
 
    
       <doctors-list />
+      <!-- <mapper /> -->
      
 </v-container>
 </div>
@@ -61,6 +62,8 @@
 import DoctorsList from '@/components/DoctorsList'
 import DoctorHome from '@/views/DoctorHome'
 import AdminHome from '@/views/AdminHome'
+// import Mapper from '@/components/Mapper'
+
 
 
 export default {
@@ -68,7 +71,8 @@ export default {
   components: {
     DoctorsList,
     DoctorHome, 
-    AdminHome
+    AdminHome,
+    // Mapper
   }
 };
 </script>
