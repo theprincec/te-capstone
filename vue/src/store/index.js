@@ -62,6 +62,8 @@ export default new Vuex.Store({
       localStorage.removeItem('user');
       state.token = '';
       state.user = {};
+      state.currentDoctor = {};
+      state.currentPatient = {};
       axios.defaults.headers.common = {};
     },
     SET_DOCTORS(state, doctors) {

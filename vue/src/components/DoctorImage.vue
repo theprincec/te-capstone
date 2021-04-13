@@ -1,15 +1,16 @@
 <template>
-  <v-row  justify="end" >
+  <div >
       
       <v-img
-        max-height="250"
-        v-if="!fileUrl"
+        class="hidden-xs-and-down"
+        max-height="100"
+        v-if="!fileDoctorUrl"
         src="../assets/placeholder.jpg"
         ></v-img>
         <v-img
-        max-height="250"
-        contain v-if="fileUrl"
-        :src="fileUrl"
+        max-height="100"
+        contain v-if="fileDoctorUrl"
+        :src="fileDoctorUrl"
         alt="Office Image"
         ></v-img>
 
@@ -23,7 +24,8 @@
                     color="primary"
                     dark
                     v-bind="attrs"
-                    v-on="on"                >
+                    v-on="on"
+                >
                 Change image
             </v-btn>
                 
@@ -42,22 +44,22 @@
 
              <v-img
                 max-height="250"
-                v-if="!fileUrl"
+                v-if="!fileDoctorUrl"
                 src="../assets/placeholder.jpg"
                 ></v-img>
                 <v-img
                 max-height="250"
-                contain v-if="fileUrl"
-                :src="fileUrl"
-                alt="Office Image"
+                contain v-if="fileDoctorUrl"
+                :src="fileDoctorUrl"
+                alt="Doctor Image"
             ></v-img>
 
              <!-- FILE INPUT -->
             <v-file-input
-                v-model="myFile"
+                v-model="myFileImage"
                 accept="image/png, image/jpeg"
                 placeholder="Click to upload file"
-                @change="fileInput"
+                @change="myFileInput"
                 :disabled="processing"
                 class="px-10"
                 dense
@@ -88,14 +90,14 @@
                 </v-icon>
             </v-btn>
 
-            <v-btn @click="dialog=false">
+            <!-- <v-btn @click="dialog=false">
             Cancel
-            </v-btn>
+            </v-btn> -->
         </form>
 
-    </v-card>
+     </v-card>
      </v-dialog>
-  </v-row>
+  </div>
 
 </template>
 
@@ -109,9 +111,8 @@ export default {
             dialog: false, 
             showEditImage: false,
             processing: false,
-            myFile: null,
-            fileUrl: null, 
-            oldFileUrl: null 
+            myFileImage: null,
+            fileDoctorUrl: null 
         }
     }, 
     computed: {
@@ -120,92 +121,102 @@ export default {
         }
     },
     methods: {
-        async fileInput(file) {
-            try {
-            if (file && file.name) {
-                // firebase.storage().refFromURL(fileUrl).delete()
-                // .then(response => {
-                //     console.log("Image deleted");
-                // })
-                // .catch(err => {
-                //     console.log("Failed");
-                // })
+        async myFileInput(file) {
 
+        try {
+          if (file && file.name) {
+            this.processing = true;
+// LOADING IMAGE TO THE PAGE
+            const fr = new FileReader();
+            fr.readAsDataURL(file);
+            fr.addEventListener("load", () => {
+    //   this is to load image on the UI
+    //   .. not related to file upload
+              this.fileDoctorUrl = fr.result;
+            });
+//    CREATE METADATA FOR FIREBASE
+            const imgData = new FormData();
+            imgData.append("image", this.myFile);
+            const filePath = `doctors/${this.doctor.doctorId}-${Date.now()}-${file.name}`;
+            // const metadata = { contentType: this.myFile.type };
+// UPLOADING AND GETTING URL FROM FIREBASE
+            const uploadTask = firebase.storage().ref()
+              .child(filePath)
+              .put(this.myFileImage)
+              .then((snapshot) => {
+               return snapshot.ref.getDownloadURL()   
+              })
+              .then(url => {
+//TEST console.log("File at:" + url);
+                 this.fileDoctorUrl = url; //this should save fileUrl to url from firebase
+              })
+              .catch(e => {console.log(e)});
+//WAITING ON WHEN UPLOAD IS FINISHED
+            await uploadTask;
 
-                this.processing = true;
-
-                const fr = new FileReader();
-                fr.readAsDataURL(file);
-                fr.addEventListener("load", () => {
-                //   this is to load image on the UI
-                //   .. not related to file upload
-                this.fileUrl = fr.result;
-                });
-    
-                const imgData = new FormData();
-                imgData.append("image", this.myFile);
-                const filePath = `doctors/${this.doctor.doctorId}-${Date.now()}-${file.name}`;
-                const metadata = { contentType: this.myFile.type };
-
-                const uploadTask = firebase.storage().ref()
-                .child(filePath)
-                .put(this.myFile, metadata);
-
-                await uploadTask;
-                
-                uploadTask.snapshot.ref.getDownloadURL().then(url => {
-                    this.fileUrl = url;
-                    const doctor = {
-                    doctorId: this.doctor.doctorId,
-                    link: this.fileUrl
+                let doctorImage = {
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    link: this.fileDoctorUrl
                 }
-                firebase.firestore().collection("doctors").add(doctor).then(() => {
-                    this.showEditImage = false;
-                })
-                //ACCESS COLLECTION FROM FIRESTORE
-             
 
-             firebase.firestore().collection("doctors")
-             .where("doctorId", "==", this.doctor.doctorId)
-            .onSnapshot((querySnapShot) => {
-                const lastDoc = querySnapShot.docs[querySnapShot.docs.length - 1];
-                console.log(lastDoc.id, " => ", lastDoc.data());
-                this.fileUrl = lastDoc.data().link;
-                // querySnapShot.forEach((doc) => {
-                //     console.log(doc.id, " => ", doc.data());
-
-                //     this.fileUrl = doc.data().link;
-                // })
-                })
-                
-            })
-            }
-            } catch (e) {
-            console.error(e);
-            } finally {
-            this.processing = false;
-            }
-        },
-    }, 
-    created() {
-        firebase.firestore().collection("doctors")
-         .where("doctorId", "==", this.doctor.doctorId)
-        //  .orderBy("date", "desc")
-                    .get()
-                    .then((querySnapShot) => {
-                        const lastDoc = querySnapShot.docs[querySnapShot.docs.length - 1];
-                        console.log(lastDoc.id, " => ", lastDoc.data());
-                        this.fileUrl = lastDoc.data().link;
-                        // querySnapShot.forEach((doc) => {
-                        //     console.log(doc.id, " => ", doc.data());
-
-                        //     this.fileUrl = doc.data().link;
-                        // })
+                const newId = this.$store.state.currentDoctor.doctorId;
+    
+// ADDING COLLECTION TO FIRESTORE BY OFFICE ID
+// UPDATE IF OFFICEID ALREADY EXISTS
+// SET IF DOES NOT
+                const docRef = firebase.firestore().collection("doctors").doc(`${newId}`);
+                docRef.get().then((doc) => {
+                    if (doc.exists) {
+                        docRef.update(doctorImage)
+                    .then(() => {  
+                        console.log("updated")   
+                        this.showEditImage = false;   
+                    }).catch((e) => {
+                        console.log(e)
                     })
-                    .catch((error) => {
-                        console.log("Error getting documents: ", error);
-                    });
+                    } else {
+                        docRef.set(doctorImage)
+                        .then(() => {
+//TEST console.log("set")
+                            this.showEditImage = false;   
+                        }).catch((e) => {
+                            console.log(e)
+                        })
+                    }
+                }).catch(e => {
+                    console.log(e)
+                })
+// TEST   console.log("filePath: ", filePath);
+          }
+        } catch (e) {
+          console.error(e);
+        } finally {
+          this.processing = false;
+        
+     }
+    },
+    created() {
+//ACCESS COLLECTION FROM FIRESTORE
+        const id = this.$store.state.currentDoctor.doctorId;
+        firebase.firestore().collection("doctors").doc(`${id}`)
+            .get()
+            .then((doc) => {
+                if(doc.exists) {
+                    console.log(doc.id, " => ", doc.data());
+                    this.fileDoctorUrl = doc.data().link;
+                } else {
+                    console.log(doc.data().timestamp)
+                }   
+
+            })
+
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            })
+
+        } 
     }
+   
 
 }
 </script>

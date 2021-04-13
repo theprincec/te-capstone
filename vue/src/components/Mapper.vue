@@ -3,8 +3,8 @@
   <div>
       <google-map
         :center="{lat:39.9622601,lng:-83.0007065}"
-        class="ma-0 hidden-md-and-down"
-        style="width:652px; height:620px; align:center;"
+        :zoom="11"
+        style="width:600px; height:620px; align:center;"
         ref="mapRef"
  
       >
@@ -81,7 +81,7 @@
 export default {
     data(){
         return{
-            map: null,
+            map: 'map',
             myCoordinates: {
                 lat: 0,
                 lng: 0

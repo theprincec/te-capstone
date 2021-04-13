@@ -14,7 +14,7 @@ import com.techelevator.model.dao.PatientDAO;
 
 @RestController
 @CrossOrigin
-//@PreAuthorize("isAuthenticated()")
+@PreAuthorize("isAuthenticated()")
 public class PatientController {
 
 	private PatientDAO patientDao;
