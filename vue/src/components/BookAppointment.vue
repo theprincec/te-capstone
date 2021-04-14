@@ -133,7 +133,8 @@ export default {
             this.appointment.doctorId = this.$store.state.currentDoctor.doctorId;
             appointmentService.addAppointment(this.appointment).then(response => {
                 if(response.status == 201) {
-                    emailService.sendAppointmentEmail();
+                    emailService.sendTheEmail;
+                    //emailService.sendAppointmentEmail(this.appointment.timeStart);
                     alert("Appointment successfully booked");
                 }
             })

@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1> CLICK ME HEREEE</h1>
-    <!-- <form class="contact-form" @submit.prevent="sendEmail"> -->
-    <form class="contact-form" >
+    <form class="contact-form" @submit.prevent="sendEmail()">
+    <!-- <form class="contact-form" > -->
       <label>Name</label>
       <input type="text" name="user_name">
       <label>Email</label>
@@ -11,8 +11,8 @@
       <textarea name="message"></textarea>
       <input type="submit" value="Send">
     </form>
-    <div> <button @click.prevent="sendEmail"> JUST SEND THE EMAIL </button>
-    </div>
+    <!-- <div> <button v-on:click.prevent="sendEmail()"> JUST SEND THE EMAIL </button>
+    </div> -->
   </div>
   
 </template>

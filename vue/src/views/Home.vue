@@ -52,6 +52,12 @@
 
    
       <doctors-list />
+      <div @click.prevent="sendEmail">
+        <button > SEND EMAIL FUNCTION </button>
+      </div>
+      <div @click.prevent="sendTheEmail">
+        <button > SEND THE EMAIL function </button>
+      </div>
       <!-- <mapper /> -->
      
 </v-container>
@@ -62,6 +68,7 @@
 import DoctorsList from '@/components/DoctorsList'
 import DoctorHome from '@/views/DoctorHome'
 import AdminHome from '@/views/AdminHome'
+import emailService from '@/services/EmailService'
 // import Mapper from '@/components/Mapper'
 
 
@@ -74,7 +81,7 @@ export default {
     AdminHome,
     // Mapper
   }
-};
+}
 </script>
 
     
