@@ -168,9 +168,9 @@
                     <v-text-field class=" px-10" label="Phone Number" dense v-model="office.phoneNumber">
                     </v-text-field>
                     <div class="d-flex justify-space-between">
-                        <v-text-field class=" pl-10 pr-2" label="Open Time" dense v-model="office.openTime">
+                        <v-text-field type="time" class=" pl-10 pr-2" label="Open Time" dense v-model="office.openTime" min="9:00" max="17:00">
                         </v-text-field>
-                        <v-text-field class=" pr-10 pl-2" label="Close Time" dense v-model="office.closeTime">
+                        <v-text-field type="time" class=" pr-10 pl-2" label="Close Time" dense v-model="office.closeTime" min="9:00" max="17:00">
                         </v-text-field>
                     </div>
                     <v-text-field class=" px-10" label="Office Rate" dense v-model="office.officeRate">
