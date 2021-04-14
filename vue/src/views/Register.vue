@@ -2,18 +2,18 @@
 
 <v-container id="register" ma-0 pa-0 fill-height fluid>
   <v-layout>
-      <v-flex md5 class="primary" id="background">
-      </v-flex>
-      <v-flex md7 align-self-center>
-        <v-card elevation="0" class="d-flex justify-center mx-auto mb-10">
+      <!-- <v-flex md5 class="primary" id="background">
+      </v-flex> -->
+      <v-flex align-self-center>
+        <!-- <v-card elevation="0" class="d-flex justify-center mx-auto mb-10">
           <v-img src="../assets/carehub.png" max-height="150" max-width="134">
           </v-img>
-        </v-card>
-        <v-card width="500" class="mx-auto mt-5">
+        </v-card> -->
+        <v-card elevation="7" width="550" class="mx-auto mt-5">
           <v-card-title class=" display-1" id="title-container">
           Create Account
         </v-card-title>
-        <v-card-text>
+        <v-card-text class="pb-0">
 
           <v-form id="form-register" 
             ref="form"
@@ -27,6 +27,27 @@
               {{ registrationErrorMsg }}
             </v-alert>
           </div>
+          <v-row>
+            <v-col col="6">
+             <v-text-field 
+              prepend-icon="mdi-account-outline"
+              :rules="[v => !!v || 'First name is required']"
+              v-model="user.firstName"
+              label="First Name"
+              required
+            />
+            </v-col>
+            <v-col col="6">
+            <v-text-field 
+              prepend-icon="mdi-account-outline"
+              :rules="[v => !!v || 'Last name is required']"
+              v-model="user.lastName"
+              label="Last Name"
+              required
+            />
+            </v-col>
+          </v-row>
+
             <v-text-field 
               v-model="user.username"
               :rules="[v => !!v || 'Username is required']"
@@ -62,20 +83,7 @@
               label="Email Address"
               required
             />
-            <v-text-field 
-              prepend-icon="mdi-account-outline"
-              :rules="[v => !!v || 'First name is required']"
-              v-model="user.firstName"
-              label="First Name"
-              required
-            />
-            <v-text-field 
-              prepend-icon="mdi-account-outline"
-              :rules="[v => !!v || 'Last name is required']"
-              v-model="user.lastName"
-              label="Last Name"
-              required
-            />
+           
 
             
           <center>
@@ -92,13 +100,13 @@
 
           </v-form>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="pt-0">
           <router-link :to="{ name: 'login' }" style="text-decoration: none">
             <v-btn color="blue" text id="log-in-text">HAVE AN ACCOUNT? LOG IN</v-btn>
           </router-link>
         </v-card-actions>
         <v-divider></v-divider>
-        <v-card-actions>
+        <v-card-actions >
           <v-btn :disabled= !valid 
             block
             type="submit" 
@@ -177,18 +185,18 @@ export default {
   background-image: url('../assets/img.png')
 }
 #sign-in-button{
-  background-color: #aaaaaa;
+  background-color: #f4921cd6;
 }
 #sign-in-button:hover{
   background-color: #f48d11;
 }
 #title-container{
   width: 100%;
-  /* padding-left: 80px; */
+  padding-left: 150px;
 }
 #log-in-text{
   width: 100%;
-  padding-left: 60px;
+  padding-left: 150px;
 }
 
 </style>

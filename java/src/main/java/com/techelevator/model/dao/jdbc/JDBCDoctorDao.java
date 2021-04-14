@@ -30,7 +30,7 @@ public class JDBCDoctorDao implements DoctorDAO{
 		Doctor doctor = new Doctor();
 		
 		String sql = "SELECT doctor_id, users.user_id as user_id, first_name, last_name, doctors.office_id as office_id, " + 
-				"office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate " + 
+				"office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate, users.email as email " + 
 				"FROM doctors " + 
 				"JOIN offices ON doctors.office_id = offices.office_id " + 
 				"JOIN users ON users.user_id = doctors.user_id " + 
@@ -52,7 +52,7 @@ public class JDBCDoctorDao implements DoctorDAO{
 		Doctor doctor = new Doctor();
 		
 		String sql = "SELECT doctor_id, users.user_id as user_id, first_name, last_name, doctors.office_id as office_id, " + 
-				"office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate " + 
+				"office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate, users.email as email " + 
 				"FROM doctors " + 
 				"LEFT JOIN offices ON doctors.office_id = offices.office_id " + 
 				"JOIN users ON users.user_id = doctors.user_id " + 
@@ -84,7 +84,12 @@ public class JDBCDoctorDao implements DoctorDAO{
 	
 	@Override
 	public void updateOfficeForDoctor(Doctor doctor) {
-		jdbcTemplate.update("UPDATE doctors SET office_id = null WHERE doctor_id = ?", doctor.getDoctorId());
+		if(doctor.getOffice().getOfficeId() > 0) {
+			jdbcTemplate.update("UPDATE doctors SET office_id = ? WHERE doctor_id = ?", doctor.getOffice().getOfficeId(), doctor.getDoctorId());
+
+		} else {
+			jdbcTemplate.update("UPDATE doctors SET office_id = null WHERE doctor_id = ?", doctor.getDoctorId());
+		}
 		
 	}
 	
@@ -103,7 +108,11 @@ public class JDBCDoctorDao implements DoctorDAO{
 		}
 		doctor.setDoctorId(row.getInt("doctor_id"));
 		doctor.setUserId(row.getInt("user_id"));
+<<<<<<< HEAD
 //		doctor.setEmail(row.getString("users.email"));
+=======
+		//doctor.setEmail(row.getString("email"));
+>>>>>>> 889da46d1a3602b5f08ce4953b53d6e70c37c778
 		doctor.setFirstName(row.getString("first_name"));
 		doctor.setLastName(row.getString("last_name"));
 		

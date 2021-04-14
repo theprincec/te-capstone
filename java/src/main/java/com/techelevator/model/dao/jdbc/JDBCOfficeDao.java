@@ -64,6 +64,32 @@ public class JDBCOfficeDao implements OfficeDAO {
 	}
 	
 
+	@Override
+	public List<Doctor> getDoctorsByOfficeId(int officeId) {
+			String sql = "";
+			SqlRowSet rows;
+			if(officeId == 0) {
+				sql = "SELECT doctor_id, user_id, first_name, last_name, doctors.office_id as office_id FROM doctors " + 
+						"WHERE doctors.office_id IS NULL";
+				rows = jdbcTemplate.queryForRowSet(sql);
+
+			} else {
+				sql = "SELECT doctor_id, user_id, first_name, last_name, doctors.office_id as office_id FROM doctors " + 
+						"WHERE doctors.office_id = ?";
+				rows = jdbcTemplate.queryForRowSet(sql, officeId);
+			}
+			List<Doctor> doctors = new ArrayList<Doctor>();
+			while(rows.next()) {
+				Doctor doctor = mapRowsToDoctor(rows);
+				doctors.add(doctor);
+			}
+			return doctors;
+		
+		
+	}
+
+	
+
 	private Office mapRowToOffice(SqlRowSet row) {
 		Office office = new Office();
 		Address address = new Address();
@@ -86,34 +112,16 @@ public class JDBCOfficeDao implements OfficeDAO {
 	
 	private Doctor mapRowsToDoctor (SqlRowSet row) {
 		Doctor doctor = new Doctor();
-//		if(row.getString("office_id").equals(null)) {
-//			Office office = mapRowToOffice(row);
-//			doctor.setOffice(office);
-//		}
 		doctor.setDoctorId(row.getInt("doctor_id"));
 		doctor.setUserId(row.getInt("user_id"));
 		doctor.setFirstName(row.getString("first_name"));
 		doctor.setLastName(row.getString("last_name"));
+		Office office = getOfficeInfo(doctor);
+		doctor.setOffice(office);
 		
 		return doctor;
 	}
 
-
-	@Override
-	public List<Doctor> getDoctorsByOfficeId(int officeId) {
-			String sql = "SELECT doctor_id, user_id, first_name, last_name, doctors.office_id as office_id FROM doctors " + 
-					"JOIN offices on offices.office_id = doctors.office_id " + 
-					"WHERE doctors.office_id = ?";
-			SqlRowSet rows = jdbcTemplate.queryForRowSet(sql, officeId);
-			List<Doctor> doctors = new ArrayList<Doctor>();
-			while(rows.next()) {
-				Doctor doctor = mapRowsToDoctor(rows);
-				doctors.add(doctor);
-			}
-			return doctors;
-		
-		
-	}
 	
 
 }

@@ -10,22 +10,7 @@
                 <v-row>
                     <v-col col="12" md="2">
                         <v-card class="ml-10" max-height="110">
-                            <!-- <v-img class="hidden-md-and-down"
-                                height="100"  
-                                src="../assets/placeholder.jpg"
-                            ></v-img> -->
-                        <!-- <v-img
-                            class="hidden-xs-and-down"
-                            max-height="100"
-                            v-if="!fileDoctorUrl"
-                            src="../assets/placeholder.jpg"
-                            ></v-img>
-                            <v-img
-                            max-height="100"
-                            contain v-if="fileDoctorUrl"
-                            :src="fileDoctorUrl"
-                            alt="Office Image"
-                        ></v-img> -->
+            <!-- DOCTOR IMAGE -->
 
                             <doctor-image></doctor-image>
                         </v-card>
@@ -50,7 +35,8 @@
         <v-col cols="12"
             md="6" class="pb-0 pt-3">
        <!-- appointments -->
-            <appointments-list />
+            <appointments-list
+             />
     <!-- availability-form -->
             <!-- <availability-form /> -->
 
@@ -293,6 +279,11 @@ export default {
     //     this.loader = null
     //   }
     // },
+    watch: {
+        doctor: function(newDoctor) {
+            this.updateOfficeImage(newDoctor);
+        }
+    },
     
     computed: {
         doctor() {
@@ -306,6 +297,23 @@ export default {
           
     },
     methods: {
+        updateOfficeImage(newDoctor) {
+            const officeIdFromStore = newDoctor.office.officeId;
+            firebase.firestore().collection("offices").doc(`${officeIdFromStore}`)
+            .get()
+            .then((doc) => {
+                if(doc.exists) {
+                    console.log(doc.id, " => ", doc.data());
+                    this.fileUrl = doc.data().link;
+                } else {
+                    console.log(doc.data().timestamp)
+                }   
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            })
+        },
+        
         selectedDoctor() {
             this.doctorsList.find( doctor => {
                 if(this.slctDoctor.id == doctor.doctorId){
@@ -458,40 +466,31 @@ export default {
        this.getUpdateImage
      },
      getUpdateImage() {
-         const id = this.$store.state.currentDoctor.office.officeId;
-                firebase.firestore().collection("offices").doc(`${id}`)
-                    .get()
-                    .then((doc) => {
-                        if(doc.exists) {
-                            console.log(doc.id, " => ", doc.data());
-                            this.fileUrl = doc.data().link;
-                        } else {
-                            console.log(doc.data().timestamp)
-                        }   
-                    })
+         const id = this.$store.state.user.id;
+            firebase.firestore().collection("offices").doc(`${id}`)
+                .get()
+                .then((doc) => {
+                    if(doc.exists) {
+                        console.log(doc.id, " => ", doc.data());
+                        this.fileUrl = doc.data().link;
+                    } else {
+                        console.log(doc.data().timestamp)
+                    }   
+                })
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             })
      }
      
     },
-     mounted() {
+     created() {
         this.autoPopulateOfficeInfo();
 //ACCESS COLLECTION FROM FIRESTORE
-        const id = this.$store.state.currentDoctor.office.officeId;
-         firebase.firestore().collection("offices").doc(`${id}`)
-            .get()
-            .then((doc) => {
-                if(doc.exists) {
-                    console.log(doc.id, " => ", doc.data());
-                    this.fileUrl = doc.data().link;
-                } else {
-                    console.log(doc.data().timestamp)
-                }   
-            })
-            .catch((error) => {
-                console.log("Error getting documents: ", error);
-            })
+        // const id = this.$store.state.user.id;
+        // if(id == this.$store.state.currentDoctor.userId) {
+            
+        // }
+        
 //  //ACCESS COLLECTION FROM FIRESTORE
 //         const docId = this.$store.state.currentDoctor.doctorId;
 //          firebase.firestore().collection("doctors").doc(`${docId}`)

@@ -11,7 +11,7 @@
         max-height="100"
         contain v-if="fileDoctorUrl"
         :src="fileDoctorUrl"
-        alt="Office Image"
+        alt="Doctor Image"
         ></v-img>
 
         <v-dialog
@@ -56,7 +56,7 @@
 
              <!-- FILE INPUT -->
             <v-file-input
-                v-model="myFileImage"
+                v-model="myFile"
                 accept="image/png, image/jpeg"
                 placeholder="Click to upload file"
                 @change="myFileInput"
@@ -64,7 +64,7 @@
                 class="px-10"
                 dense
                 small-chips
-                label="Update office image"
+                label="Update doctor image"
                 prepend-icon="mdi-camera"
 
             >
@@ -111,16 +111,42 @@ export default {
             dialog: false, 
             showEditImage: false,
             processing: false,
-            myFileImage: null,
-            fileDoctorUrl: null 
+            myFile: null,
+            fileDoctorUrl: null,
+            currentDoctor: {} 
         }
     }, 
+    watch: {
+        doctor: function(newDoctor) {
+            this.updatedDoctorImage(newDoctor);
+        }
+    },
     computed: {
         doctor() {
             return this.$store.state.currentDoctor;
         }
     },
     methods: {
+
+        updatedDoctorImage(newDoctor) {
+            //ACCESS COLLECTION FROM FIRESTORE
+            const id = newDoctor.doctorId;
+            firebase.firestore().collection("doctors").doc(`${id}`)
+                .get()
+                .then((doc) => {
+                    if(doc.exists) {
+                        console.log(doc.id, " => ", doc.data());
+                        this.fileDoctorUrl = doc.data().link;
+                    } else {
+                        console.log(doc.data().timestamp)
+                    }   
+
+                })
+
+                .catch((error) => {
+                    console.log("Error getting documents: ", error);
+                })
+        },
         async myFileInput(file) {
 
         try {
@@ -137,12 +163,12 @@ export default {
 //    CREATE METADATA FOR FIREBASE
             const imgData = new FormData();
             imgData.append("image", this.myFile);
-            const filePath = `doctors/${this.doctor.doctorId}-${Date.now()}-${file.name}`;
+            const filePath = `doctors/${this.currentDoctor.doctorId}-${Date.now()}-${file.name}`;
             // const metadata = { contentType: this.myFile.type };
 // UPLOADING AND GETTING URL FROM FIREBASE
             const uploadTask = firebase.storage().ref()
               .child(filePath)
-              .put(this.myFileImage)
+              .put(this.myFile)
               .then((snapshot) => {
                return snapshot.ref.getDownloadURL()   
               })
@@ -154,11 +180,10 @@ export default {
 //WAITING ON WHEN UPLOAD IS FINISHED
             await uploadTask;
 
-                let doctorImage = {
+                let doctor = {
                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                     link: this.fileDoctorUrl
                 }
-
                 const newId = this.$store.state.currentDoctor.doctorId;
     
 // ADDING COLLECTION TO FIRESTORE BY OFFICE ID
@@ -167,7 +192,7 @@ export default {
                 const docRef = firebase.firestore().collection("doctors").doc(`${newId}`);
                 docRef.get().then((doc) => {
                     if (doc.exists) {
-                        docRef.update(doctorImage)
+                        docRef.update(doctor)
                     .then(() => {  
                         console.log("updated")   
                         this.showEditImage = false;   
@@ -175,7 +200,7 @@ export default {
                         console.log(e)
                     })
                     } else {
-                        docRef.set(doctorImage)
+                        docRef.set(doctor)
                         .then(() => {
 //TEST console.log("set")
                             this.showEditImage = false;   
@@ -186,41 +211,18 @@ export default {
                 }).catch(e => {
                     console.log(e)
                 })
+           
 // TEST   console.log("filePath: ", filePath);
           }
         } catch (e) {
           console.error(e);
         } finally {
           this.processing = false;
+
         
+        }
      }
-    },
-    created() {
-//ACCESS COLLECTION FROM FIRESTORE
-        const id = this.$store.state.currentDoctor.doctorId;
-        firebase.firestore().collection("doctors").doc(`${id}`)
-            .get()
-            .then((doc) => {
-                if(doc.exists) {
-                    console.log(doc.id, " => ", doc.data());
-                    this.fileDoctorUrl = doc.data().link;
-                } else {
-                    console.log(doc.data().timestamp)
-                }   
-
-            })
-
-            .catch((error) => {
-                console.log("Error getting documents: ", error);
-            })
-
-        } 
     }
-   
-
 }
+
 </script>
-
-<style>
-
-</style>
