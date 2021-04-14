@@ -2,32 +2,98 @@
 <div id="app">
   <v-app>
     <v-container>
-      <v-row>
-        <v-col cols="4">
-            <v-card >    
-            <div style="color:red; font-weight:bold; padding-bottom:30px">Unassigned Doctors:</div>
-            <draggable v-model="unassigned.doctors" group="offices" >
-
-                <div v-for="doctor in unassigned.doctors" :key="doctor.doctorId" style="font-weight:bold;" 
-                        @dragstart='startDrag($event, doctor)' @drop="onDrop($event, doctor)">
-                {{doctor.firstName}} {{doctor.lastName}}
-                </div>
-            </draggable>
-          </v-card>
-        </v-col>
-
-        <v-col cols="8">
-            <v-card v-for="office in offices" v-bind:key="office.officeId">
-
-                <div id=dropZoneTitle style="color:red; font-weight:bold; padding-bottom:30px">{{office.name}}</div>
-                <draggable v-model="office.doctors" group="offices">
-                    <div v-for="doctor in office.doctors" :key="doctor.doctorId" style="font-weight:bold;" 
-                            @dragstart='startDrag($event, doctor)'  @drop="onDrop($event, doctor)">
-                    {{doctor.firstName}} {{doctor.lastName}}
-                    </div>
-                </draggable>
+    <v-row>
+        <v-col cols="12">
+            <v-card class="pb-10px">
+                <v-row>
+                    <img style="max-height: 100px; margin-left: 50px" src="@/assets/carehub.png" alt="">
+                    <h2 style="margin-left: 50px; margin-top: 40px; color: grey">Office Assignments and Updates</h2>
+                </v-row>
             </v-card>
         </v-col>
+    </v-row>
+      <v-row>
+        <!-- <v-col cols="2">
+           
+        </v-col> -->
+
+
+        <v-col cols="5">
+            <div  v-for="item in offices" v-bind:key="item.office.officeId" 
+                    @drop="onDrop($event, item.office)"
+                    @dragover.prevent
+                    @dragenter.prevent>
+                    
+            <v-card v-if="item.office.name == 'Unassigned Doctors'" class="pb-5 mb-5">
+
+                <div id=dropZoneTitle>
+
+                    <v-card-text class="text-center text-lg-h6 font-weight-bold font-italic">
+                    {{item.office.name}}
+                    </v-card-text>
+                </div>
+                <v-card-text v-if="item.doctors.length == 0" class="text-center"> There are no unassigned doctors </v-card-text>
+
+                <draggable v-model="item.doctors" group="offices">
+                    <div v-for="doctor in item.doctors" :key="doctor.doctorId" style="font-weight:bold;"  
+                            @dragstart='startDrag($event, doctor)'  >
+                    <v-hover v-slot="{ hover }">
+                    <v-card class="ml-10 mr-10 mb-5 doctorCards" :elevation="hover ? 12 : 2" color="#C4E7F2">
+                        <v-card-text class="text-center text-md-body-1 font-weight-bold">
+                        Dr. {{doctor.firstName}} {{doctor.lastName}}
+                        </v-card-text>
+
+                    </v-card>
+                    </v-hover>
+                    </div>
+                </draggable>
+                </v-card>
+            </div>
+        </v-col>
+
+        <v-col cols="1">
+            <div id="filler" >
+                <v-row>
+            <v-icon x-large>mdi-arrow-left-bold</v-icon> <v-icon x-large> mdi-arrow-right-bold</v-icon>
+            </v-row>
+            </div>
+            </v-col>
+
+        <v-col cols="6">
+            <div v-for="item in offices" v-bind:key="item.office.officeId" 
+                    @drop="onDrop($event, item.office)"
+                    @dragover.prevent
+                    @dragenter.prevent >
+                  
+                <v-card v-if="item.office.name != 'Unassigned Doctors'" class="pb-5 mb-5">
+                <div id=dropZoneTitle>
+                    <v-card-text class="text-center text-lg-h6 font-weight-bold">
+                    {{item.office.name}}
+                    </v-card-text>
+                </div>
+                <v-card-text v-if="item.doctors.length == 0" class="text-center"> No doctors have been assigned to this office </v-card-text>
+
+                <draggable v-model="item.doctors" group="offices">
+                    <div v-for="doctor in item.doctors" :key="doctor.doctorId" style="font-weight:bold;"  
+                            @dragstart='startDrag($event, doctor)'  >
+                    <v-hover v-slot="{ hover }">
+                    <v-card class="ml-10 mr-10 mb-5 doctorCards" :elevation="hover ? 12 : 2" color="#C4E7F2">
+                        <v-card-text class="text-center text-md-body-1 font-weight-bold">
+                        Dr. {{doctor.firstName}} {{doctor.lastName}}
+                        </v-card-text>
+
+                    </v-card>
+                    </v-hover>
+                    </div>
+                </draggable>
+                </v-card>
+
+            </div>
+        </v-col>
+
+        <!-- <v-col cols="2">
+           
+        </v-col> -->
         </v-row>
     </v-container>
 
@@ -48,27 +114,15 @@ export default {
     },
     data() {
         return {
-            //Populate @ created
-            //for each office: contains an office name, office id, and a list of doctors assigned to that office
-            offices: [
-                // {
-                //     officeName
-                //     officeId
-                //     listofDoctors {
-                //         firstName 
-                //         office 
-                //             officeId
-                //     }
-                // }
-                
+            //Populates @ created
+            offices: [   
+                //{ 
+                //office (contains name, officeId, ...)
+                //arrayOfDoctors  (each doctor has an office)
+                //}     
             ], 
-            //contains an office id = 0, office name = Unassigned, and a list of doctors with no office
-            unassigned: {
-                officeId: "0",
-                name: "Unassigned",
-                doctors: []
-            }, 
-            allDoctors: []
+            allDoctors: [], 
+            hover: true
         }
     }, 
     
@@ -79,52 +133,16 @@ export default {
             event.dataTransfer.setData('doctorId', doctor.doctorId)
 
         },
-        onDrop (event, doctor) {
-            //let officeId = 0;
-            let doctorID = event.dataTransfer.getData('doctorId');
-            let foundDoctor = false;
-            // this.offices.forEach(office => {
-            //     console.log("checking offices");
-            //     if(foundDoctor == false){
-            //         office.doctors.forEach(doc => {
-            //             console.log(doctorID);
-            //             if(doc.doctorId == doctorID) {
-            //                 console.log("GOT HERE")
-            //                 officeId = office.officeId;
-            //                 foundDoctor = true;
-            //                 console.log(officeId);
-            //     }
-            //     })  
-            //     }
-            // })
-            this.offices.forEach(office => {
-                office.doctors.forEach(doc => {
-                    doc.officeId = office.officeId;
-                })
-            })
-            this.unassigned.doctors.forEach(doc => {
-                doc.officeId = this.unassigned.officeId;
-            })
+        async onDrop (event, office) {
+            const doctorID = event.dataTransfer.getData('doctorId');
+            console.log(doctorID);
+            const doctor = this.allDoctors.find(doc => doc.doctorId == doctorID);
+            console.log(doctorID);
 
-            console.log(doctor);
-            
-            //let updatedDoctor = this.allDoctors.find(doctor => doctor.doctorId == doctorID);
-            let updatedDoctor;
-            this.offices.forEach(office => {
-                console.log("checking offices");
-                if(foundDoctor == false){
-                    office.doctors.forEach(doc => {
-                        console.log(doctorID);
-                        if(doc.doctorId == doctorID) {
-                            console.log("GOT HERE")
-                            updatedDoctor = doc;
-                            foundDoctor = true;
-                }
-                })  
-                }
-            })
-
-            doctorService.updateOfficeForDoctor(updatedDoctor)
+            doctor.office = office;
+            console.log(office);
+            await 
+            doctorService.updateOfficeForDoctor(doctor)
                 .then(response => {
                     if(response.status == 200) {
                         console.log("Success");
@@ -134,6 +152,8 @@ export default {
                     console.log(error.message);
                     alert("Doctor transfer unsucessful");
                 })
+            
+
         }
         
     },
@@ -147,8 +167,7 @@ export default {
                 .then(responseDoctors => {
                     let doctorsInOffice = responseDoctors.data;
                     this.offices.push({
-                        officeId: office.officeId,
-                        name: office.name,
+                        office: office,
                         doctors: doctorsInOffice
                         });
                     if(responseDoctors.data.length > 0) {
@@ -158,7 +177,8 @@ export default {
                     )
                     }
                 }).catch(error => {
-                    console.log("failed here" + error.message)
+                    alert("Failed to load doctors")
+                    console.log(error.message)
                 })
                 
             })
@@ -169,20 +189,24 @@ export default {
         officeService.getDoctorsInOffice(0)
             .then(responseDoctors => {
                 let doctorsWithNoOffice = responseDoctors.data;
-                // doctorsWithNoOffice.forEach(doc => {
-                //     unassigned.doctors.push(doc);
-                // })
-                // this.unassigned.push({
-                //     officeId: 0,
-                //     name: "Unassigned",
-                //     doctors: doctorsWithNoOffice
-                //     })
-                this.unassigned.doctors = doctorsWithNoOffice;
-                doctorsWithNoOffice.forEach(doctor => {
-                    this.allDoctors.push(doctor);
-                    })
+
+                this.offices.push({
+                    office: {
+                        name: "Unassigned Doctors", 
+                        officeId: 0
+                    },
+                    doctors: doctorsWithNoOffice
+                     })
+
+                     if(responseDoctors.data.length > 0) {
+                        doctorsWithNoOffice.forEach(doctor => {
+                            this.allDoctors.push(doctor);
+                         }
+                    )
+                     }
                 }).catch(error => {
-                    console.log("failed here" + error.message)
+                    alert("Failed to load doctors")
+                    console.log(error.message)
                 })
 
     }
@@ -192,16 +216,37 @@ export default {
 
 <style>
 .drop-zone {
-    border: solid black 2px;
-    background-color: red;
-    margin: 10px;
+    min-height: 10px;
+    margin: 15px;
+    padding: 10px;
     
 }
 
 .drag-obj {
     background-color: grey;
-    padding: 10px;
     margin: 10px;
+}
+
+#dropZoneTitle {
+    padding: 10px;
+
+}
+
+.doctorCards:hover {
+    box-shadow: 0 0 10px;
+}
+
+#filler {
+  	
+	margin: 100px 0 0 15px;
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 
