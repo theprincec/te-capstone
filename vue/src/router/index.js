@@ -78,7 +78,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // Determine if the route requires Authentication
-  const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
+  // const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
 
   const requiresPatient = to.matched.some(x => x.meta.requiresPatient);
 
@@ -95,9 +95,9 @@ router.beforeEach((to, from, next) => {
   } else if (requiresAdmin && store.state.user.authorities[0].name != "ROLE_ADMIN") {
     next("/login"); 
   } 
-  else if (requiresAuth && store.state.token === '') {
-    next("/login");
-  } 
+  // else if (requiresAuth && store.state.token === '') {
+  //   next("/");
+  // } 
   else {
     // Else let them go to their next destination
     next();
