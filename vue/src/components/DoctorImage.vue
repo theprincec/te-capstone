@@ -117,7 +117,7 @@ export default {
         }
     }, 
     watch: {
-        doctor: function(newDoctor, oldDoctor) {
+        doctor: function(newDoctor) {
             this.updatedDoctorImage(newDoctor);
         }
     },
