@@ -90,7 +90,7 @@ VALUES (DEFAULT, 'TreeCare', '1234 Test street', 'Columbus', 'OH', '43221', '614
 INSERT INTO offices (office_id, office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate) 
 VALUES (DEFAULT, 'ParrottCare', '456 Test drive', 'Columbus', 'OH', '43221', '6147856948', '09:00:00', '17:00:00', 30);
 INSERT INTO offices (office_id, office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate) 
-VALUES (DEFAULT, 'TreeCare', '124 Test road', 'Columbus', 'OH', '43221', '6142568969', '09:00:00', '18:00:00', 50);
+VALUES (DEFAULT, 'HealthCare', '124 Test road', 'Columbus', 'OH', '43221', '6142568969', '09:00:00', '18:00:00', 50);
 
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 4, 'James', 'Brown', 1);
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 3, 'Tiffany', 'Blue', 2 );
