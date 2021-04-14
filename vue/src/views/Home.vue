@@ -1,23 +1,23 @@
 <template>
 <div>
   <v-container v-if="!$store.state.currentUserRole" fluid class="pa-0">
-    <v-app-bar class="px-5" app color="primary lighten-1" flat > 
-      <v-tabs 
+    <v-app-bar  class="d-flex pr-15 flex-row-reverse" app color="#f4931c60"  flat > 
+      <!-- <v-tabs centered
         class="ml-n9 "
         color="grey darken-1"
-      >
+      > -->
       <v-divider vertical></v-divider>
       <router-link :to="{ name: 'register' }" style="text-decoration: none">
-        <v-tab class="pa-6 mx-auto"  style="color:white">Register</v-tab>
+        <v-btn class="pa-8 button" text  flat>Register</v-btn>
       </router-link>
       <v-divider vertical></v-divider>
       <router-link :to="{ name: 'login' }" style="text-decoration: none" >
-        <v-tab  class="pa-6 mx-auto" style="color:white">Log In</v-tab>
+        <v-btn  class="pa-8 button" text flat>Log In</v-btn>
       </router-link>
       <v-divider vertical></v-divider>
       
       
-      </v-tabs>
+      <!-- </v-tabs> -->
     </v-app-bar>
 
     <v-img id="background" src="../assets/homebackground.jpg" cover="true" alt="Carehub">
@@ -35,7 +35,7 @@
 
       <v-card-actions class="text-center">
         <router-link :to="{ name: 'login' }" style="text-decoration: none" >
-          <v-btn large id="start" class="white--text" outlined>
+          <v-btn large id="start"  outlined>
             Let's get started
           </v-btn>
         </router-link>
@@ -49,13 +49,14 @@
 
   <v-container grid-list-md fluid color="primary" v-if="($store.state.currentUserRole == 'ROLE_USER')">
 
-  <v-app-bar class="px-5" app color="primary" flat>
-    <v-tabs 
+  <v-app-bar  class="d-flex  flex-row-reverse " app color="#f4931c"  flat > 
+    <!-- <v-tabs 
       class="ml-n9"
       color="grey darken-1"
-    >
+    > -->
+    <v-divider vertical></v-divider>
     <router-link :to="{ name: 'home' }" style="text-decoration: none" >
-      <v-tab class="pa-6 mx-auto" style="color:white">Home</v-tab>
+      <v-btn class="pa-8 button" text color="white" flat>Home</v-btn>
     </router-link>
 
     
@@ -64,23 +65,23 @@
     <router-link v-bind:to="{ name: 'logout' }" 
       v-if="$store.state.token != ''"
       style="text-decoration: none">
-      <v-tab class="pa-6 mx-auto" style="color:white">Logout</v-tab>
+      <v-btn class="pa-8 button" text color="white" flat>Logout</v-btn>
     </router-link>
     <v-divider vertical></v-divider>
 
-    <v-tab class="pa-6"  style="color:white">
+    <v-btn class="pa-8 button" text color="white" flat>
       Welcome, {{$store.state.currentPatient.firstName}} {{$store.state.currentPatient.lastName}}!
      <v-avatar
         class="hidden-sm-and-down mx-2"
-        color="grey darken-1 shrink"
+        color="grey"
         size="38"
       >
       <v-icon dark>
         mdi-account-circle
       </v-icon>
       </v-avatar>
-      </v-tab >
-    </v-tabs >
+      </v-btn >
+  
 
     </v-app-bar>
 
@@ -88,12 +89,12 @@
 
    
       <doctors-list />
-      <div @click.prevent="sendEmail">
+      <!-- <div @click.prevent="sendEmail">
         <button > SEND EMAIL FUNCTION </button>
       </div>
       <div @click.prevent="sendTheEmail">
         <button > SEND THE EMAIL function </button>
-      </div>
+      </div> -->
       <!-- <mapper /> -->
      
 </v-container>
@@ -142,6 +143,13 @@ export default {
 #srart:hover{
   background-color: #f46111;
 }
+.button {
+  background-color:#f4931c29
+}
+.button:hover, .button:active {
+  background-color:#f4931cf1
+}
+
 
 </style>
 

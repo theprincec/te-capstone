@@ -170,7 +170,7 @@ export default {
 #align-center {
    position: absolute;
   top: 30%;
-  left: 65%
+  left: 68%
 }
 #background {
   height: 100vh;
