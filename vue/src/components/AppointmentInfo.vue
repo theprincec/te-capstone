@@ -69,7 +69,6 @@
             md="5" class="pb-0 pt-3">
        <!-- appointments -->
             <!-- <appointments-list /> -->
-            <!-- <email/> -->
             <time-slot-card/>
     <!-- availability-form -->
             <!-- <availability-form /> -->
@@ -123,6 +122,7 @@
 
             </v-card>
         </v-col>
+        
        
     </v-row>
     
@@ -138,7 +138,8 @@
 //import OfficeCard from '@/components/OfficeCard'
 import TimeSlotCard from '@/components/TimeSlotCard'
 import firebase from 'firebase/app'
-//import email from '@/components/Email'
+
+
 
 
 
