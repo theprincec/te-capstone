@@ -85,13 +85,15 @@ export default {
             console.log(error)
         })
     },
-    computed: {
-        getAppointmentsForToday() {
-            //let todayDate = new Date().toISOString().split('T')[0];
-            return this.$store.state.appointments.filter(appointment => {
-                return appointment.date == this.todayDate;
-            })
-        }
+    updated(){
+        appointmentService.getAppointments()
+                .then(response => {
+                    this.$store.commit("SET_APPOINTMENTS", response.data);
+                    this.toggleShowAppointment();
+                    //SET ARRAY OF APPOINTMENTS IN STORE
+        }).catch(error => {
+            console.log(error)
+        })
     },
     methods: {
         convertTime(time) { // 18:00:00

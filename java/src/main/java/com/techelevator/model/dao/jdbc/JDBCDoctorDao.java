@@ -30,7 +30,7 @@ public class JDBCDoctorDao implements DoctorDAO{
 		Doctor doctor = new Doctor();
 		
 		String sql = "SELECT doctor_id, users.user_id as user_id, first_name, last_name, doctors.office_id as office_id, " + 
-				"office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate " + 
+				"office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate, users.email as email " + 
 				"FROM doctors " + 
 				"JOIN offices ON doctors.office_id = offices.office_id " + 
 				"JOIN users ON users.user_id = doctors.user_id " + 
@@ -52,7 +52,7 @@ public class JDBCDoctorDao implements DoctorDAO{
 		Doctor doctor = new Doctor();
 		
 		String sql = "SELECT doctor_id, users.user_id as user_id, first_name, last_name, doctors.office_id as office_id, " + 
-				"office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate " + 
+				"office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate, users.email as email " + 
 				"FROM doctors " + 
 				"LEFT JOIN offices ON doctors.office_id = offices.office_id " + 
 				"JOIN users ON users.user_id = doctors.user_id " + 
@@ -108,7 +108,7 @@ public class JDBCDoctorDao implements DoctorDAO{
 		}
 		doctor.setDoctorId(row.getInt("doctor_id"));
 		doctor.setUserId(row.getInt("user_id"));
-//		doctor.setEmail(row.getString("email"));
+		//doctor.setEmail(row.getString("email"));
 		doctor.setFirstName(row.getString("first_name"));
 		doctor.setLastName(row.getString("last_name"));
 		
