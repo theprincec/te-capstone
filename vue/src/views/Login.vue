@@ -1,18 +1,18 @@
 <template>
-  <v-container ma-0 pa-0 fill-height fluid>
-    <v-layout>
-      <v-flex md5 class="primary" id="background">
-      </v-flex>
-      <v-flex md7 align-self-center>
-        <v-card elevation="0" class="d-flex justify-center mb-10" mx-auto>
+  <v-container ma-0 pa-0 fill-height fluid >
+    <v-layout >
+      <v-img id="background" src="../assets/background.jpg" cover="true" alt="Doctor" >
+      
+      <v-flex d-flex justify-end id="align-center">
+        <!-- <v-card elevation="7" class="d-flex justify-center mb-10" mx-auto>
           <v-img src="../assets/carehub.png" max-height="170" max-width="134">
           </v-img>
-        </v-card>
-        <v-card elevation="4" width="400" class="mx-auto mt-5">
+        </v-card> -->
+        <v-card elevation="7" width="400px" >
           <v-card-title id="title-container">
             <h1 class="display-1">Please Sign In</h1>
           </v-card-title>
-          <v-card-text>
+          <v-card-text class="pb-0">
 
             <v-form id="form-signin"
               ref="form"
@@ -70,6 +70,7 @@
           </v-card-actions>
         </v-card>
       </v-flex>
+      </v-img>
     </v-layout>
   </v-container>
 </template>
@@ -144,27 +145,37 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  border: 1px solid red;
-
-}
 #sign-in-button{
-  background-color: #aaaaaa;
+  background-color: #f4921cd6;
 }
 #sign-in-button:hover{
   background-color: #f48d11;
 }
 #title-container{
   width: 100%;
-  padding-left: 80px;
+  padding-left: 90px;
 }
 #log-in-text{
   width: 100%;
   padding-left: 60px;
 }
-#background {
-  background-image: url('../assets/img.png')
+/* #background {
+  background-image: url('../assets/background.jpg');
+  background-size: cover;
+} */
+.img {
+  position:relative;
 }
+
+#align-center {
+   position: absolute;
+  top: 30%;
+  left: 70%
+}
+#background {
+  height: 100vh;
+}
+
 
 
 </style>

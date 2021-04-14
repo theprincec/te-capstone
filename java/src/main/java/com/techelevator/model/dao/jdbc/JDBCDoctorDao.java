@@ -84,7 +84,12 @@ public class JDBCDoctorDao implements DoctorDAO{
 	
 	@Override
 	public void updateOfficeForDoctor(Doctor doctor) {
-		jdbcTemplate.update("UPDATE doctors SET office_id = null WHERE doctor_id = ?", doctor.getDoctorId());
+		if(doctor.getOffice().getOfficeId() > 0) {
+			jdbcTemplate.update("UPDATE doctors SET office_id = ? WHERE doctor_id = ?", doctor.getOffice().getOfficeId(), doctor.getDoctorId());
+
+		} else {
+			jdbcTemplate.update("UPDATE doctors SET office_id = null WHERE doctor_id = ?", doctor.getDoctorId());
+		}
 		
 	}
 	
@@ -103,7 +108,7 @@ public class JDBCDoctorDao implements DoctorDAO{
 		}
 		doctor.setDoctorId(row.getInt("doctor_id"));
 		doctor.setUserId(row.getInt("user_id"));
-		doctor.setEmail(row.getString("email"));
+//		doctor.setEmail(row.getString("email"));
 		doctor.setFirstName(row.getString("first_name"));
 		doctor.setLastName(row.getString("last_name"));
 		

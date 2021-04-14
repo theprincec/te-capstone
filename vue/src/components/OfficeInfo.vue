@@ -10,22 +10,7 @@
                 <v-row>
                     <v-col col="12" md="2">
                         <v-card class="ml-10" max-height="110">
-                            <!-- <v-img class="hidden-md-and-down"
-                                height="100"  
-                                src="../assets/placeholder.jpg"
-                            ></v-img> -->
-                        <!-- <v-img
-                            class="hidden-xs-and-down"
-                            max-height="100"
-                            v-if="!fileDoctorUrl"
-                            src="../assets/placeholder.jpg"
-                            ></v-img>
-                            <v-img
-                            max-height="100"
-                            contain v-if="fileDoctorUrl"
-                            :src="fileDoctorUrl"
-                            alt="Office Image"
-                        ></v-img> -->
+            <!-- DOCTOR IMAGE -->
 
                             <doctor-image></doctor-image>
                         </v-card>

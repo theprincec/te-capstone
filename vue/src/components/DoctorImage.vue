@@ -59,7 +59,7 @@
                 v-model="myFile"
                 accept="image/png, image/jpeg"
                 placeholder="Click to upload file"
-                @change="fileInput"
+                @change="myFileInput"
                 :disabled="processing"
                 class="px-10"
                 dense
@@ -117,28 +117,37 @@ export default {
         }
     }, 
     watch: {
-        currentDoctor: function(newDoctor, oldDoctor) {
-            this.updateDoctorImage(newDoctor);
+        doctor: function(newDoctor, oldDoctor) {
+            this.updatedDoctorImage(newDoctor);
+        }
+    },
+    computed: {
+        doctor() {
+            return this.$store.state.currentDoctor;
         }
     },
     methods: {
-        updateDoctorImage(newDoctor) {
-            const idFromStore = newDoctor.doctorId;
-            firebase.firestore().collection("doctors").doc(`${idFromStore}`)
-            .get()
-            .then((doc) => {
-                if(doc.exists) {
-                    console.log(doc.id, " => ", doc.data());
-                    this.fileDoctorUrl = doc.data().link;
-                } else {
-                    console.log(doc.data().timestamp)
-                }   
-            })
-            .catch((error) => {
-                console.log("Error getting documents: ", error);
-            })
-        }, 
-        async fileInput(file) {
+
+        updatedDoctorImage(newDoctor) {
+            //ACCESS COLLECTION FROM FIRESTORE
+            const id = newDoctor.doctorId;
+            firebase.firestore().collection("doctors").doc(`${id}`)
+                .get()
+                .then((doc) => {
+                    if(doc.exists) {
+                        console.log(doc.id, " => ", doc.data());
+                        this.fileDoctorUrl = doc.data().link;
+                    } else {
+                        console.log(doc.data().timestamp)
+                    }   
+
+                })
+
+                .catch((error) => {
+                    console.log("Error getting documents: ", error);
+                })
+        },
+        async myFileInput(file) {
 
         try {
           if (file && file.name) {
@@ -209,35 +218,11 @@ export default {
           console.error(e);
         } finally {
           this.processing = false;
+
+        
         }
-       this.getUpdateImage
-     },
-     getUpdateImage() {
-         const id = this.$store.state.user.id;
-            firebase.firestore().collection("doctors").doc(`${id}`)
-                .get()
-                .then((doc) => {
-                    if(doc.exists) {
-                        console.log(doc.id, " => ", doc.data());
-                        this.fileDoctorUrl = doc.data().link;
-                    } else {
-                        console.log(doc.data().timestamp)
-                    }   
-                })
-            .catch((error) => {
-                console.log("Error getting documents: ", error);
-            })
-     },
-     created() {
-         this.currentDoctor = this.$store.state.currentDoctor;
      }
     }
-        
-   
-
 }
+
 </script>
-
-<style>
-
-</style>
