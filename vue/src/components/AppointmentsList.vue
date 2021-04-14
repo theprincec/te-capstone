@@ -1,7 +1,5 @@
 <template>
-
   <v-card class="pa-5" flat color="transparent">
-
         <v-card-title>
             <span class="headline">Upcoming Appointments</span>
             <v-spacer></v-spacer>
@@ -13,16 +11,13 @@
             <input id="date" name="date" type="date"  v-model="todayDate" @change="toggleShowAppointment()"/>
         </div>
            <!-- <time-slot-card/> -->
-
        
          <!-- availability Form -->
               
            
-
       <div v-if="showAppointments">
         <div   v-for="appointment in getAppointmentsForToday" :key="appointment.id" >
             <v-card color="#FFF8DC" class="ma-5" elevation="10" outlined style="border-radius: 20px">
-
                 <v-card-actions class="px-5 pb-0 mb-0">
                     <p class=" pt-2 mb-0 font-weight-medium"> <v-icon class="pr-2" meduim>mdi-account-clock</v-icon>
                     {{convertTime(appointment.timeStart)}} - {{convertTime(appointment.timeEnd)}}</p>
@@ -35,7 +30,6 @@
                     <p>Patient ID: {{appointment.patient.patientId}}</p>
                     <v-spacer></v-spacer>
                     <p>Name: <span class="font-weight-medium">{{appointment.patient.firstName}} {{appointment.patient.lastName}}</span></p>
-
                 </v-card-actions>
                  
             </v-card>
@@ -56,12 +50,10 @@
        </div>
   </v-card>
 </template>
-
 <script>
 import appointmentService from '@/services/AppointmentService'
 import AvailabilityForm from '@/components/AvailabilityForm'
 //import TimeSlotCard from '@/components/TimeSlotCard'
-
 export default {
     name: "appointments-list",
     components: {
@@ -85,15 +77,13 @@ export default {
             console.log(error)
         })
     },
-    updated(){
-        appointmentService.getAppointments()
-                .then(response => {
-                    this.$store.commit("SET_APPOINTMENTS", response.data);
-                    this.toggleShowAppointment();
-                    //SET ARRAY OF APPOINTMENTS IN STORE
-        }).catch(error => {
-            console.log(error)
-        })
+    computed: {
+        getAppointmentsForToday() {
+            //let todayDate = new Date().toISOString().split('T')[0];
+            return this.$store.state.appointments.filter(appointment => {
+                return appointment.date == this.todayDate;
+            })
+        }
     },
     methods: {
         convertTime(time) { // 18:00:00
@@ -114,10 +104,8 @@ export default {
     }
 }
 </script>
-
 <style>
 .field {
     margin: 0 20px 0 20px
 }
-
 </style>
