@@ -35,7 +35,8 @@
         <v-col cols="12"
             md="6" class="pb-0 pt-3">
        <!-- appointments -->
-            <appointments-list />
+            <appointments-list
+             />
     <!-- availability-form -->
             <!-- <availability-form /> -->
 
