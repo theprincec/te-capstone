@@ -110,6 +110,13 @@ export default {
             })
 
     },
+    mounted() {
+
+        let emailScript = document.createElement('script');
+        emailScript.setAttribute('src', 'https://smtpjs.com/v3/smtp.js');
+        document.head.appendChild(emailScript);
+        //let toEmail = this.$store.state.currentPatient.email;
+    },
     computed: {
         // calculateTimeStart() {
         //     const time = convertTime(this.time);
@@ -133,7 +140,7 @@ export default {
             this.appointment.doctorId = this.$store.state.currentDoctor.doctorId;
             appointmentService.addAppointment(this.appointment).then(response => {
                 if(response.status == 201) {
-                    emailService.sendTheEmail;
+                    this.sendEmail();
                     //emailService.sendAppointmentEmail(this.appointment.timeStart);
                     alert("Appointment successfully booked");
                 }
@@ -164,6 +171,14 @@ export default {
                 console.log(error);
             })
         },
+        sendEmail() {
+            let emailPatient= this.$store.state.currentPatient;
+            let emailDoctor = this.$store.state.currentDoctor;
+            //let doctorName = this.$store.state.currentDoctor.lastName;
+            let emailAppointment = this.appointment;
+
+            emailService.sendAppointmentEmail(emailPatient, emailDoctor, emailAppointment);
+        }
         
         // clearForm() {
         //     this.appointment =  {

@@ -75,14 +75,17 @@ export default {
             Host: "smtp.gmail.com",
             Username: "appointments.carehub@gmail.com",
             Password: "CareHub+",
-            To: [patient.email, doctor.email],
+            To: patient.email,
+            Cc: doctor.email,
+            //To: [patient.email, doctor.email],
             // cc: ccEmail,
             //To: this.rankings.toString,
             From: "appointments.carehub@gmail.com",
             Subject: `${patient.lastName}, ${patient.firstName}: New Appointment with Dr. ${doctor.lastName}`,
             Body: `Hello ${patient.firstName}, Your appointment has been scheduled with Dr. ${doctor.lastName}: 
                     Please arrive 15 minutes prior to  your appointment ${appointment.timeStart} on ${appointment.date}
-                    at our ${doctor.office.name} office to fill out necessary paperwork. The address is: ${doctor.office.address}
+                    at our ${doctor.office.name} office to fill out necessary paperwork. The address is: 
+                    ${doctor.office.address.addressLine}, ${doctor.office.address.city}, ${doctor.office.address.district}, ${doctor.office.address.postalCode}
                     Please Contact us if you have any last minute cancellations. Our phone number is ${doctor.office.phoneNumber}.
                     Best wishes,
                     Carengton`
