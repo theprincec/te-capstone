@@ -115,7 +115,7 @@
                         <v-icon small class="px-2">mdi-clock</v-icon>
                         {{convertTime(this.office.openTime)}} - {{convertTime(this.office.closeTime)}} <br>
              <!-- CHANGE -->
-                        <v-icon small class="px-2">mdi-phone</v-icon>{{this.office.phoneNumber}} </p>
+                        <v-icon small class="px-2">mdi-phone</v-icon>{{convertNumber(this.office.phoneNumber)}} </p>
                 </div>
                 </v-card-text>
                     <v-divider></v-divider>
@@ -154,12 +154,12 @@
                     <v-text-field type="tel" class=" px-10" label="Phone Number" dense v-model="office.phoneNumber">
                     </v-text-field>
                     <div class="d-flex justify-space-between">
-                        <v-text-field type="time" class=" pl-10 pr-2" label="Open Time" dense v-model="office.openTime" min="9:00" max="17:00">
+                        <v-text-field value="09:00:00" type="time" class=" pl-10 pr-2" label="Open Time" dense v-model="office.openTime" min="9:00" max="17:00">
                         </v-text-field>
-                        <v-text-field type="time" class=" pr-10 pl-2" label="Close Time" dense v-model="office.closeTime" min="9:00" max="17:00">
+                        <v-text-field value="5:00:00" type="time" class=" pr-10 pl-2" label="Close Time" dense v-model="office.closeTime" min="9:00" max="17:00">
                         </v-text-field>
                     </div>
-                    <v-text-field class=" px-10" label="Office Rate" dense v-model="this.office.officeRate">
+                    <v-text-field class=" px-10" label="Office Rate Per Hour" dense v-model="this.office.officeRate">
                     </v-text-field>
                     
                  <v-divider></v-divider>
@@ -324,7 +324,7 @@ export default {
         getOfficeData(doctor){
             this.office.officeId= doctor.office.officeId;
             this.office.name= doctor.office.name;
-            this.office.phoneNumber= this.convertNumber(doctor.office.phoneNumber);
+            this.office.phoneNumber= this.doctor.office.phoneNumber;
             this.office.openTime= this.convertTime(doctor.office.openTime);
             this.office.closeTime= this.convertTime(doctor.office.closeTime);
             this.office.officeRate= doctor.office.officeRate;
