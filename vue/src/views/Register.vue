@@ -181,9 +181,9 @@ export default {
 </script>
 
 <style>
-#background {
+/* #background {
   background-image: url('../assets/img.png')
-}
+} */
 #sign-in-button{
   background-color: #f4921cd6;
 }

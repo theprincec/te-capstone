@@ -20,14 +20,10 @@
     <v-card id="appointments"
             min-height="368" class="mt-5"
             flat>
-
             <v-card-title>
                 <span class="headline">Book an appointment with Dr. {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</span>
             </v-card-title>
-
         <form id="booking-form" class="px-9 pb-9"  v-on:submit.prevent="addAnAppointment()">
-
-
             <!-- <v-text-field
                 v-model="appointment.patient.patientId"
                 label="Patient ID"
@@ -35,22 +31,17 @@
                 required
             ></v-text-field> -->
             <p>Patient: {{appointment.patient.firstName}} {{appointment.patient.lastName}}</p>
-
              <!-- <div class="field">
                 <label for="date">Date: </label>
                 <input id="date" name="date" type="date" required v-model="appointment.date"/>
             </div> -->
-
             <p>Appointment date: {{appointment.date}}</p>
-
             <!-- <div class="field">
                 <label for="startTime" style="color:rgb(118, 118, 118)">Start Time: </label>
                 <input id="startTime" name="startTime" type="time" required v-model="appointment.timeStart"/>
             </div> -->
             <p>Start time: {{convertTime(time)}}</p>
             <p>End time: {{convertTime(calculateTimeEnd)}}</p>
-
-
             <!-- <div class="field">
                 <label for="endTime" style="color:rgb(118, 118, 118)">End Time: </label>
                 <input id="endTime" name="endTime" type="time" required v-model="appointment.timeEnd"/>
@@ -68,18 +59,14 @@
             Cancel
             </v-btn>
         </form>
-
     </v-card>
      </v-dialog>
   </v-row>
-
 </template>
-
 <script>
 import appointmentService from '@/services/AppointmentService';
 import patientService from '@/services/PatientService';
 import emailService from '@/services/EmailService';
-
 export default {
     name: "book-appointment", 
     props: ['time'],
@@ -108,10 +95,8 @@ export default {
             .catch(error => {
                 console.log(error);
             })
-
     },
     mounted() {
-
         let emailScript = document.createElement('script');
         emailScript.setAttribute('src', 'https://smtpjs.com/v3/smtp.js');
         document.head.appendChild(emailScript);
@@ -129,7 +114,6 @@ export default {
                 hours += 1;
             
             let fullTime = hours + this.time.slice(2);
-
             return fullTime;
         }
     },
@@ -176,7 +160,6 @@ export default {
             let emailDoctor = this.$store.state.currentDoctor;
             //let doctorName = this.$store.state.currentDoctor.lastName;
             let emailAppointment = this.appointment;
-
             emailService.sendAppointmentEmail(emailPatient, emailDoctor, emailAppointment);
         }
         
@@ -198,9 +181,7 @@ export default {
         //}
     }
 }
-
 </script>
-
 <style>
 #startTime, #endTime, #date {
     padding: 8px 0 8px 8px;

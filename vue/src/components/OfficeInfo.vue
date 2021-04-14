@@ -105,17 +105,17 @@
                     </v-btn>
                       </div>
                
-                <v-card-title class="h4 py-2 px-10">{{doctor.office.name}} </v-card-title>
+                <v-card-title class="h4 py-2 px-10">{{this.office.name}} </v-card-title>
                 <v-card-text class="py-2 px-10">
                 
                 <div class="d-flex justify-space-between subtitle-1"> 
-                    <p class="pa-1 ma-0"> {{doctor.office.address.addressLine}} <br>
-                        {{doctor.office.address.city}}, {{doctor.office.address.district}} {{doctor.office.address.postalCode}}</p> 
+                    <p class="pa-1 ma-0"> {{this.office.address.addressLine}} <br>
+                        {{this.office.address.city}}, {{this.office.address.district}} {{this.office.address.postalCode}}</p> 
                     <p class="pa-1 ma-0 subtitle-2">
                         <v-icon small class="px-2">mdi-clock</v-icon>
-                        {{convertTime(doctor.office.openTime)}} - {{convertTime(doctor.office.closeTime)}} <br>
+                        {{convertTime(this.office.openTime)}} - {{convertTime(this.office.closeTime)}} <br>
              <!-- CHANGE -->
-                        <v-icon small class="px-2">mdi-phone</v-icon>{{convertNumber(doctor.office.phoneNumber)}} </p>
+                        <v-icon small class="px-2">mdi-phone</v-icon>{{this.office.phoneNumber}} </p>
                 </div>
                 </v-card-text>
                     <v-divider></v-divider>
@@ -129,7 +129,7 @@
                         <a style="text-decoration: none" class="blue--text" @click="showDoctorForm = false"
                          v-if="showDoctorForm"> Cancel </a>
                         <v-spacer></v-spacer>
-                        <p class="mb-0 grey-text display-1"> ${{doctor.office.officeRate}}</p>
+                        <p class="mb-0 grey-text display-1"> ${{this.office.officeRate}}</p>
                 </v-card-actions>
                 </v-form>
 
@@ -151,7 +151,7 @@
                         <v-text-field class="pr-10 pl-2" label="ZipCode" dense v-model="office.address.postalCode">
                         </v-text-field>
                     </div>
-                    <v-text-field class=" px-10" label="Phone Number" dense v-model="office.phoneNumber">
+                    <v-text-field type="tel" class=" px-10" label="Phone Number" dense v-model="office.phoneNumber">
                     </v-text-field>
                     <div class="d-flex justify-space-between">
                         <v-text-field type="time" class=" pl-10 pr-2" label="Open Time" dense v-model="office.openTime" min="9:00" max="17:00">
@@ -159,7 +159,7 @@
                         <v-text-field type="time" class=" pr-10 pl-2" label="Close Time" dense v-model="office.closeTime" min="9:00" max="17:00">
                         </v-text-field>
                     </div>
-                    <v-text-field class=" px-10" label="Office Rate" dense v-model="office.officeRate">
+                    <v-text-field class=" px-10" label="Office Rate" dense v-model="this.office.officeRate">
                     </v-text-field>
                     
                  <v-divider></v-divider>
@@ -327,17 +327,17 @@ export default {
             this.office.phoneNumber= this.convertNumber(doctor.office.phoneNumber);
             this.office.openTime= this.convertTime(doctor.office.openTime);
             this.office.closeTime= this.convertTime(doctor.office.closeTime);
-            this.office.officeRate= doctor.office.officeRate + "$";
+            this.office.officeRate= doctor.office.officeRate;
             this.office.address.addressLine= doctor.office.address.addressLine;
             this.office.address.city= doctor.office.address.city;
             this.office.address.district= doctor.office.address.district;
             this.office.address.postalCode= doctor.office.address.postalCode;           
         },
         commitOfficeUpdate(){
-            this.office.phoneNumber = this.doctor.office.phoneNumber;
-            this.office.openTime = this.doctor.office.openTime;
-            this.office.closeTime = this.doctor.office.closeTime;
-            this.office.officeRate = this.doctor.office.officeRate;
+            // this.office.phoneNumber = this.doctor.office.phoneNumber;
+            // this.office.openTime = this.doctor.office.openTime;
+            // this.office.closeTime = this.doctor.office.closeTime;
+            // this.office.officeRate = this.doctor.office.officeRate;
             officeService.updateOfficeInfo(this.office).then(response => {
                 if(response.status == 200) {
                     alert("Form has been succesfully updated")

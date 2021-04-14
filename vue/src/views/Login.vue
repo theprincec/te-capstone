@@ -63,7 +63,7 @@
             <v-btn :disabled= !valid 
               block
               type="submit" 
-              form="form-signin" class="mr-4" id="sign-in-button"
+              form="form-signin" class="mr-4 white--text" id="sign-in-button"
               @click="validate">
               Sign In
             </v-btn>
@@ -170,7 +170,7 @@ export default {
 #align-center {
    position: absolute;
   top: 30%;
-  left: 70%
+  left: 68%
 }
 #background {
   height: 100vh;
