@@ -59,6 +59,7 @@
 import appointmentService from '@/services/AppointmentService'
 import AvailabilityForm from '@/components/AvailabilityForm'
 import emailService from '@/services/EmailService'
+import patientService from '@/services/PatientService'
 //import TimeSlotCard from '@/components/TimeSlotCard'
 
 
@@ -83,6 +84,14 @@ export default {
                     //SET ARRAY OF APPOINTMENTS IN STORE
         }).catch(error => {
             console.log(error)
+        });
+
+        patientService.getPatientsList().then(response => {
+            this.$store.commit("SET_PATIENTS_LIST", response.data);
+
+        })
+        .catch(error => {
+            console.log(error);
         })
     },
     mounted() {

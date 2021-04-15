@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,10 +31,15 @@ public class PatientController {
 	}
 	
 	
-	@RequestMapping(path="/patients", method=RequestMethod.GET)
+	@RequestMapping(path="/patient", method=RequestMethod.GET)
 	public Patient getPatient(Principal principal) {
 		return patientDao.getPatientByUsername(principal.getName());
 		
+	}
+	
+	@RequestMapping(path="/patients", method=RequestMethod.GET)
+	public List<Patient> getPatientsList() {
+		return patientDao.getPatientsList();
 	}
 	
 }
