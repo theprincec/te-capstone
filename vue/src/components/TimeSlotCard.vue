@@ -73,9 +73,7 @@ export default {
         BookAppointment       
     },
     data(){
-        
-
-         return {
+        return {
             timeSlot:[{}],
             doctorId: "",
             currentDate: new Date().toISOString().split('T')[0],
@@ -132,11 +130,10 @@ export default {
         //     console.error( error );
         // });
     },
-    computed: {
-        timeSlotGetter(){
-            return this.getTimeSlots(); 
-        }
+    computed () {
+        // this.getTimeSlots;
     }
+    
 }
     
 

@@ -11,7 +11,7 @@
                         dark
                         v-bind="attrs"
                         v-on="on"
-                        @click="appointment.timeStart = time, appointment.timeEnd = calculateTimeEnd"
+                        @click="this.appointment.timeStart = convertTime(time), this.appointment.timeEnd = calculateTimeEnd"
                     >
                     Book appointment
                 </v-btn>
@@ -197,3 +197,4 @@ export default {
     padding: 8px 0 8px 
 }
 </style>
+
