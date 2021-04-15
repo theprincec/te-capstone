@@ -25,11 +25,14 @@
                             ></v-img>
                         </v-card>
                     </v-col>
-                     <v-col col="12" md="4" >
+                     <v-col col="12" md="8" >
                         <v-card-title class="text-h4 pt-1  ">Dr. {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
                         <v-card-text class=" text-md-body-1">
                             M.D., Neurology
                         </v-card-text>
+                     </v-col>
+                     <v-col col="12" md="2">
+                        <v-img width="100" height="100" src="../assets/carehub.png" alt="CareHubLogo"></v-img>
                      </v-col>
                 </v-row>
             </v-card>
