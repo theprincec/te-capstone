@@ -52,6 +52,7 @@ import AvailabilityForm from '@/components/AvailabilityForm'
 
 export default {
     name: "appointments-list",
+    props: [showNoAppointments],
     components: {
         AvailabilityForm
     },
@@ -78,6 +79,7 @@ export default {
             return this.$store.state.appointments.filter(appointment => {
                 return appointment.date == this.todayDate;
             })
+            
         } 
     },
     methods: {
