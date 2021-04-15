@@ -77,7 +77,7 @@ export default {
         getAppointmentsForToday() {
             let todayDate = new Date().toISOString().split('T')[0];
             return this.$store.state.appointments.filter(appointment => {
-                return appointment.date == this.todayDate;
+                return appointment.date == todayDate;
             })
             
         } 
