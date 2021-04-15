@@ -125,7 +125,7 @@ INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_dat
 INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_date, appointment_time_start, appointment_time_end, appointment_status) VALUES (DEFAULT, 2, 1, '2021-05-21', '13:00:00', '14:00:00', 'appointment');
 INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_date, appointment_time_start, appointment_time_end, appointment_status) VALUES (DEFAULT, 2, 1, '2021-05-21', '10:00:00', '11:00:00', 'appointment');
 INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_date, appointment_time_start, appointment_time_end, appointment_status) VALUES (DEFAULT, 2, 1, '2021-05-22', '13:00:00', '14:00:00', 'appointment');
-INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_date, appointment_time_start, appointment_time_end, appointment_status) VALUES (DEFAULT, 2, 1, '2021-05-21', '11:00:00', '12:00:00', 'appointment');
+INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_date, appointment_time_start, appointment_time_end, appointment_status) VALUES (DEFAULT, 2, 1, '2021-05-21', '14:00:00', '15:00:00', 'appointment');
 
 INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_date, appointment_time_start, appointment_time_end, appointment_status) VALUES (DEFAULT, 1, 2, '2021-05-21', '11:00:00', '12:00:00', 'appointment');
 INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_date, appointment_time_start, appointment_time_end, appointment_status) VALUES (DEFAULT, 3, 3, '2021-05-21', '13:00:00', '14:00:00', 'appointment');
