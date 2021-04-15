@@ -39,9 +39,9 @@
 
                     <draggable v-model="item.doctors" group="offices">
                         <div v-for="doctor in item.doctors" :key="doctor.doctorId" style="font-weight:bold;"  
-                                @dragstart='startDrag($event, doctor)'  >
+                                @dragstart='startDrag($event, doctor)'  id="dragging-div">
                         <!-- <v-hover v-slot="{ hover }"> -->
-                        <v-card class="ml-10 mr-10 mb-5 doctorCards" :elevation="hover ? 12 : 2" color="#C4E7F2" id="doctor-in-office">
+                        <v-card class="ml-10 mr-10 mb-5 doctorCards" :elevation="hover ? 8 : 2" color="#Fddc96" id="doctor-in-office">
                             <v-card-text class="text-center text-md-body-1 font-weight-bold">
                             Dr. {{doctor.firstName}} {{doctor.lastName}}
                             </v-card-text>
@@ -232,7 +232,10 @@ export default {
 }
 
 #dragger{
-    background-color: #cccccc;
+    background-color: #eeeeee;
+    vertical-align: top;
+    display: flex;
+    align-items: flex-start;
 }
 #col-1, #col-2, #col-3{
     display: inline-block;
@@ -252,21 +255,20 @@ export default {
 /* .drag-name {
     background-color: chartreuse;
 } */
-/* #doctor-in-office:hover{
+#doctor-in-office{
     background-color: green;
 
-} */
-
+}
 #dropZoneTitle {
     padding: 10px;
 
 }
 
-/* .doctorCards:hover {
+.doctorCards:hover {
     box-shadow: 5px 0 5px;
     /* border: 5px solid #888888; 
-    background-color: coral;
-} */
+    background-color: coral;*/
+}
 
 #filler {
 	

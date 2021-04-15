@@ -24,13 +24,15 @@
             max-width="600px"
         >
             <template v-slot:activator="{ on, attrs }">
-                <v-btn class="mx-5 px-2" rounded small
+                <v-btn class="mx-5 px-2" fab xsmall
                     color="#666666"
                     dark
                     v-bind="attrs"
                     v-on="on"
                 >
-                Change image
+                <v-icon  dark>
+                    mdi-plus
+                </v-icon>
             </v-btn>
         <!-- FORM --> 
         </template>

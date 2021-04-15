@@ -2,10 +2,7 @@
 <v-container grid-list-md fluid >
 
   <v-app-bar class="px-5" app color="#666666" flat>
-    <v-tabs 
-      class="ml-n9"
-      color="grey darken-1"
-    >
+  
     <router-link :to="{ name: 'home' }" style="text-decoration: none" >
       <v-btn class="pa-8 button" text color="white" >Home</v-btn>
     </router-link>
