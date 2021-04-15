@@ -161,24 +161,24 @@ export default {
             let emailAppointment = this.appointment;
             //let emailTime = convertTime(this.appointment.timeStart)
             emailService.sendAppointmentEmail(emailPatient, emailDoctor, emailAppointment);
-        }
+        },
         
-        // clearForm() {
-        //     this.appointment =  {
-        //         patient: {},
-        //         date: "", 
-        //         timeStart: "", 
-        //         timeEnd: "", 
-        //         appointmentType: "Appointment"
-        //     }
-        // },
-        // isAppointmentReqiured() {
-        //     return this.appointment.appointmentType == 'Personal' ? false : true;
-        // },
-        // toggleDialog() {
-            // (this.appointment.date == "" || this.appointment.timeStart == "" || this.appointment.timeEnd == "") 
-            //         ? this.dialog = true : this.dialog = false;
-        //}
+        clearForm() {
+            this.appointment =  {
+                patient: {},
+                date: "", 
+                timeStart: "", 
+                timeEnd: "", 
+                appointmentType: "Appointment"
+            }
+        },
+        isAppointmentReqiured() {
+            return this.appointment.appointmentType == 'Personal' ? false : true;
+        },
+        toggleDialog() {
+            (this.appointment.date == "" || this.appointment.timeStart == "" || this.appointment.timeEnd == "") 
+                    ? this.dialog = true : this.dialog = false;
+        }
     }
 }
 </script>

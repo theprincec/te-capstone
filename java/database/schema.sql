@@ -86,15 +86,16 @@ INSERT INTO users (username,password_hash,role, email) VALUES ('sick','$2a$08$Uk
 INSERT INTO users (username,password_hash,role, email) VALUES ('tree','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER', 'testpatient3@test.com');
 
 INSERT INTO offices (office_id, office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate) 
-VALUES (DEFAULT, 'TreeCare', '1234 Test street', 'Columbus', 'OH', '43221', '6143574454', '09:00:00', '17:00:00', 25);
+VALUES (DEFAULT, 'TreeCare', '591 E Livingston Ave', 'Columbus', 'OH', '43215', '6143574454', '09:00:00', '17:00:00', 25);
 INSERT INTO offices (office_id, office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate) 
-VALUES (DEFAULT, 'ParrottCare', '456 Test drive', 'Columbus', 'OH', '43221', '6147856948', '09:00:00', '17:00:00', 30);
+VALUES (DEFAULT, 'ParrottCare', '1495 W 5th Ave', 'Columbus', 'OH', '43212', '6147856948', '09:00:00', '17:00:00', 30);
 INSERT INTO offices (office_id, office_name, address, city, district, postal_code, phone, open_time, close_time, hourly_rate) 
-VALUES (DEFAULT, 'HealthCare', '124 Test road', 'Columbus', 'OH', '43221', '6142568969', '09:00:00', '18:00:00', 50);
+VALUES (DEFAULT, 'AardvarkCare', '3100 Cleveland Ave', 'Columbus', 'OH', '43224', '6142568969', '09:00:00', '18:00:00', 50);
 
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 4, 'James', 'Brown', 1);
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 3, 'Tiffany', 'Blue', 2 );
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 5, 'Lola', 'Balinsky', 1 );
+INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 6, 'Kevin', 'Docs', null );
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 6, 'Kevin', 'Docs', null );
 
 
