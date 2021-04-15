@@ -50,7 +50,8 @@
                     v-if="isAppointmentReqiured()"
                     required
                     clearable
-                ></v-autocomplete>
+                >
+                </v-autocomplete>
             </v-card-text>
            
              <div class="field pt-0">
