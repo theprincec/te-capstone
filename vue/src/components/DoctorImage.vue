@@ -3,12 +3,14 @@
       
       <v-img
         class="hidden-xs-and-down"
-        max-height="100"
+        height="100"
+        width="120"
         v-if="!fileDoctorUrl"
         src="../assets/placeholder.jpg"
         ></v-img>
         <v-img
-        max-height="100"
+        height="100"
+        width="120"
         contain v-if="fileDoctorUrl"
         :src="fileDoctorUrl"
         alt="Doctor Image"
@@ -19,17 +21,18 @@
             persistent
             max-width="600px"
         >
-            <template v-slot:activator="{ on, attrs }">
-                <v-btn class="mx-5 px-2" rounded small
-                    color="primary"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                >
-                Change image
+        <template v-slot:activator="{ on, attrs }">
+            <v-btn class="mx-5 px-2" fab x-small
+                dark
+                id="button"
+                v-bind="attrs"
+                v-on="on"
+            >
+               
+                <v-icon  dark>
+                    mdi-plus
+                </v-icon>
             </v-btn>
-                
-
         <!-- FORM --> 
         </template>
         <v-card id="imageButton"
@@ -226,3 +229,16 @@ export default {
 }
 
 </script>
+
+<style scoped>
+#button {
+  background-color:#f4931c;
+  position: absolute;
+  top: 80%;
+  left: 67%;
+
+}
+#button:hover, #button:active {
+  background-color:#f45d1c
+}
+</style>

@@ -35,7 +35,7 @@
             </v-card>
         </div> 
         <div>
-            <v-btn class="hidden-md-only hidden-xs-only" color="primary" dark @click.prevent="sendEmail">
+            <v-btn class="hidden-md-only hidden-xs-only" id="button" dark @click.prevent="sendEmail">
                     Email Agenda 
                 </v-btn>
         </div>   
@@ -142,5 +142,12 @@ export default {
 <style>
 .field {
     margin: 0 20px 0 20px
+}
+#button {
+  background-color:#f4931c;
+  position: absolute;
+}
+#button:hover, #button:active {
+  background-color:#f45d1c
 }
 </style>

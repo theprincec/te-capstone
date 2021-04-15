@@ -1,9 +1,12 @@
 <template>
-    <v-card class="mx-auto pa-2">
-
+<v-hover>
+    <template v-slot:default="{ hover }">
+    <v-card class="mx-auto pa-6 transition-swing pa-2"
+        :class="`elevation-${hover ? 24 : 6}`">
         <v-row>
-            <v-col col="12" md="2">
-                <v-card class="ml-5 mt-5" height="120" max-width="120">
+            <v-col col="12" md="3">
+                <v-card class=" ml-5 mt-5"
+                height="120" max-width="120">
     <!-- DOCTOR IMAGE -->
 
                     <v-img
@@ -20,8 +23,9 @@
                         alt="Doctor Image"
                     ></v-img>
                 </v-card>
+            
             </v-col>
-                <v-col col="12" md="6" >
+                <v-col col="12" md="9" >
                 <v-card-title class="h4" >Dr. {{doctor.firstName}} {{doctor.lastName}}</v-card-title>
                 <v-card-text>
                 
@@ -43,8 +47,6 @@
                 </v-col>
         </v-row>
        
-        
-
         <v-card-actions>
             <v-rating 
             v-model="rating"
@@ -73,6 +75,8 @@
             <p>{{doctor.office.openTime}} - {{doctor.office.closeTime}}</p>
             <p>{{doctor.office.phoneNumber}}</p> -->
     </v-card>
+    </template>
+</v-hover>
 </template>
 
 <script>
