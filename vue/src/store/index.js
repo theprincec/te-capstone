@@ -43,7 +43,7 @@ export default new Vuex.Store({
   },
     currentDate: {}, 
     patients: [],
-    timeEnd: ""
+    timeEnd: "", 
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
