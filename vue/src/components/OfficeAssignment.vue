@@ -227,7 +227,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /* #dragging-container{
     border: 2pt solid green;
 } */

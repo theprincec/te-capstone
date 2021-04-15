@@ -8,14 +8,14 @@
            
       <div class="field">
             <label for="date">Select Date: </label>
-            <input id="date" name="date" type="date" v-model="todayDate" @change="toggleShowAppointment()"/>
+            <input id="date" name="date" type="date" v-model="todayDate" />
         </div>
            <!-- <time-slot-card/> -->
        
          <!-- availability Form -->
               
            
-      <div v-if="showAppointments">
+      <div v-if="getAppointmentsForToday">
         <div   v-for="appointment in getAppointmentsForToday" :key="appointment.id" >
             <v-card color="#Fddc96" class="ma-5" elevation="4" outlined style="border-radius: 20px">
                 <v-card-actions class="px-5 pb-0 mb-0">
@@ -34,13 +34,13 @@
                  
             </v-card>
         </div> 
-        <div>
-            <v-btn class="hidden-md-only hidden-xs-only" id="button" dark @click.prevent="sendEmail">
+        <div >
+            <v-btn v-if="getAppointmentsForToday.length > 0" class="hidden-md-only hidden-xs-only" id="button" dark @click.prevent="sendEmail">
                     Email Agenda 
                 </v-btn>
         </div>   
       </div>
-       <div v-if="!showAppointments">
+       <div v-if="getAppointmentsForToday.length == 0">
            <v-alert
                 text
                 dense
@@ -115,7 +115,7 @@ export default {
         },
         
         toggleShowAppointment() {
-            this.showAppointments = this.getAppointmentsForToday.length > 0;
+            this.showAppointments = true;
         },
         sendEmail() { 
             let emailDate = this.getAppointmentsForToday[0].date;
@@ -141,14 +141,15 @@ export default {
     computed: {
         getAppointmentsForToday() {
             //let todayDate = new Date().toISOString().split('T')[0];
-            return this.$store.state.appointments.filter(appointment => {
+            let apptArray = this.$store.state.appointments.filter(appointment => {
                 return appointment.date == this.todayDate;
             })
+            return apptArray;
         } 
     }
 }
 </script>
-<style>
+<style scoped>
 .field {
     margin: 0 20px 0 20px
 }

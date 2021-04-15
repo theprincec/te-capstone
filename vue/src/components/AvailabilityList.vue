@@ -40,7 +40,7 @@
             </v-card>
         </div>  
       </div>
-       <div v-if="!showAppointments">
+       <div v-if="toggleShowAppointment">
            <h4>No appointments for today</h4>
        </div>
   </v-card>
@@ -52,6 +52,7 @@ import AvailabilityForm from '@/components/AvailabilityForm'
 
 export default {
     name: "appointments-list",
+    props: [showNoAppointments],
     components: {
         AvailabilityForm
     },
@@ -74,10 +75,11 @@ export default {
     },
     computed: {
         getAppointmentsForToday() {
-            //let todayDate = new Date().toISOString().split('T')[0];
+            let todayDate = new Date().toISOString().split('T')[0];
             return this.$store.state.appointments.filter(appointment => {
-                return appointment.date == this.todayDate;
+                return appointment.date == todayDate;
             })
+            
         } 
     },
     methods: {
@@ -100,7 +102,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .field {
     margin: 0 20px 0 20px
 }

@@ -1,6 +1,6 @@
 <template>
 
-<v-container id="register" ma-0 pa-0 fill-height fluid>
+<v-container id="register" class="mt-15" fluid>
   <v-layout>
       <!-- <v-flex md5 class="primary" id="background">
       </v-flex> -->
@@ -115,11 +115,11 @@
           </router-link>
         </v-card-actions>
         <v-divider></v-divider>
-        <v-card-actions >
+        <v-card-actions class="ml-3 mr-7">
           <v-btn :disabled= !valid 
             block
             type="submit" 
-            form="form-register" class="mr-4 white--text"
+            form="form-register" class="white--text"
             @click="validate"  id="sign-in-button">Register</v-btn>
         </v-card-actions>
       </v-card>
@@ -205,7 +205,7 @@ export default {
 }
 #log-in-text{
   width: 100%;
-  padding-left: 180px;
+  padding-left: 160px;
 }
 
 </style>

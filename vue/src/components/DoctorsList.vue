@@ -52,7 +52,7 @@
             <v-card
             
                 rounded="lg"
-                class="hidden-md-and-down"
+                class="hidden-sm-and-down"
                 max-height="620"
                 max-width="620">
                 <!-- <book-appointment/> -->
@@ -102,7 +102,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /* .container {
     border: 1px solid red;
 } */
