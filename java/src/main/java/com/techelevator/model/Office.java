@@ -50,7 +50,7 @@ public class Office {
 		if(appointments.size() > 0) {
 			for(Appointment appointment:appointments) {
 				for(LocalTime time : timeSlots) {
-					if((appointment.getTimeStart().isBefore(time) || appointment.getTimeStart().equals(time)) 
+					if(date.equals(appointment.getDate()) && (appointment.getTimeStart().isBefore(time) || appointment.getTimeStart().equals(time)) 
 								&& (appointment.getTimeEnd().isAfter(time) )) {
 						availableSlots.remove(time);
 					}

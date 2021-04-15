@@ -95,6 +95,8 @@ VALUES (DEFAULT, 'HealthCare', '124 Test road', 'Columbus', 'OH', '43221', '6142
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 4, 'James', 'Brown', 1);
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 3, 'Tiffany', 'Blue', 2 );
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 5, 'Lola', 'Balinsky', 1 );
+INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 6, 'Kevin', 'Docs', null );
+
 
 INSERT INTO patients (patient_id, user_id, first_name, last_name) VALUES (DEFAULT, 6, 'Brian', 'Lauray');
 INSERT INTO patients (patient_id, user_id, first_name, last_name) VALUES (DEFAULT, 7, 'Matt', 'Eland');

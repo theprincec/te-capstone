@@ -79,7 +79,7 @@ export default {
             currentDate:"",
             appointment:{
                 timeStart:""
-            },
+            }
         }
     },
     methods: {
