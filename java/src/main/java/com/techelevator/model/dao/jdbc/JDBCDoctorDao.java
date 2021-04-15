@@ -108,11 +108,11 @@ public class JDBCDoctorDao implements DoctorDAO{
 		}
 		doctor.setDoctorId(row.getInt("doctor_id"));
 		doctor.setUserId(row.getInt("user_id"));
-<<<<<<< HEAD
+
 //		doctor.setEmail(row.getString("users.email"));
-=======
+
 		//doctor.setEmail(row.getString("email"));
->>>>>>> 889da46d1a3602b5f08ce4953b53d6e70c37c778
+
 		doctor.setFirstName(row.getString("first_name"));
 		doctor.setLastName(row.getString("last_name"));
 		
