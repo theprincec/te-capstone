@@ -50,7 +50,8 @@
                     v-if="isAppointmentReqiured()"
                     required
                     clearable
-                ></v-autocomplete>
+                >
+                </v-autocomplete>
             </v-card-text>
            
              <div class="field pt-0">
@@ -60,7 +61,7 @@
 
             <div class="field">
                 <label  for="startTime">Start time:</label>
-                <select id="startTime" name="startTime" v-model="appointment.timeStart" @change="time">
+                <select id="startTime" name="startTime" v-model="appointment.timeStart" @change="setCurrentTime(time)">
                     <!-- <option v-for="time in timeSlots" v-bind:key="time">{{time}}</option> -->
                     <option v-for="(time, index) in $store.state.timeSlots"
                         v-bind:key="`time-${index}`"
@@ -78,7 +79,7 @@
 
             <div class="field">
                 <label for="endTime" >End Time: </label>
-                <select id="endTime" name="endTime" v-model="appointment.timeEnd" @change="time">
+                <select id="endTime" name="endTime" v-model="appointment.timeEnd" @change="setEndingTime(time)">
                     <option v-for="time in $store.state.timeSlots"
                         v-bind:key="time.key" 
                         :value="time"
@@ -229,6 +230,9 @@ export default {
         setCurrentTime(time) {
             //this.appointment.timeStart = this.$store.state.timeSlots[index];
             this.$store.commit("SET_CURRENT_APPOINTMENT", time)
+        },
+        setEndingTime(time) {
+            this.$store.commit("SET_ENDING_TIME", time)
         },
         getTimeSlots(){
             appointmentService.viewTimeSlots(this.$store.state.currentDoctor.doctorId, this.$store.state.currentDate)

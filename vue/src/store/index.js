@@ -42,7 +42,8 @@ export default new Vuex.Store({
           appointmentType: "Appointment"
   },
     currentDate: {}, 
-    patients: []
+    patients: [],
+    timeEnd: ""
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -100,6 +101,9 @@ export default new Vuex.Store({
     },
     SET_PATIENTS_LIST(state, patients) {
       state.patients = patients;
+    },
+    SET_ENDING_TIME(state, timeEnd) {
+      state.timeEnd = timeEnd;
     }
   }
 })
