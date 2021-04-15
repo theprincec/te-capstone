@@ -126,7 +126,7 @@ export default {
                 if(response.status == 201) {
                     this.sendEmail();
                     //emailService.sendAppointmentEmail(this.appointment.timeStart);
-                    alert("Appointment successfully booked");
+                    alert("Appointment successfully booked. Appointment notification has been submitted to your email");
                 }
             })
             .catch(error => {
@@ -160,7 +160,8 @@ export default {
             let emailDoctor = this.$store.state.currentDoctor;
             let emailAppointment = this.appointment;
             //let emailTime = convertTime(this.appointment.timeStart)
-            emailService.sendAppointmentEmail(emailPatient, emailDoctor, emailAppointment);
+            emailService.sendAppointmentEmail(emailPatient, emailDoctor, emailAppointment)
+
         },
         
         clearForm() {
