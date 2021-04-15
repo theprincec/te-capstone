@@ -24,7 +24,7 @@
             max-width="600px"
         >
             <template v-slot:activator="{ on, attrs }">
-                <v-btn class="mx-5 px-2" fab xsmall
+                <v-btn id="button" xsmall class="mx-5 px-2" fab 
                     color="#666666"
                     dark
                     v-bind="attrs"
