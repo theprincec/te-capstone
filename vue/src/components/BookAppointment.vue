@@ -11,7 +11,7 @@
                         dark
                         v-bind="attrs"
                         v-on="on"
-                        @click="this.appointment.timeStart = time, appointment.timeEnd = calculateTimeEnd"
+                        @click="this.appointment.timeStart = convertTime(time), this.appointment.timeEnd = calculateTimeEnd"
                     >
                     Book appointment
                 </v-btn>
@@ -35,11 +35,7 @@
                 <label for="date">Date: </label>
                 <input id="date" name="date" type="date" required v-model="appointment.date"/>
             </div> -->
-<<<<<<< HEAD
-            <p>Appointment date: {{this.$store.state.currentdate}}</p>
-=======
             <p>Appointment date: {{$store.state.currentDate}}</p>
->>>>>>> 9efec913fcdd6c77809e00dd9ad33b64fbe6c6ce
             <!-- <div class="field">
                 <label for="startTime" style="color:rgb(118, 118, 118)">Start Time: </label>
                 <input id="startTime" name="startTime" type="time" required v-model="appointment.timeStart"/>
@@ -55,11 +51,10 @@
                 form="booking-form" 
                 class="mr-4"
                 type="submit"
-                @click="dialog=false"
-                              
+                @click="dialog=false"                
             >
             Confirm Appointment
-            </v-btn   >
+            </v-btn>
             <v-btn @click="dialog=false">
             Cancel
             </v-btn>
@@ -72,9 +67,7 @@
 import appointmentService from '@/services/AppointmentService';
 import patientService from '@/services/PatientService';
 import emailService from '@/services/EmailService';
-import TimeSlotCard from '@/components/TimeSlotCard';
 export default {
-    TimeSlotCard,
     name: "book-appointment", 
     props: ['time'],
     data() {
@@ -134,8 +127,6 @@ export default {
                     this.sendEmail();
                     //emailService.sendAppointmentEmail(this.appointment.timeStart);
                     alert("Appointment successfully booked");
-                    
-                    
                 }
             })
             .catch(error => {
@@ -205,3 +196,4 @@ export default {
     padding: 8px 0 8px 
 }
 </style>
+
