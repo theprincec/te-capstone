@@ -41,7 +41,7 @@ export default new Vuex.Store({
           timeEnd: "", 
           appointmentType: "Appointment"
   },
-    selectedDate: {},
+    currentDate: {},
     myFile: null
   },
   mutations: {
