@@ -167,8 +167,8 @@ export default {
             })
         }, 
         customFilter (item, queryText) {
-            const textOne = item.firstName.toLowerCase()
-            const textTwo = item.lastName.toLowerCase()
+            const textOne = item.patient.firstName.toLowerCase()
+            const textTwo = item.patient.lastName.toLowerCase()
             const searchText = queryText.toLowerCase()
 
             return textOne.indexOf(searchText) > -1 ||
