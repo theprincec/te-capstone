@@ -305,7 +305,7 @@ export default {
                 console.log("Error getting documents: ", error);
             })
 //ACCESS COLLECTION FROM FIRESTORE
-        if(this.$store.state.office.officeId > 0) {
+       
              const id = this.$store.state.currentDoctor.office.officeId;
          firebase.firestore().collection("offices").doc(`${id}`)
             .get()
@@ -321,7 +321,7 @@ export default {
                 console.log("Error getting documents: ", error);
             })
         
-    }
+   
         }
         
 }
