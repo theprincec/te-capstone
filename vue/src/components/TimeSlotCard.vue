@@ -142,7 +142,7 @@ export default {
    
 </script>
 
-<style>
+<style scope>
 /* div {
     border: 1px solid red;
 } */

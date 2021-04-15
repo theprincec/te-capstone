@@ -183,7 +183,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 #startTime, #endTime, #date {
     padding: 8px 0 8px 8px;
     line-height: 20px;

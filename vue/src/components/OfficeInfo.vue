@@ -199,7 +199,7 @@
             <v-card class="mx-auto pa-2 mb-5" v-if="$store.state.currentDoctor.office == null">
                 <v-alert text
                     dense
-                    color="white"
+                    color="blue"
                     icon="mdi-office-building-marker-outline"
                     border="left"
                     class="ma-4"
@@ -526,7 +526,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 #doctorList {
     padding: 8px 0 8px 8px;
     line-height: 20px;
