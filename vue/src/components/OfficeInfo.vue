@@ -196,7 +196,7 @@
                 </v-card-actions>
 
             </v-card>
-            <div class="mx-auto pa-2 mb-5" v-if="$store.state.currentDoctor.office == null">
+            <v-card class="mx-auto pa-2 mb-5" v-if="$store.state.currentDoctor.office == null">
                 <v-alert text
                     dense
                     color="blue"
@@ -205,7 +205,7 @@
                     class="ma-4"
                 >You have not yet been assigned to an office.<br>
                     Please, contact administration. </v-alert>
-            </div>
+            </v-card>
         </v-col>
     </v-row>
     
