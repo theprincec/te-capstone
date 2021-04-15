@@ -16,28 +16,41 @@ export default {
           //To: this.rankings.toString,
           From: "appointments.carehub@gmail.com",
           Subject: `${patient.lastName}, ${patient.firstName}: New Appointment with Dr. ${doctor.lastName}`,
-          Body: `Hello ${patient.firstName}, Your appointment has been scheduled with Dr. ${doctor.lastName}: 
-                  Please arrive 15 minutes prior to  your appointment ${appointment.timeStart} on ${appointment.date}
-                  at our ${doctor.office.name} office to fill out necessary paperwork. The address is: 
-                  ${doctor.office.address.addressLine}, ${doctor.office.address.city}, ${doctor.office.address.district}, ${doctor.office.address.postalCode}
-                  Please Contact us if you have any last minute cancellations. Our phone number is ${doctor.office.phoneNumber}.
-                  Best wishes,
-                  Carengton`
+          Body: `Hello ${patient.firstName}, 
+                  <br>
+                  <br>
+                  Your appointment has been scheduled with Dr. ${doctor.lastName}:
+                  <br> 
+                  Please arrive 15 minutes prior to  your appointment at <b>${appointment.time} on ${appointment.date}</b>
+                  at our <b>${doctor.office.name}<b> office to fill out necessary paperwork. 
+                  <br>
+                  <br>
+                  The address is: 
+                  <br>
+                  <br>
+                  ${doctor.office.address.addressLine} <br> ${doctor.office.address.city}, ${doctor.office.address.district}, ${doctor.office.address.postalCode}
+                  <br>
+                  <br>
+                  If you need to cancel your appointment, Please contact us at least 24 hours prior to your appointment. Our phone number is ${doctor.office.phoneNumber}.
+                  <br>
+                  <br>
+                  <p style="color: #999999">Best wishes,<br>
+                  Carengton</p>`
       })
     },
-      sendAgendaEmail(patient, doctor, appointment){
+      sendAgendaEmail(doctor, messageBody, date){
         
         window.Email && window.Email.send({
             //SecureToken : "038e2730-a63d-4941-8ae5-a756fe9b42d2",
             Host: "smtp.gmail.com",
             Username: "appointments.carehub@gmail.com",
             Password: "CareHub+",
-            To: [doctor.email],
+            To: doctor.email,
             // cc: ccEmail,
             //To: this.rankings.toString,
             From: "appointments.carehub@gmail.com",
-            Subject: `Dr. ${doctor.lastName}'s Appointments for Today`,
-            Body: `Here are your appointments`
+            Subject: `Dr. ${doctor.lastName}'s Appointments for ${date}`,
+            Body: messageBody
         })
       }
     }

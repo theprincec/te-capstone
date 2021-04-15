@@ -158,8 +158,8 @@ export default {
         sendEmail() {
             let emailPatient= this.$store.state.currentPatient;
             let emailDoctor = this.$store.state.currentDoctor;
-            //let doctorName = this.$store.state.currentDoctor.lastName;
             let emailAppointment = this.appointment;
+            //let emailTime = convertTime(this.appointment.timeStart)
             emailService.sendAppointmentEmail(emailPatient, emailDoctor, emailAppointment);
         }
         

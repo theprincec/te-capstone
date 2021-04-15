@@ -33,17 +33,22 @@
                 </v-card-actions>
                  
             </v-card>
-        </div>  
+        </div> 
+        <div>
+            <v-btn class="hidden-md-only hidden-xs-only" color="primary" dark @click.prevent="sendEmail">
+                    Email Agenda 
+                </v-btn>
+        </div>   
       </div>
        <div v-if="!showAppointments">
            <v-alert
-      text
-      dense
-      color="teal"
-      icon="mdi-clock-fast"
-      border="left"
-      class="ma-4"
-    >
+                text
+                dense
+                color="teal"
+                icon="mdi-clock-fast"
+                border="left"
+                class="ma-4"
+                >
       No appointments for today.
     </v-alert>
     <!-- <h4 class="pa-5">No appointments for today</h4> -->
@@ -53,7 +58,10 @@
 <script>
 import appointmentService from '@/services/AppointmentService'
 import AvailabilityForm from '@/components/AvailabilityForm'
+import emailService from '@/services/EmailService'
 //import TimeSlotCard from '@/components/TimeSlotCard'
+
+
 export default {
     name: "appointments-list",
     components: {
@@ -76,6 +84,12 @@ export default {
         }).catch(error => {
             console.log(error)
         })
+    },
+    mounted() {
+        let emailScript = document.createElement('script');
+        emailScript.setAttribute('src', 'https://smtpjs.com/v3/smtp.js');
+        document.head.appendChild(emailScript);
+        //let toEmail = this.$store.state.currentPatient.email;
     },
     computed: {
         getAppointmentsForToday() {
@@ -100,6 +114,26 @@ export default {
         },
         toggleShowAppointment() {
             this.showAppointments = this.getAppointmentsForToday.length > 0;
+        },
+        sendEmail() { 
+            let emailDate = this.getAppointmentsForToday[0].date;
+            let emailDoctor = this.$store.state.currentDoctor;
+            let emailBody = this.printAppointmentList(emailDate);
+            //let emailAppointment = this.appointment;
+
+            emailService.sendAgendaEmail(emailDoctor, emailBody, emailDate);
+        },
+        printAppointmentList(date) { //prints out list of appointments for today--formatted
+            const todaysList = this.$store.state.appointments.filter(appointment => {
+                return appointment.date == this.todayDate;});
+            var printedText = `<h2>Your Appointments for ${date}:</h2><br>`
+
+            for (let appointment of todaysList){
+                printedText += `<div style="border-radius:10px; background: linear-gradient(#f5bd43,orange, orange, darkorange); border: 2pt solid darkorange; width: 200px; text-align: center"><p style="color=black">${this.convertTime(appointment.timeStart)} - ${appointment.patient.lastName}, ${appointment.patient.firstName}</p></div> <br>`
+            }
+            printedText += `<br><p style="color: #999999">Have a great Day!<br>
+                  Carengton</p>`
+            return printedText;
         }
     }
 }
