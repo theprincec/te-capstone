@@ -16,7 +16,7 @@
                         </v-card>
                     </v-col>
                      <v-col col="12" md="4" >
-                         <v-card-title class="headline pb-0">Welcome to Homepage</v-card-title>
+                         <!-- <v-card-title class="headline pb-0">Welcome to Homepage</v-card-title> -->
                         <v-card-title class="text-h4 pt-1  ">Dr. {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
   
                      </v-col>
@@ -33,7 +33,7 @@
     <v-row> -->
         
         <v-col cols="12"
-            md="6" class="pb-0 pt-3">
+            md="7" class="pb-0 pt-3">
        <!-- appointments -->
             <appointments-list
              />
@@ -42,9 +42,9 @@
 
         </v-col>
         <v-col cols="12"
-                md="6" class="py-3">
+                md="5" class="py-3">
             
-            <v-card class="mx-auto pa-2 mb-5" v-if="$store.state.currentDoctor.office != null">
+            <v-card class="mx-auto pa-2 mb-5" v-if="$store.state.currentDoctor.office != null" style="border-radius:10px;">
                 <v-form v-if="!showForm">
                     <v-card
                         class="mx-auto my-5"
@@ -85,38 +85,38 @@
                         label="Update office image"
                         v-if="showEditImage"
                         prepend-icon="mdi-camera"
-    
                     >
                     </v-file-input>
-                   
-                      <div class="text-center">
+                   <!-- button to change -->
+                      <div class="text-right">
                         <v-btn
-                            color="blue-grey"
+                            color="#888888"
                             class="ma-2 white--text"
                             @click="showEditImage=!showEditImage"                   
+                            style="border-radius:16px"
                             >
                             Edit Office Image
-                        <v-icon
-                            right
-                            dark
-                        >
-                            mdi-cloud-upload
-                        </v-icon>
-                    </v-btn>
+                            <v-icon
+                                right
+                                dark
+                            >
+                                mdi-cloud-upload
+                            </v-icon>
+                        </v-btn>
                       </div>
-               
+               <v-divider></v-divider>
                 <v-card-title class="h4 py-2 px-10">{{this.office.name}} </v-card-title>
-                <v-card-text class="py-2 px-10">
+                <v-card-text class="py-2 px-10" style="padding-right:0;padding-left:0;">
                 
-                <div class="d-flex justify-space-between subtitle-1"> 
-                    <p class="pa-1 ma-0"> {{this.office.address.addressLine}} <br>
-                        {{this.office.address.city}}, {{this.office.address.district}} {{this.office.address.postalCode}}</p> 
-                    <p class="pa-1 ma-0 subtitle-2">
-                        <v-icon small class="px-2">mdi-clock</v-icon>
-                        {{convertTime(this.office.openTime)}} - {{convertTime(this.office.closeTime)}} <br>
-             <!-- CHANGE -->
-                        <v-icon small class="px-2">mdi-phone</v-icon>{{convertNumber(this.office.phoneNumber)}} </p>
-                </div>
+                    <div class="d-flex justify-space-between subtitle-1"> 
+                        <p class="py-1 px-0 ma-0"> {{this.office.address.addressLine}} <br>
+                            {{this.office.address.city}}, {{this.office.address.district}} {{this.office.address.postalCode}}</p> 
+                        <p class="py-1 px-0 ma-0 subtitle-2">
+                            <v-icon small class="px-2">mdi-clock</v-icon>
+                            {{convertTime(this.office.openTime)}} - {{convertTime(this.office.closeTime)}} <br>
+                <!-- CHANGE -->
+                            <v-icon small class="px-2">mdi-phone</v-icon>{{convertNumber(this.office.phoneNumber)}} </p>
+                    </div>
                 </v-card-text>
                     <v-divider></v-divider>
                 <v-card-actions class="px-10">
@@ -129,7 +129,10 @@
                         <a style="text-decoration: none" class="blue--text" @click="showDoctorForm = false"
                          v-if="showDoctorForm"> Cancel </a>
                         <v-spacer></v-spacer>
-                        <p class="mb-0 grey-text display-1"> ${{this.office.officeRate}}</p>
+                        <div>
+                            <span style="font-size:12px;margin-bottom:0;line-spacing:0;"> Hourly Rate:</span> 
+                            <br> <p class="mb-0 grey-text display-1"> ${{this.office.officeRate}}</p>
+                        </div>
                 </v-card-actions>
                 </v-form>
 

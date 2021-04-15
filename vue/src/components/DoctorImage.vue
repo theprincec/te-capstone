@@ -1,17 +1,19 @@
 <template>
-  <div >
+  <div>
       
       <v-img
         class="hidden-xs-and-down"
         max-height="100"
         v-if="!fileDoctorUrl"
         src="../assets/placeholder.jpg"
+        style="background-color:#00000000"
         ></v-img>
         <v-img
         max-height="100"
         contain v-if="fileDoctorUrl"
         :src="fileDoctorUrl"
         alt="Doctor Image"
+        
         ></v-img>
 
         <v-dialog
@@ -21,7 +23,7 @@
         >
             <template v-slot:activator="{ on, attrs }">
                 <v-btn class="mx-5 px-2" rounded small
-                    color="primary"
+                    color="#666666"
                     dark
                     v-bind="attrs"
                     v-on="on"

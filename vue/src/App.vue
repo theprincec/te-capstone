@@ -28,7 +28,8 @@ export default {
 <style scoped>
 
 #everything{
-  background-image: linear-gradient(#ffffff,#ffffff, #cccccc);
+  /* background-image: linear-gradient(#cccccc, #666666); */
+  background-image: linear-gradient(170deg, #d9e8ec,#777777,#666666);
   
 }
 </style>
