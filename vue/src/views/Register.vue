@@ -1,6 +1,6 @@
 <template>
 
-<v-container id="register" ma-0 pa-0 fill-height fluid>
+<v-container id="register" class="mt-15" fluid>
   <v-layout>
       <!-- <v-flex md5 class="primary" id="background">
       </v-flex> -->
