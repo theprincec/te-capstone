@@ -61,7 +61,7 @@
 
             <div class="field">
                 <label  for="startTime">Start time:</label>
-                <select id="startTime" name="startTime" v-model="appointment.timeStart" @change="time">
+                <select id="startTime" name="startTime" v-model="appointment.timeStart" @change="setCurrentTime(time)">
                     <!-- <option v-for="time in timeSlots" v-bind:key="time">{{time}}</option> -->
                     <option v-for="(time, index) in $store.state.timeSlots"
                         v-bind:key="`time-${index}`"
@@ -79,7 +79,7 @@
 
             <div class="field">
                 <label for="endTime" >End Time: </label>
-                <select id="endTime" name="endTime" v-model="appointment.timeEnd" @change="time">
+                <select id="endTime" name="endTime" v-model="appointment.timeEnd" @change="setEndingTime(time)">
                     <option v-for="time in $store.state.timeSlots"
                         v-bind:key="time.key" 
                         :value="time"
@@ -99,7 +99,7 @@
             >
             submit
             </v-btn>
-            <v-btn @click="dialog=false, clearForm"
+            <v-btn @click="clearForm, dialog=false"
                 >
             cancel
             </v-btn>
@@ -141,6 +141,7 @@ export default {
     }, 
     methods: {
         addAnAppointment() {
+            this.appointment.timeEnd = this.calculateTimeEnd(this.appointment.timeEnd);
             appointmentService.addAppointment(this.appointment).then(response => {
                 if(response.status == 201) {
                     alert("Appointment successfully saved");
@@ -230,6 +231,9 @@ export default {
             //this.appointment.timeStart = this.$store.state.timeSlots[index];
             this.$store.commit("SET_CURRENT_APPOINTMENT", time)
         },
+        setEndingTime(time) {
+            this.$store.commit("SET_ENDING_TIME", time)
+        },
         getTimeSlots(){
             appointmentService.viewTimeSlots(this.$store.state.currentDoctor.doctorId, this.$store.state.currentDate)
                 .then(response => {
@@ -271,13 +275,14 @@ export default {
             }
             return result;
         },
-        calculateTimeEnd() {
+        calculateTimeEnd(time) {
             //09:00:00
-            let hours = parseInt(this.time.slice(0, 2));
+            let hours = parseInt(time.slice(0, 2));
+            let minAndSec = time.slice(2)
            
                 hours += 1;
      
-            let fullTime = hours + this.time;
+            let fullTime = hours + minAndSec;
             return fullTime;
         }
     
