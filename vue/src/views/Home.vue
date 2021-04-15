@@ -30,7 +30,7 @@
      
       <v-card-text>
         <p class="text-h5 white--text">CAREHUB is a solution for enterprise scheduling and ease of mind. 
-          We make schedule as convinient as possible for you and your clients!</p>
+          We make schedule as convenient as possible for you and your clients!</p>
       </v-card-text>
 
       <v-card-actions class="text-center">
