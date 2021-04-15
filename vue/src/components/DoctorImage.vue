@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
       
       <v-img
         class="hidden-xs-and-down"
@@ -7,6 +7,7 @@
         width="120"
         v-if="!fileDoctorUrl"
         src="../assets/placeholder.jpg"
+        style="background-color:#00000000"
         ></v-img>
         <v-img
         height="100"
@@ -14,6 +15,7 @@
         contain v-if="fileDoctorUrl"
         :src="fileDoctorUrl"
         alt="Doctor Image"
+        
         ></v-img>
 
         <v-dialog
@@ -21,17 +23,14 @@
             persistent
             max-width="600px"
         >
-        <template v-slot:activator="{ on, attrs }">
-            <v-btn class="mx-5 px-2" fab x-small
-                dark
-                id="button"
-                v-bind="attrs"
-                v-on="on"
-            >
-               
-                <v-icon  dark>
-                    mdi-plus
-                </v-icon>
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn class="mx-5 px-2" rounded small
+                    color="#666666"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                >
+                Change image
             </v-btn>
         <!-- FORM --> 
         </template>

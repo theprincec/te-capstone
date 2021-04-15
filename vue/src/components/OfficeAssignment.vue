@@ -18,77 +18,86 @@
         </v-col> -->
 
 
-        <v-col cols="5">
-            <div  v-for="item in offices" v-bind:key="item.office.officeId" 
-                    @drop="onDrop($event, item.office)"
-                    @dragover.prevent
-                    @dragenter.prevent>
-                    
-            <v-card v-if="item.office.name == 'Unassigned Doctors'" class="pb-5 mb-5">
+        <!-- unassigned -->
+        <v-col id="dragging-container" cols="12" >
+        <v-card class="pb-10px dragger" id="dragger" >
+            <v-col cols="5" id="col-1">
+                <div  v-for="item in offices" v-bind:key="item.office.officeId" 
+                        @drop="onDrop($event, item.office)"
+                        @dragover.prevent
+                        @dragenter.prevent>
+                        
+                <v-card v-if="item.office.name == 'Unassigned Doctors'" class="pb-5 mb-5 drag-name">
 
-                <div id=dropZoneTitle>
+                    <div id=dropZoneTitle>
 
-                    <v-card-text class="text-center text-lg-h6 font-weight-bold font-italic">
-                    {{item.office.name}}
-                    </v-card-text>
-                </div>
-                <v-card-text v-if="item.doctors.length == 0" class="text-center"> There are no unassigned doctors </v-card-text>
-
-                <draggable v-model="item.doctors" group="offices">
-                    <div v-for="doctor in item.doctors" :key="doctor.doctorId" style="font-weight:bold;"  
-                            @dragstart='startDrag($event, doctor)'  >
-                    <v-hover v-slot="{ hover }">
-                    <v-card class="ml-10 mr-10 mb-5 doctorCards" :elevation="hover ? 12 : 2" color="#C4E7F2">
-                        <v-card-text class="text-center text-md-body-1 font-weight-bold">
-                        Dr. {{doctor.firstName}} {{doctor.lastName}}
+                        <v-card-text class="text-center text-lg-h6 font-weight-bold font-italic">
+                        {{item.office.name}}
                         </v-card-text>
-
-                    </v-card>
-                    </v-hover>
                     </div>
-                </draggable>
-                </v-card>
-            </div>
-        </v-col>
+                    <v-card-text v-if="item.doctors.length == 0" class="text-center"> There are no unassigned doctors </v-card-text>
 
-        <v-col cols="1">
-            <div id="filler" >
-                <v-row>
-            <v-icon x-large>mdi-arrow-left-bold</v-icon> <v-icon x-large> mdi-arrow-right-bold</v-icon>
-            </v-row>
-            </div>
+                    <draggable v-model="item.doctors" group="offices">
+                        <div v-for="doctor in item.doctors" :key="doctor.doctorId" style="font-weight:bold;"  
+                                @dragstart='startDrag($event, doctor)'  >
+                        <!-- <v-hover v-slot="{ hover }"> -->
+                        <v-card class="ml-10 mr-10 mb-5 doctorCards" :elevation="hover ? 12 : 2" color="#C4E7F2" id="doctor-in-office">
+                            <v-card-text class="text-center text-md-body-1 font-weight-bold">
+                            Dr. {{doctor.firstName}} {{doctor.lastName}}
+                            </v-card-text>
+
+                        </v-card>
+                        <!-- </v-hover> -->
+                        </div>
+                    </draggable>
+                    </v-card>
+                </div>
             </v-col>
 
-        <v-col cols="6">
-            <div v-for="item in offices" v-bind:key="item.office.officeId" 
-                    @drop="onDrop($event, item.office)"
-                    @dragover.prevent
-                    @dragenter.prevent >
-                  
-                <v-card v-if="item.office.name != 'Unassigned Doctors'" class="pb-5 mb-5">
-                <div id=dropZoneTitle>
-                    <v-card-text class="text-center text-lg-h6 font-weight-bold">
-                    {{item.office.name}}
-                    </v-card-text>
+            <!-- arrows -->
+            <v-col cols="1" id="col-2"> 
+                <div id="filler" >
+                    <v-row>
+                <v-icon x-large>mdi-arrow-left-bold</v-icon> <v-icon x-large> mdi-arrow-right-bold</v-icon>
+                </v-row>
                 </div>
-                <v-card-text v-if="item.doctors.length == 0" class="text-center"> No doctors have been assigned to this office </v-card-text>
+            </v-col>
 
-                <draggable v-model="item.doctors" group="offices">
-                    <div v-for="doctor in item.doctors" :key="doctor.doctorId" style="font-weight:bold;"  
-                            @dragstart='startDrag($event, doctor)'  >
-                    <v-hover v-slot="{ hover }">
-                    <v-card class="ml-10 mr-10 mb-5 doctorCards" :elevation="hover ? 12 : 2" color="#C4E7F2">
-                        <v-card-text class="text-center text-md-body-1 font-weight-bold">
-                        Dr. {{doctor.firstName}} {{doctor.lastName}}
+            <!-- offices -->
+            <v-col cols="6" id="col-3">
+                <div v-for="item in offices" v-bind:key="item.office.officeId" 
+                        @drop="onDrop($event, item.office)"
+                        @dragover.prevent
+                        @dragenter.prevent 
+                        class="drag-name">
+                    
+                    <v-card v-if="item.office.name != 'Unassigned Doctors'" class="pb-5 mb-5 ">
+                    <div id=dropZoneTitle>
+                        <v-card-text class="text-center text-lg-h6 font-weight-bold">
+                        {{item.office.name}}
                         </v-card-text>
-
-                    </v-card>
-                    </v-hover>
                     </div>
-                </draggable>
-                </v-card>
+                    <v-card-text v-if="item.doctors.length == 0" class="text-center"> No doctors have been assigned to this office </v-card-text>
 
-            </div>
+                    <draggable v-model="item.doctors" group="offices" >
+                        <div v-for="doctor in item.doctors" :key="doctor.doctorId" style="font-weight:bold;"  
+                                @dragstart='startDrag($event, doctor)'  >
+                        <v-hover v-slot="{ hover }">
+                        <!-- Doctor in Office     -->
+                        <v-card class="ml-10 mr-10 mb-5 doctorCards" :elevation="hover ? 5 : 2" color="#dddddd">
+                            <v-card-text class="text-center text-md-body-1 font-weight-bold">
+                            Dr. {{doctor.firstName}} {{doctor.lastName}}
+                            </v-card-text>
+
+                        </v-card>
+                        </v-hover>
+                        </div>
+                    </draggable>
+                    </v-card>
+
+                </div>
+            </v-col>
+        </v-card>
         </v-col>
 
         <!-- <v-col cols="2">
@@ -215,6 +224,20 @@ export default {
 </script>
 
 <style>
+/* #dragging-container{
+    border: 2pt solid green;
+} */
+#app{
+    background-color: #00000000;
+}
+
+#dragger{
+    background-color: #cccccc;
+}
+#col-1, #col-2, #col-3{
+    display: inline-block;
+}
+
 .drop-zone {
     min-height: 10px;
     margin: 15px;
@@ -226,15 +249,24 @@ export default {
     background-color: grey;
     margin: 10px;
 }
+/* .drag-name {
+    background-color: chartreuse;
+} */
+/* #doctor-in-office:hover{
+    background-color: green;
+
+} */
 
 #dropZoneTitle {
     padding: 10px;
 
 }
 
-.doctorCards:hover {
-    box-shadow: 0 0 10px;
-}
+/* .doctorCards:hover {
+    box-shadow: 5px 0 5px;
+    /* border: 5px solid #888888; 
+    background-color: coral;
+} */
 
 #filler {
 	

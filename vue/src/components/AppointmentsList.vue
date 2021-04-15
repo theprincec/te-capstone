@@ -1,14 +1,14 @@
 <template>
-  <v-card class="pa-5" flat color="transparent">
+  <v-card class="pa-5" flat color="white" style="min-height:544px; border-radius: 10px;">
         <v-card-title>
             <span class="headline">Upcoming Appointments</span>
             <v-spacer></v-spacer>
-            <availability-form />
+            <availability-form style="border-radius=10px;"/>
         </v-card-title>
            
       <div class="field">
             <label for="date">Select Date: </label>
-            <input id="date" name="date" type="date"  v-model="todayDate" @change="toggleShowAppointment()"/>
+            <input id="date" name="date" type="date" v-model="todayDate" @change="toggleShowAppointment()"/>
         </div>
            <!-- <time-slot-card/> -->
        

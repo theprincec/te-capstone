@@ -7,6 +7,7 @@ import Register from '../views/Register.vue'
 //import DoctorHome from '../views/DoctorHome.vue'
 import store from '../store/index'
 import PatientView from '../views/PatientView.vue'
+import StyledHome from '../views/StyledHome.vue'
 
 Vue.use(Router)
 
@@ -23,6 +24,14 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    {
+      path: "/style",
+      name: "styled-home",
+      component: StyledHome,
+      meta: {
+        requiresAuth: false, 
+      }
+    },
     {
       path: '/',
       name: 'home',

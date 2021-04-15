@@ -29,7 +29,7 @@ export default {
           ccEmail: this.$store.state.currentDoctor.email, //doc
           mainEmailFirstName: this.$store.state.currentPatient.firstName,//patient
           ccEmailLastName: this.$store.state.currentDoctor.lastName, //doc
-          appointmentDate: this.$store.state.currentAppointment.timeStart,
+          appointmentDate: this.$store.state.currentAppointment.date,
           officeName: this.$store.state.currentDoctor.office.name,
           officeAddress: `${this.$store.state.currentDoctor.office.address.addressLine}, 
               ${this.$store.state.currentDoctor.office.address.city}, 

@@ -11,7 +11,7 @@
                         dark
                         v-bind="attrs"
                         v-on="on"
-                        @click="appointment.timeStart = time, appointment.timeEnd = calculateTimeEnd"
+                        @click="this.appointment.timeStart = convertTime(time), this.appointment.timeEnd = calculateTimeEnd"
                     >
                     Book appointment
                 </v-btn>
@@ -126,7 +126,7 @@ export default {
                 if(response.status == 201) {
                     this.sendEmail();
                     //emailService.sendAppointmentEmail(this.appointment.timeStart);
-                    alert("Appointment successfully booked");
+                    alert("Appointment successfully booked. Appointment notification has been submitted to your email");
                 }
             })
             .catch(error => {
@@ -160,7 +160,8 @@ export default {
             let emailDoctor = this.$store.state.currentDoctor;
             let emailAppointment = this.appointment;
             //let emailTime = convertTime(this.appointment.timeStart)
-            emailService.sendAppointmentEmail(emailPatient, emailDoctor, emailAppointment);
+            emailService.sendAppointmentEmail(emailPatient, emailDoctor, emailAppointment)
+
         },
         
         clearForm() {
@@ -196,3 +197,4 @@ export default {
     padding: 8px 0 8px 
 }
 </style>
+

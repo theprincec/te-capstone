@@ -15,12 +15,9 @@
                         <v-icon  dark>
                             mdi-plus
                         </v-icon>
-                 </v-btn>
-                     <v-btn class=" hidden-md-only hidden-xs-only  white--text"
-                        id="button"
-                        v-bind="attrs"
-                        v-on="on"
-                    >
+                </v-btn>
+                <v-btn class="hidden-md-only hidden-xs-only"
+                        color="primary" dark v-bind="attrs" v-on="on" style="border-radius:16px;">
                     Add appointment
                 </v-btn>
             </template>
