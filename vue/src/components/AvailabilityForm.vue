@@ -1,27 +1,25 @@
 <template>
   <v-row justify="end">
-            <v-dialog
-                v-model="dialog"
-                persistent
-                max-width="600px"
-            >
+            <v-dialog v-model="dialog" persistent max-width="600px">
                 <template v-slot:activator="{ on, attrs }">
                 
-                <v-btn fab small color="primary" class="hidden-lg-and-up hidden-sm-only mx-5"
+
+                <v-btn fab small  class=" hidden-lg-and-up hidden-sm-only mx-5 "
+                    id="button"
                     v-bind="attrs"
-                        v-on="on"
+                    v-on="on"
                 >
-                        <v-icon  dark>
-                            mdi-plus
-                        </v-icon>
+
+                    <v-icon  dark>
+                        mdi-plus
+                    </v-icon>
                  </v-btn>
-                     <v-btn class="hidden-md-only hidden-xs-only"
-                        color="primary"
-                        dark
+
+                    <v-btn class=" hidden-md-only hidden-xs-only  white--text"
+                        id="button"
                         v-bind="attrs"
                         v-on="on"
-                    >
-                    Add appointment
+                    >Add appointment
                 </v-btn>
             </template>
     <v-card id="appointments"
@@ -223,5 +221,11 @@ export default {
 }
 .field {
     padding: 8px 0 8px 
+}
+#button {
+  background-color:#f4931c
+}
+#button:hover, #button:active {
+  background-color:#f45d1c
 }
 </style>

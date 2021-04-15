@@ -113,9 +113,9 @@
                         {{this.office.address.city}}, {{this.office.address.district}} {{this.office.address.postalCode}}</p> 
                     <p class="pa-1 ma-0 subtitle-2">
                         <v-icon small class="px-2">mdi-clock</v-icon>
-                        {{convertTime(this.office.openTime)}} - {{convertTime(this.office.closeTime)}} <br>
+                        {{this.office.openTime}} - {{this.office.closeTime}} <br>
              <!-- CHANGE -->
-                        <v-icon small class="px-2">mdi-phone</v-icon>{{this.office.phoneNumber}} </p>
+                        <v-icon small class="px-2">mdi-phone</v-icon>{{convertNumber(this.office.phoneNumber)}} </p>
                 </div>
                 </v-card-text>
                     <v-divider></v-divider>
@@ -129,7 +129,7 @@
                         <a style="text-decoration: none" class="blue--text" @click="showDoctorForm = false"
                          v-if="showDoctorForm"> Cancel </a>
                         <v-spacer></v-spacer>
-                        <p class="mb-0 grey-text display-1"> ${{this.office.officeRate}}</p>
+                        <p class="mb-0 grey-text display-1"> ${{office.officeRate}}</p>
                 </v-card-actions>
                 </v-form>
 
@@ -154,13 +154,15 @@
                     <v-text-field type="tel" class=" px-10" label="Phone Number" dense v-model="office.phoneNumber">
                     </v-text-field>
                     <div class="d-flex justify-space-between">
-                        <v-text-field type="time" class=" pl-10 pr-2" label="Open Time" dense v-model="office.openTime" min="9:00" max="17:00">
+                        <v-text-field  type="time" class=" pl-10 pr-2" label="Open Time" dense v-model="office.openTime">
                         </v-text-field>
-                        <v-text-field type="time" class=" pr-10 pl-2" label="Close Time" dense v-model="office.closeTime" min="9:00" max="17:00">
+                        <v-text-field  type="time" class=" pr-10 pl-2" label="Close Time" dense v-model="office.closeTime">
                         </v-text-field>
-                    </div>
-                    <v-text-field class=" px-10" label="Office Rate" dense v-model="this.office.officeRate">
+                        <v-text-field class=" px-10" label="Office Rate Per Hour" dense v-model="office.officeRate">
                     </v-text-field>
+                    </div>
+                    <!-- <v-text-field class=" px-10" label="Office Rate Per Hour" dense v-model="this.office.officeRate">
+                    </v-text-field> -->
                     
                  <v-divider></v-divider>
                 <v-card-actions>
@@ -189,9 +191,16 @@
                 </v-card-actions>
 
             </v-card>
-            <v-card class="mx-auto pa-2 mb-5" v-if="$store.state.currentDoctor.office == null">
-                <p>You have not yet been assigned to an office by administration. </p>
-            </v-card>
+            <div class="mx-auto pa-2 mb-5" v-if="$store.state.currentDoctor.office == null">
+                <v-alert text
+                    dense
+                    color="blue"
+                    icon="mdi-office-building-marker-outline"
+                    border="left"
+                    class="ma-4"
+                >You have not yet been assigned to an office.<br>
+                    Please, contact administration. </v-alert>
+            </div>
         </v-col>
     </v-row>
     
@@ -322,9 +331,9 @@ export default {
             })
         },
         getOfficeData(doctor){
-            this.office.officeId= doctor.office.officeId;
+            this.office.officeId = doctor.office.officeId;
             this.office.name= doctor.office.name;
-            this.office.phoneNumber= this.convertNumber(doctor.office.phoneNumber);
+            this.office.phoneNumber= doctor.office.phoneNumber;
             this.office.openTime= this.convertTime(doctor.office.openTime);
             this.office.closeTime= this.convertTime(doctor.office.closeTime);
             this.office.officeRate= doctor.office.officeRate;
