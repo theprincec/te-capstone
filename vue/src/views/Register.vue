@@ -205,7 +205,7 @@ export default {
 }
 #log-in-text{
   width: 100%;
-  padding-left: 180px;
+  padding-left: 160px;
 }
 
 </style>
