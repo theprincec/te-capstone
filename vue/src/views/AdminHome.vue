@@ -1,36 +1,36 @@
 <template>
-<v-container grid-list-md fluid >
+<v-container grid-list-md fluid style="background-color=red;">
 
-  <v-app-bar class="px-5" app color="primary" flat>
-    <v-tabs 
-      class="ml-n9"
-      color="grey darken-1"
-    >
-    <router-link :to="{ name: 'home' }" style="text-decoration: none" >
-      <v-tab class="pa-6 mx-auto" style="color:white">Home</v-tab>
-    </router-link>
-    <v-divider vertical></v-divider>
-      
-    <router-link v-bind:to="{ name: 'logout' }" 
-      v-if="$store.state.token != ''"
-      style="text-decoration: none">
-      <v-tab class="pa-6 mx-auto" style="color:white">Logout</v-tab>
-    </router-link>
-    <v-divider vertical></v-divider>
-
-    <v-tab class="pa-6"  style="color:white">
-      Welcome, Admin!
-     <v-avatar
-        class="hidden-sm-and-down mx-2"
-        color="grey darken-1 shrink"
-        size="38"
+  <v-app-bar class="px-5" app color="#888888" flat>
+      <v-tabs 
+        class="ml-n9"
+        color="grey darken-1"
       >
-      <v-icon dark >
-        mdi-account-circle
-      </v-icon>
-      </v-avatar>
-      </v-tab >
-    </v-tabs >
+      <router-link :to="{ name: 'home' }" style="text-decoration: none" >
+        <v-tab class="pa-6 mx-auto" style="color:white">Home</v-tab>
+      </router-link>
+      <v-divider vertical></v-divider>
+        
+      <router-link v-bind:to="{ name: 'logout' }" 
+        v-if="$store.state.token != ''"
+        style="text-decoration: none">
+        <v-tab class="pa-6 mx-auto" style="color:white">Logout</v-tab>
+      </router-link>
+      <v-divider vertical></v-divider>
+
+        <v-tab class="pa-6"  style="color:white">
+          Welcome, Admin!
+        <v-avatar
+            class="hidden-sm-and-down mx-2"
+            color="orange darken-1 shrink"
+            size="38"
+          >
+          <v-icon dark >
+            mdi-account-circle
+          </v-icon>
+          </v-avatar>
+        </v-tab >
+      </v-tabs >
     </v-app-bar>   
       
      
@@ -48,7 +48,8 @@
         </v-row>
       </v-container> -->
 
-     <office-assignment></office-assignment>
+     <office-assignment style="background-color=#00000000"/>
+     <!-- </office-assignment> -->
     
 </v-container>
 </template>
@@ -65,3 +66,6 @@ export default {
  
 };
 </script>
+<style scoped>
+
+</style>

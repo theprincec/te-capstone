@@ -1,7 +1,7 @@
 <template>
 <div class="pa-0 ma-0">
   <v-container v-if="!$store.state.currentUserRole" fluid class="pa-0">
-    <v-app-bar  class="d-flex  flex-row-reverse" height="65" app color="#f4931c"  flat > 
+    <v-app-bar  class="d-flex pr-15 flex-row-reverse" app color="#666666"  flat > 
       <!-- <v-tabs centered
         class="ml-n9 "
         color="grey darken-1"

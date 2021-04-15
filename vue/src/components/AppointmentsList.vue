@@ -1,14 +1,14 @@
 <template>
-  <v-card class="pa-5" flat color="transparent">
+  <v-card class="pa-5" flat color="white" style="min-height:544px; border-radius: 10px;">
         <v-card-title>
             <span class="headline">Upcoming Appointments</span>
             <v-spacer></v-spacer>
-            <availability-form />
+            <availability-form style="border-radius=10px;"/>
         </v-card-title>
            
       <div class="field">
             <label for="date">Select Date: </label>
-            <input id="date" name="date" type="date"  v-model="todayDate" @change="toggleShowAppointment()"/>
+            <input id="date" name="date" type="date" v-model="todayDate" @change="toggleShowAppointment()"/>
         </div>
            <!-- <time-slot-card/> -->
        
@@ -17,7 +17,7 @@
            
       <div v-if="showAppointments">
         <div   v-for="appointment in getAppointmentsForToday" :key="appointment.id" >
-            <v-card color="#FFF8DC" class="ma-5" elevation="10" outlined style="border-radius: 20px">
+            <v-card color="#Fddc96" class="ma-5" elevation="4" outlined style="border-radius: 20px">
                 <v-card-actions class="px-5 pb-0 mb-0">
                     <p class=" pt-2 mb-0 font-weight-medium"> <v-icon class="pr-2" meduim>mdi-account-clock</v-icon>
                     {{convertTime(appointment.timeStart)}} - {{convertTime(appointment.timeEnd)}}</p>

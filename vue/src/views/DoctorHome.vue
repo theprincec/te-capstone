@@ -1,8 +1,8 @@
 <template>
 <v-container grid-list-md fluid >
 
-  <v-app-bar  class="d-flex  flex-row-reverse" height="65" app color="#f4931c"  flat > 
-    <v-divider vertical></v-divider>
+  <v-app-bar class="px-5" app color="#666666" flat>
+  
     <router-link :to="{ name: 'home' }" style="text-decoration: none" >
       <v-btn class="pa-8 button" text color="white" >Home</v-btn>
     </router-link>
