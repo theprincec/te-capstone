@@ -59,7 +59,7 @@
 
           <v-divider></v-divider>
 
-          <v-card-actions>
+          <v-card-actions class="mr-4">
             <v-btn :disabled= !valid 
               block
               type="submit" 
