@@ -1,26 +1,16 @@
 <template>
   <v-row justify="end">
-            <v-dialog
-                v-model="dialog"
-                persistent
-                max-width="600px"
-            >
+            <v-dialog v-model="dialog" persistent max-width="600px">
                 <template v-slot:activator="{ on, attrs }">
                 
                 <v-btn fab small color="primary" class="hidden-lg-and-up hidden-sm-only mx-5"
-                    v-bind="attrs"
-                        v-on="on"
-                >
+                    v-bind="attrs" v-on="on" >
                         <v-icon  dark>
                             mdi-plus
                         </v-icon>
                  </v-btn>
                      <v-btn class="hidden-md-only hidden-xs-only"
-                        color="primary"
-                        dark
-                        v-bind="attrs"
-                        v-on="on"
-                    >
+                        color="primary" dark v-bind="attrs" v-on="on">
                     Add appointment
                 </v-btn>
             </template>
