@@ -40,7 +40,7 @@
             </v-card>
         </div>  
       </div>
-       <div v-if="!showAppointments">
+       <div v-if="toggleShowAppointment">
            <h4>No appointments for today</h4>
        </div>
   </v-card>
