@@ -199,7 +199,7 @@
             <div class="mx-auto pa-2 mb-5" v-if="$store.state.currentDoctor.office == null">
                 <v-alert text
                     dense
-                    color="blue"
+                    color="white"
                     icon="mdi-office-building-marker-outline"
                     border="left"
                     class="ma-4"
