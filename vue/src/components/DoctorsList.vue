@@ -42,7 +42,7 @@
         </v-col> -->
         <!-- vertical column for doctor's list -->
     <v-row justify="space-around" class="mt-10">
-        <v-col cols="12" md="5">             
+        <v-col cols="12" md="7">             
              <doctor-card class="mb-5" v-for="doctor in $store.state.doctors" 
              :key="doctor.doctorId" :doctor="doctor" />
         </v-col>
