@@ -117,6 +117,9 @@ INSERT INTO patients (patient_id, user_id, first_name, last_name) VALUES (DEFAUL
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 13, 'Aline', 'Giroux', 1 );
 INSERT INTO doctors (doctor_id, user_id, first_name, last_name, office_id) VALUES(DEFAULT, 12, 'Ty', 'Kish', 2 );
 
+INSERT INTO patients (patient_id, user_id, first_name, last_name) VALUES (DEFAULT, 2, 'Anthony', 'James');
+
+
 
 INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_date, appointment_time_start, appointment_time_end, appointment_status) VALUES (DEFAULT, 1, 1, '2021-05-21', '11:00:00', '12:00:00', 'appointment');
 INSERT INTO appointments (appointment_id, doctor_id, patient_id, appointment_date, appointment_time_start, appointment_time_end, appointment_status) VALUES (DEFAULT, 2, 1, '2021-05-21', '13:00:00', '14:00:00', 'appointment');
