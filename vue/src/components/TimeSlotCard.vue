@@ -74,7 +74,7 @@ export default {
     },
     data(){
         return {
-            timeSlot:[],
+            timeSlot:[{}],
             doctorId: "",
             currentDate:"",
             appointment:{
@@ -128,6 +128,9 @@ export default {
         //     console.error( error );
         // });
     },
+    computed () {
+        // this.getTimeSlots;
+    }
     
 }
     
