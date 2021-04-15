@@ -42,10 +42,10 @@
             <v-card-text class="py-0 px-6">
                  <v-autocomplete 
                     v-model="appointment.patient.patientId"
-                    :items="$store.state.appointments"
+                    :items="$store.state.patients"
                     :filter="customFilter"
-                    item-text="patient.lastName"
-                    item-value="patient.patientId"
+                    item-text="lastName"
+                    item-value="patientId"
                     label="Patient Name"
                     v-if="isAppointmentReqiured()"
                     required
@@ -167,8 +167,8 @@ export default {
             })
         }, 
         customFilter (item, queryText) {
-            const textOne = item.patient.firstName.toLowerCase()
-            const textTwo = item.patient.lastName.toLowerCase()
+            const textOne = item.firstName.toLowerCase()
+            const textTwo = item.lastName.toLowerCase()
             const searchText = queryText.toLowerCase()
 
             return textOne.indexOf(searchText) > -1 ||
