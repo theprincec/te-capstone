@@ -1,7 +1,7 @@
 <template>
 <v-container>
     <v-row>
-        <v-col cols="12" md="12">
+        <v-col cols="12" md="12" class="mt-5">
             <v-card id="docs"
                 rounded="lg"
                 min-height="100"
@@ -9,7 +9,7 @@
 
                 <v-row>
                     <v-col col="12" md="2">
-                        <v-card class="ml-10" max-height="110">
+                        <v-card class="ml-10" height="100" width="120">
             <!-- DOCTOR IMAGE -->
 
                             <doctor-image></doctor-image>
@@ -48,16 +48,18 @@
                 <v-form v-if="!showForm">
                     <v-card
                         class="mx-auto my-5"
-                        max-width="480"
+                        max-width="420"
                     >
         <!-- IMAGE UPLOAD -->
                         <v-img
-                        max-height="250"
+                        height="250"
+                        width="420"
                         v-if="!fileUrl"
                         src="../assets/placeholder.jpg"
                         ></v-img>
                         <v-img
-                        max-height="250"
+                        height="250"
+                        width="420"
                         contain v-if="fileUrl"
                         :src="fileUrl"
                         alt="Office Image"

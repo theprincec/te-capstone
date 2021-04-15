@@ -1,8 +1,5 @@
 <template>
-    
-        
-    
-<div>
+
     <!-- <v-row >
         <v-col cols="12" md="12">
             <h1 id="doctor-title">View list of Doctors</h1>
@@ -44,8 +41,8 @@
             </v-card>
         </v-col> -->
         <!-- vertical column for doctor's list -->
-    <v-row justify="space-around">
-        <v-col cols="12" md="7">             
+    <v-row justify="space-around" class="mt-10">
+        <v-col cols="12" md="5">             
              <doctor-card class="mb-5" v-for="doctor in $store.state.doctors" 
              :key="doctor.doctorId" :doctor="doctor" />
         </v-col>
@@ -56,7 +53,8 @@
             
                 rounded="lg"
                 class="hidden-md-and-down"
-                min-height="620">
+                max-height="620"
+                max-width="620">
                 <!-- <book-appointment/> -->
                 <mapper/>
                 
@@ -64,7 +62,6 @@
             </v-card>
         </v-col>
     </v-row>
-</div>
 </template>
 
 <script>
