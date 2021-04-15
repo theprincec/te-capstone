@@ -98,7 +98,7 @@
             >
             submit
             </v-btn>
-            <v-btn @click="dialog=false, clearForm"
+            <v-btn @click="clearForm, dialog=false"
                 >
             cancel
             </v-btn>
@@ -140,6 +140,7 @@ export default {
     }, 
     methods: {
         addAnAppointment() {
+            this.appointment.timeEnd = this.calculateTimeEnd(this.appointment.timeEnd);
             appointmentService.addAppointment(this.appointment).then(response => {
                 if(response.status == 201) {
                     alert("Appointment successfully saved");
@@ -270,13 +271,14 @@ export default {
             }
             return result;
         },
-        calculateTimeEnd() {
+        calculateTimeEnd(time) {
             //09:00:00
-            let hours = parseInt(this.time.slice(0, 2));
+            let hours = parseInt(time.slice(0, 2));
+            let minAndSec = time.slice(2)
            
                 hours += 1;
      
-            let fullTime = hours + this.time;
+            let fullTime = hours + minAndSec;
             return fullTime;
         }
     
