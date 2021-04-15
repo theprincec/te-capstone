@@ -1,18 +1,18 @@
 <template>
-<div>
+<div class="pa-0 ma-0">
   <v-container v-if="!$store.state.currentUserRole" fluid class="pa-0">
-    <v-app-bar  class="d-flex pr-15 flex-row-reverse" app color="#f4931c60"  flat > 
+    <v-app-bar  class="d-flex  flex-row-reverse" height="65" app color="#f4931c"  flat > 
       <!-- <v-tabs centered
         class="ml-n9 "
         color="grey darken-1"
       > -->
       <v-divider vertical></v-divider>
       <router-link :to="{ name: 'register' }" style="text-decoration: none">
-        <v-btn class="pa-8 button" text  flat>Register</v-btn>
+        <v-btn class="pa-8 button" text color="white" >Register</v-btn>
       </router-link>
       <v-divider vertical></v-divider>
       <router-link :to="{ name: 'login' }" style="text-decoration: none" >
-        <v-btn  class="pa-8 button" text flat>Log In</v-btn>
+        <v-btn  class="pa-8 button" text color="white" >Log In</v-btn>
       </router-link>
       <v-divider vertical></v-divider>
       
@@ -35,7 +35,7 @@
 
       <v-card-actions class="text-center">
         <router-link :to="{ name: 'login' }" style="text-decoration: none" >
-          <v-btn large id="start"  outlined>
+          <v-btn large id="start" color="white" outlined>
             Let's get started
           </v-btn>
         </router-link>
@@ -56,7 +56,7 @@
     > -->
     <v-divider vertical></v-divider>
     <router-link :to="{ name: 'home' }" style="text-decoration: none" >
-      <v-btn class="pa-8 button" text color="white" flat>Home</v-btn>
+      <v-btn class="pa-8 button" text color="white" >Home</v-btn>
     </router-link>
 
     
@@ -65,11 +65,11 @@
     <router-link v-bind:to="{ name: 'logout' }" 
       v-if="$store.state.token != ''"
       style="text-decoration: none">
-      <v-btn class="pa-8 button" text color="white" flat>Logout</v-btn>
+      <v-btn class="pa-8 button" text color="white" >Logout</v-btn>
     </router-link>
     <v-divider vertical></v-divider>
 
-    <v-btn class="pa-8 button" text color="white" flat>
+    <v-btn class="py-8 pl-8 pr-6 button" text color="white" >
       Welcome, {{$store.state.currentPatient.firstName}} {{$store.state.currentPatient.lastName}}!
      <v-avatar
         class="hidden-sm-and-down mx-2"
@@ -137,17 +137,17 @@ export default {
   border-color: transparent!important;
 }
 #start {
-  background-color: #f4931cf1;
+  background-color: #f4931c;
   border:white;
 }
-#srart:hover{
-  background-color: #f46111;
+#start:hover{
+  background-color: #f45d1c;
 }
 .button {
   background-color:#f4931c29
 }
 .button:hover, .button:active {
-  background-color:#f4931cf1
+  background-color:#f45d1c
 }
 
 

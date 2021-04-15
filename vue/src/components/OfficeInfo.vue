@@ -189,9 +189,16 @@
                 </v-card-actions>
 
             </v-card>
-            <v-card class="mx-auto pa-2 mb-5" v-if="$store.state.currentDoctor.office == null">
-                <p>You have not yet been assigned to an office by administration. </p>
-            </v-card>
+            <div class="mx-auto pa-2 mb-5" v-if="$store.state.currentDoctor.office == null">
+                <v-alert text
+                    dense
+                    color="blue"
+                    icon="mdi-office-building-marker-outline"
+                    border="left"
+                    class="ma-4"
+                >You have not yet been assigned to an office.<br>
+                    Please, contact administration. </v-alert>
+            </div>
         </v-col>
     </v-row>
     
@@ -322,7 +329,7 @@ export default {
             })
         },
         getOfficeData(doctor){
-            this.office.officeId= doctor.office.officeId;
+            this.office.officeId = doctor.office.officeId;
             this.office.name= doctor.office.name;
             this.office.phoneNumber= this.convertNumber(doctor.office.phoneNumber);
             this.office.openTime= this.convertTime(doctor.office.openTime);

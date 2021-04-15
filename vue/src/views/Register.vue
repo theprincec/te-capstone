@@ -9,8 +9,8 @@
           <v-img src="../assets/carehub.png" max-height="150" max-width="134">
           </v-img>
         </v-card> -->
-        <v-card elevation="7" width="550" class="mx-auto mt-5">
-          <v-card-title class=" display-1" id="title-container">
+        <v-card elevation="7" width="600" class="mx-auto ">
+          <v-card-title class="pb-8 display-1" id="title-container">
           Create Account
         </v-card-title>
         <v-card-text class="pb-0">
@@ -35,6 +35,8 @@
               v-model="user.firstName"
               label="First Name"
               required
+              dense
+               class="ml-4" 
             />
             </v-col>
             <v-col col="6">
@@ -44,6 +46,8 @@
               v-model="user.lastName"
               label="Last Name"
               required
+              dense
+               class="mr-4" 
             />
             </v-col>
           </v-row>
@@ -53,7 +57,9 @@
               :rules="[v => !!v || 'Username is required']"
               label="Username"
               prepend-icon="mdi-account-circle"
-              required          
+              required
+              dense   
+              class="mx-4"       
             />
             <v-text-field 
               v-model="user.password"
@@ -64,6 +70,8 @@
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="showPassword = !showPassword"
               required
+              dense
+               class="mx-4" 
             />
             <v-text-field 
               v-model="user.confirmPassword"
@@ -74,6 +82,8 @@
               :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="showConfirmPassword = ! showConfirmPassword"
               required
+              dense
+               class="mx-4" 
             />
             <!-- EMAIL -->
             <v-text-field 
@@ -82,24 +92,23 @@
               v-model="user.email"
               label="Email Address"
               required
+              dense
+               class="mx-4" 
             />
            
-
-            
           <center>
-            <p class="pt-4">Are you a patient or a doctor?</p>
+            <p class="pt-2 mb-2">Are you a patient or a doctor?</p>
           </center>
           
-          <v-radio-group class="pr-15 pl-15" v-model="user.role" row align-center mandatory>       
+          <v-radio-group class="px-15 mt-2 " v-model="user.role" row align-center mandatory>       
               <v-radio label="Patient" value="user" name="role"></v-radio>
               <v-spacer></v-spacer>
               <v-radio label="Doctor" value="doctor" name="role"></v-radio>
           </v-radio-group>
 
-
-
           </v-form>
         </v-card-text>
+
         <v-card-actions class="pt-0">
           <router-link :to="{ name: 'login' }" style="text-decoration: none">
             <v-btn color="blue" text id="log-in-text">HAVE AN ACCOUNT? LOG IN</v-btn>
@@ -110,8 +119,8 @@
           <v-btn :disabled= !valid 
             block
             type="submit" 
-            form="form-register" class="mr-4"
-            @click="validate" id="sign-in-button">Register</v-btn>
+            form="form-register" class="mr-4 white--text"
+            @click="validate"  id="sign-in-button">Register</v-btn>
         </v-card-actions>
       </v-card>
        </v-flex>
@@ -185,18 +194,18 @@ export default {
   background-image: url('../assets/img.png')
 } */
 #sign-in-button{
-  background-color: #f4921cd6;
+  background-color: #f4931c;
 }
 #sign-in-button:hover{
-  background-color: #f48d11;
+  background-color: #f45d1c
 }
 #title-container{
   width: 100%;
-  padding-left: 150px;
+  padding-left: 180px;
 }
 #log-in-text{
   width: 100%;
-  padding-left: 150px;
+  padding-left: 180px;
 }
 
 </style>

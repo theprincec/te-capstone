@@ -12,7 +12,7 @@
           <v-card-title id="title-container">
             <h1 class="display-1">Please Sign In</h1>
           </v-card-title>
-          <v-card-text class="pb-0">
+          <v-card-text>
 
             <v-form id="form-signin"
               ref="form"
@@ -64,8 +64,9 @@
               block
               type="submit" 
               form="form-signin" class="mr-4 white--text" id="sign-in-button"
-              @click="validate">
-              Sign In
+              @click="validate"
+              
+            >Sign In
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -146,14 +147,14 @@ export default {
 
 <style scoped>
 #sign-in-button{
-  background-color: #f4921cd6;
+  background-color: #f4931c;
 }
 #sign-in-button:hover{
-  background-color: #f48d11;
+  background-color: #f45d1c
 }
 #title-container{
   width: 100%;
-  padding-left: 90px;
+  padding-left: 80px;
 }
 #log-in-text{
   width: 100%;
@@ -170,11 +171,12 @@ export default {
 #align-center {
    position: absolute;
   top: 30%;
-  left: 68%
+  left: 67%
 }
 #background {
   height: 100vh;
 }
+
 
 
 

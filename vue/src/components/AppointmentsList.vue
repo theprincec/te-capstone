@@ -108,9 +108,18 @@ export default {
             }
             return result;
         },
+        
         toggleShowAppointment() {
             this.showAppointments = this.getAppointmentsForToday.length > 0;
         }
+    },
+    computed: {
+        getAppointmentsForToday() {
+            //let todayDate = new Date().toISOString().split('T')[0];
+            return this.$store.state.appointments.filter(appointment => {
+                return appointment.date == this.todayDate;
+            })
+        } 
     }
 }
 </script>

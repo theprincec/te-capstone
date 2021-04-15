@@ -1,5 +1,29 @@
 <template>
     <v-card class="mx-auto pa-2">
+
+        <v-row>
+            <v-col col="12" md="4">
+                <v-card class="ml-10" max-height="110">
+    <!-- DOCTOR IMAGE -->
+
+                    <v-img
+                        class="hidden-xs-and-down"
+                        max-height="100"
+                        v-if="!fileDoctorUrl"
+                        src="../assets/placeholder.jpg"
+                        ></v-img>
+                        <v-img
+                        max-height="100"
+                        contain v-if="fileDoctorUrl"
+                        :src="fileDoctorUrl"
+                        alt="Doctor Image"
+                    ></v-img>
+                </v-card>
+            </v-col>
+                <v-col col="12" md="8" >
+                <v-card-title class="text-h4 pt-1  ">Dr. {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
+                </v-col>
+        </v-row>
        
         <v-card-title class="h4" >Dr. {{doctor.firstName}} {{doctor.lastName}}</v-card-title>
         <v-card-text>

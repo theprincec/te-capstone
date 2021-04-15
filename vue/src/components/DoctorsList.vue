@@ -3,11 +3,11 @@
         
     
 <div>
-    <v-row >
+    <!-- <v-row >
         <v-col cols="12" md="12">
             <h1 id="doctor-title">View list of Doctors</h1>
         </v-col>
-    </v-row>
+    </v-row> -->
         <!-- <v-col cols="12" md="3">
             <v-card
                 rounded="lg"
