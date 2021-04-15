@@ -11,6 +11,10 @@ export default {
 
     getCurrentPatient() {
         
+        return axios.get("/patient");
+    }, 
+
+    getPatientsList() {
         return axios.get("/patients");
     }
 

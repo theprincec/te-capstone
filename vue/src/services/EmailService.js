@@ -21,7 +21,7 @@ export default {
                   <br>
                   Your appointment has been scheduled with Dr. ${doctor.lastName}:
                   <br> 
-                  Please arrive 15 minutes prior to  your appointment at <b>${appointment.time} on ${appointment.date}</b>
+                  Please arrive 15 minutes prior to  your appointment at <b>${appointment.timeStart} on ${appointment.date}</b>
                   at our <b>${doctor.office.name}<b> office to fill out necessary paperwork. 
                   <br>
                   <br>

@@ -11,7 +11,7 @@
                         dark
                         v-bind="attrs"
                         v-on="on"
-                        @click="appointment.timeStart = time, appointment.timeEnd = calculateTimeEnd"
+                        @click="this.appointment.timeStart = convertTime(time), this.appointment.timeEnd = calculateTimeEnd"
                     >
                     Book appointment
                 </v-btn>
@@ -35,7 +35,7 @@
                 <label for="date">Date: </label>
                 <input id="date" name="date" type="date" required v-model="appointment.date"/>
             </div> -->
-            <p>Appointment date: {{appointment.date}}</p>
+            <p>Appointment date: {{$store.state.currentDate}}</p>
             <!-- <div class="field">
                 <label for="startTime" style="color:rgb(118, 118, 118)">Start Time: </label>
                 <input id="startTime" name="startTime" type="time" required v-model="appointment.timeStart"/>
@@ -126,7 +126,7 @@ export default {
                 if(response.status == 201) {
                     this.sendEmail();
                     //emailService.sendAppointmentEmail(this.appointment.timeStart);
-                    alert("Appointment successfully booked");
+                    alert("Appointment successfully booked. Appointment notification has been submitted to your email");
                 }
             })
             .catch(error => {
@@ -160,25 +160,26 @@ export default {
             let emailDoctor = this.$store.state.currentDoctor;
             let emailAppointment = this.appointment;
             //let emailTime = convertTime(this.appointment.timeStart)
-            emailService.sendAppointmentEmail(emailPatient, emailDoctor, emailAppointment);
-        }
+            emailService.sendAppointmentEmail(emailPatient, emailDoctor, emailAppointment)
+
+        },
         
-        // clearForm() {
-        //     this.appointment =  {
-        //         patient: {},
-        //         date: "", 
-        //         timeStart: "", 
-        //         timeEnd: "", 
-        //         appointmentType: "Appointment"
-        //     }
-        // },
-        // isAppointmentReqiured() {
-        //     return this.appointment.appointmentType == 'Personal' ? false : true;
-        // },
-        // toggleDialog() {
-            // (this.appointment.date == "" || this.appointment.timeStart == "" || this.appointment.timeEnd == "") 
-            //         ? this.dialog = true : this.dialog = false;
-        //}
+        clearForm() {
+            this.appointment =  {
+                patient: {},
+                date: "", 
+                timeStart: "", 
+                timeEnd: "", 
+                appointmentType: "Appointment"
+            }
+        },
+        isAppointmentReqiured() {
+            return this.appointment.appointmentType == 'Personal' ? false : true;
+        },
+        toggleDialog() {
+            (this.appointment.date == "" || this.appointment.timeStart == "" || this.appointment.timeEnd == "") 
+                    ? this.dialog = true : this.dialog = false;
+        }
     }
 }
 </script>
@@ -196,3 +197,4 @@ export default {
     padding: 8px 0 8px 
 }
 </style>
+

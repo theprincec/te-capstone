@@ -5,7 +5,7 @@
         <form id = "appointment-time-slot" v-on:submit.prevent="addAnAppointment()">
             <div class="field" >
                 <label for="slotDate">Select Date:</label>
-                <input required id="slotDate" name="slotDate" type="date" v-model="currentDate" @change="setDate()"/>
+                <input required id="slotDate" name="slotDate" type="date" v-model="currentDate" :min="todayDate" @change="setDate()"/>
             </div>
 
             <!-- <div>
@@ -73,15 +73,15 @@ export default {
         BookAppointment       
     },
     data(){
-        
-
-         return {
+        return {
             timeSlot:[{}],
             doctorId: "",
-            currentDate:"",
+            currentDate: new Date().toISOString().split('T')[0],
             appointment:{
                 timeStart:""
-            },
+            }, 
+            //todayDate used only to gray out past dates on calendar
+            todayDate: new Date().toISOString().split('T')[0]
         }
     },
     methods: {
@@ -130,11 +130,10 @@ export default {
         //     console.error( error );
         // });
     },
-    computed: {
-        timeSlotGetter(){
-            return this.getTimeSlots(); 
-        }
+    computed () {
+        // this.getTimeSlots;
     }
+    
 }
     
 

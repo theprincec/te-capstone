@@ -35,7 +35,7 @@
             </v-card>
         </div> 
         <div>
-            <v-btn class="hidden-md-only hidden-xs-only" color="primary" dark @click.prevent="sendEmail">
+            <v-btn class="hidden-md-only hidden-xs-only" id="button" dark @click.prevent="sendEmail">
                     Email Agenda 
                 </v-btn>
         </div>   
@@ -59,6 +59,7 @@
 import appointmentService from '@/services/AppointmentService'
 import AvailabilityForm from '@/components/AvailabilityForm'
 import emailService from '@/services/EmailService'
+import patientService from '@/services/PatientService'
 //import TimeSlotCard from '@/components/TimeSlotCard'
 
 
@@ -83,6 +84,14 @@ export default {
                     //SET ARRAY OF APPOINTMENTS IN STORE
         }).catch(error => {
             console.log(error)
+        });
+
+        patientService.getPatientsList().then(response => {
+            this.$store.commit("SET_PATIENTS_LIST", response.data);
+
+        })
+        .catch(error => {
+            console.log(error);
         })
     },
     mounted() {
@@ -90,14 +99,6 @@ export default {
         emailScript.setAttribute('src', 'https://smtpjs.com/v3/smtp.js');
         document.head.appendChild(emailScript);
         //let toEmail = this.$store.state.currentPatient.email;
-    },
-    computed: {
-        getAppointmentsForToday() {
-            //let todayDate = new Date().toISOString().split('T')[0];
-            return this.$store.state.appointments.filter(appointment => {
-                return appointment.date == this.todayDate;
-            })
-        }
     },
     methods: {
         convertTime(time) { // 18:00:00
@@ -112,6 +113,7 @@ export default {
             }
             return result;
         },
+        
         toggleShowAppointment() {
             this.showAppointments = this.getAppointmentsForToday.length > 0;
         },
@@ -135,11 +137,26 @@ export default {
                   Carengton</p>`
             return printedText;
         }
+    },
+    computed: {
+        getAppointmentsForToday() {
+            //let todayDate = new Date().toISOString().split('T')[0];
+            return this.$store.state.appointments.filter(appointment => {
+                return appointment.date == this.todayDate;
+            })
+        } 
     }
 }
 </script>
 <style>
 .field {
     margin: 0 20px 0 20px
+}
+#button {
+  background-color:#f4931c;
+  position: absolute;
+}
+#button:hover, #button:active {
+  background-color:#f45d1c
 }
 </style>

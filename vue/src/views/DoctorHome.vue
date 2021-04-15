@@ -7,30 +7,30 @@
       color="grey darken-1"
     >
     <router-link :to="{ name: 'home' }" style="text-decoration: none" >
-      <v-tab class="pa-6 mx-auto" style="color:white">Home</v-tab>
+      <v-btn class="pa-8 button" text color="white" >Home</v-btn>
     </router-link>
     <v-divider vertical></v-divider>
       
     <router-link v-bind:to="{ name: 'logout' }" 
       v-if="$store.state.token != ''"
       style="text-decoration: none">
-      <v-tab class="pa-6 mx-auto" style="color:white">Logout</v-tab>
+      <v-btn class="pa-8 button" text color="white" >Logout</v-btn>
     </router-link>
     <v-divider vertical></v-divider>
 
-    <v-tab class="pa-6"  style="color:white">
+    <v-btn class="py-8 pl-8 pr-6 button" text color="white" >
       Welcome, {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}!
      <v-avatar
         class="hidden-sm-and-down mx-2"
-        color="grey darken-1 shrink"
+        color="grey"
         size="38"
       >
-      <v-icon dark >
+      <v-icon dark>
         mdi-account-circle
       </v-icon>
       </v-avatar>
-      </v-tab >
-    </v-tabs >
+      </v-btn>
+ 
     </v-app-bar>
     <!-- appointtent availablity -->
    
@@ -54,3 +54,18 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+#start {
+  background-color: #f4931c;
+  border:white;
+}
+#start:hover{
+  background-color: #f45d1c;
+}.button {
+  background-color:#f4931c29
+}
+.button:hover, .button:active {
+  background-color:#f45d1c
+}
+</style>

@@ -3,13 +3,15 @@
       
       <v-img
         class="hidden-xs-and-down"
-        max-height="100"
+        height="100"
+        width="120"
         v-if="!fileDoctorUrl"
         src="../assets/placeholder.jpg"
         style="background-color:#00000000"
         ></v-img>
         <v-img
-        max-height="100"
+        height="100"
+        width="120"
         contain v-if="fileDoctorUrl"
         :src="fileDoctorUrl"
         alt="Doctor Image"
@@ -30,8 +32,6 @@
                 >
                 Change image
             </v-btn>
-                
-
         <!-- FORM --> 
         </template>
         <v-card id="imageButton"
@@ -228,3 +228,16 @@ export default {
 }
 
 </script>
+
+<style scoped>
+#button {
+  background-color:#f4931c;
+  position: absolute;
+  top: 80%;
+  left: 67%;
+
+}
+#button:hover, #button:active {
+  background-color:#f45d1c
+}
+</style>
