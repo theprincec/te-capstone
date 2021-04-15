@@ -1,7 +1,7 @@
 <template>
 <v-container grid-list-md fluid >
 
-  <v-app-bar class="px-5" app color="#666666" flat>
+  <v-app-bar class="px-5" app color="#888888" flat>
     <v-tabs 
       class="ml-n9"
       color="grey darken-1"

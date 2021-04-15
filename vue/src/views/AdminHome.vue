@@ -1,5 +1,5 @@
 <template>
-<v-container grid-list-md fluid style="background-color=red;">
+<v-container grid-list-md fluid >
 
   <v-app-bar class="px-5" app color="#888888" flat>
       <v-tabs 

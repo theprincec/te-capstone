@@ -7,7 +7,7 @@
                 min-height="100"
                 flat>
 
-                <v-row>
+                <v-row style="margin-top:25px;">
                     <v-col col="12" md="2" >
                         <v-card class="ml-10" max-height="110">
             <!-- DOCTOR IMAGE -->
@@ -27,6 +27,9 @@
                     </v-col>
                      <v-col col="12" md="4" >
                         <v-card-title class="text-h4 pt-1  ">Dr. {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
+                        <v-card-text class=" text-md-body-1">
+                            M.D., Neurology
+                        </v-card-text>
                      </v-col>
                 </v-row>
             </v-card>
@@ -66,7 +69,7 @@
         
         
         <v-col cols="12"
-            md="5" class="pb-0 pt-3">
+            md="6" class="pb-0 pt-3">
        <!-- appointments -->
             <!-- <appointments-list /> -->
             <time-slot-card/>
@@ -75,8 +78,8 @@
 
         </v-col>
         <v-col cols="12"
-                md="5" class="py-3">
-            <v-card class="mx-auto pa-2 mb-5">
+                md="6" class="py-3">
+            <v-card class="mx-auto pa-2 mb-5" style="min-height:544px; border-radius: 10px; background-color:white;">
                 <v-form >
                     <v-card
                         class="mx-auto my-5"

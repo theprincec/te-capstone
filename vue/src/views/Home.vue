@@ -47,9 +47,9 @@
 
   <admin-home v-if="$store.state.currentUserRole == 'ROLE_ADMIN'"></admin-home>
 
-  <v-container grid-list-md fluid color="primary" v-if="($store.state.currentUserRole == 'ROLE_USER')">
+  <v-container grid-list-md fluid color="#888888" v-if="($store.state.currentUserRole == 'ROLE_USER')">
 
-  <v-app-bar  class="d-flex  flex-row-reverse " app color="#f4931c"  flat > 
+  <v-app-bar  class="d-flex  flex-row-reverse " app color="#888888"  flat > 
     <!-- <v-tabs 
       class="ml-n9"
       color="grey darken-1"
@@ -85,8 +85,7 @@
 
     </v-app-bar>
 
-
-
+    <h1>View Doctors</h1>
    
       <doctors-list />
       <!-- <div @click.prevent="sendEmail">

@@ -1,6 +1,5 @@
 <template>
   <div>
-      
       <v-img
         class="hidden-xs-and-down"
         height="100"
@@ -17,6 +16,10 @@
         alt="Doctor Image"
         
         ></v-img>
+        <!-- <div id="image-fill" style=`backgrounds-image: url('paper.gif')" contain v-if="fileDoctorUrl"
+        :src="fileDoctorUrl"> 
+
+        </div> -->
 
         <v-dialog
             v-model="dialog"
@@ -24,18 +27,19 @@
             max-width="600px"
         >
             <template v-slot:activator="{ on, attrs }">
-                <v-btn class="mx-5 px-2" fab xsmall
-                    color="#666666"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                >
+            <v-btn class="mx-5 px-2" fab x-small
+                dark
+                id="button"
+                v-bind="attrs"
+                v-on="on"
+            >
+               
                 <v-icon  dark>
                     mdi-plus
                 </v-icon>
             </v-btn>
         <!-- FORM --> 
-        </template>
+            </template>
         <v-card id="imageButton"
         min-height="368" class="mt-5"
         flat>
@@ -233,13 +237,20 @@ export default {
 
 <style scoped>
 #button {
-  background-color:#f4931c;
+  background-color:#888888;
   position: absolute;
-  top: 80%;
+  top: 70%;
   left: 67%;
 
 }
 #button:hover, #button:active {
   background-color:#f45d1c
 }
+
+/* #image-fill{
+    background-image: url("paper.gif");
+    background-size: fill;
+} */
 </style>
+
+

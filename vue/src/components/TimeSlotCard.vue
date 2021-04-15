@@ -1,9 +1,11 @@
 <template>
 
-    <div class="time-slot"> 
+    <div class="time-slot" style="min-height:544px; border-radius: 10px; background-color:white; padding: 20px;"> 
         <!-- <h1 v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`">{{time}}</h1> -->
+        
         <form id = "appointment-time-slot" v-on:submit.prevent="addAnAppointment()">
             <div class="field" >
+                <h1 style="margin-bottom: 20px;">Find an Appointment</h1>
                 <label for="slotDate">Select Date:</label>
                 <input required id="slotDate" name="slotDate" type="date" v-model="currentDate" :min="todayDate" @change="setDate()"/>
             </div>
@@ -27,7 +29,7 @@
 
             </div> -->
             <div   v-for="(time, index) in $store.state.timeSlots" v-bind:key="`time-${index}`" >
-            <v-card  id="timeslotcard"  class="ma-5" elevation="10" outlined >
+            <v-card  id="timeslotcard"  class="ma-5" elevation="4" outlined >
 
                 <v-card-actions class="px-5 py-5 mb-0">
                     <div id="icon">

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-5" flat color="white" style="min-height:544px; border-radius: 10px;">
+  <v-card class="pa-5" flat color="white" >
         <v-card-title>
             <span class="headline">Upcoming Appointments</span>
             <v-spacer></v-spacer>

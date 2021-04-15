@@ -4,10 +4,13 @@
     <v-container>
     <v-row>
         <v-col cols="12">
-            <v-card class="pb-10px">
-                <v-row>
-                    <img style="max-height: 100px; margin-left: 50px" src="@/assets/carehub.png" alt="">
-                    <h2 style="margin-left: 50px; margin-top: 40px; color: grey">Office Assignments and Updates</h2>
+            <v-card class="pb-10px" style="margin-top:25px;">
+                <v-row style="padding:10px; border-radius: 20px;">
+                    <img style="height: 100%; max-width: 100px; margin: 0 30px; display:inline-block" src="@/assets/carehub.png" alt="">
+                    <div style="max-height: 100px; display:inline-block; padding: 10px 0;">
+                        <h1 style=" color: black; margin-bottom:0; line-spacing: 0;">Alter Doctor's Office Assignments</h1>
+                        <p id="drag-description">Drag and Drop Doctors between offices to change their Office assignments.</p>
+                    </div>
                 </v-row>
             </v-card>
         </v-col>
@@ -45,6 +48,7 @@
                             <v-card-text class="text-center text-md-body-1 font-weight-bold">
                             Dr. {{doctor.firstName}} {{doctor.lastName}}
                             </v-card-text>
+                            
 
                         </v-card>
                         <!-- </v-hover> -->
@@ -236,6 +240,7 @@ export default {
     vertical-align: top;
     display: flex;
     align-items: flex-start;
+    padding: 20px;
 }
 #col-1, #col-2, #col-3{
     display: inline-block;
