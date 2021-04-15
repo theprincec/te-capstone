@@ -1,5 +1,6 @@
 <template>
-<v-container ><v-row>
+<v-container >
+    <v-row>
         <v-col cols="12" md="12">
             <v-card id="docs"
                 rounded="lg"
@@ -7,18 +8,17 @@
                 flat>
 
                 <v-row>
-                    <v-col col="12" md="2">
+                    <v-col col="12" md="2" >
                         <v-card class="ml-10" max-height="110">
             <!-- DOCTOR IMAGE -->
 
                             <v-img
-                                class="hidden-xs-and-down"
-                                max-height="100"
+                                height="100"
                                 v-if="!fileDoctorUrl"
                                 src="../assets/placeholder.jpg"
                                 ></v-img>
                                 <v-img
-                                max-height="100"
+                                height="100"
                                 contain v-if="fileDoctorUrl"
                                 :src="fileDoctorUrl"
                                 alt="Doctor Image"

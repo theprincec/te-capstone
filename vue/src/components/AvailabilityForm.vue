@@ -42,10 +42,10 @@
             <v-card-text class="py-0 px-6">
                  <v-autocomplete 
                     v-model="appointment.patient.patientId"
-                    :items="$store.state.appointments"
+                    :items="$store.state.patients"
                     :filter="customFilter"
-                    item-text="patient.lastName"
-                    item-value="patient.patientId"
+                    item-text="lastName"
+                    item-value="patientId"
                     label="Patient Name"
                     v-if="isAppointmentReqiured()"
                     required

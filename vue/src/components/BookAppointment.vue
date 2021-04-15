@@ -35,7 +35,11 @@
                 <label for="date">Date: </label>
                 <input id="date" name="date" type="date" required v-model="appointment.date"/>
             </div> -->
+<<<<<<< HEAD
             <p>Appointment date: {{this.$store.state.currentdate}}</p>
+=======
+            <p>Appointment date: {{$store.state.currentDate}}</p>
+>>>>>>> 9efec913fcdd6c77809e00dd9ad33b64fbe6c6ce
             <!-- <div class="field">
                 <label for="startTime" style="color:rgb(118, 118, 118)">Start Time: </label>
                 <input id="startTime" name="startTime" type="time" required v-model="appointment.timeStart"/>

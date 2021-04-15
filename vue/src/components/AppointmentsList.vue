@@ -35,7 +35,7 @@
             </v-card>
         </div> 
         <div>
-            <v-btn class="hidden-md-only hidden-xs-only" color="primary" dark @click.prevent="sendEmail">
+            <v-btn class="hidden-md-only hidden-xs-only" id="button" dark @click.prevent="sendEmail">
                     Email Agenda 
                 </v-btn>
         </div>   
@@ -59,6 +59,7 @@
 import appointmentService from '@/services/AppointmentService'
 import AvailabilityForm from '@/components/AvailabilityForm'
 import emailService from '@/services/EmailService'
+import patientService from '@/services/PatientService'
 //import TimeSlotCard from '@/components/TimeSlotCard'
 
 
@@ -83,6 +84,14 @@ export default {
                     //SET ARRAY OF APPOINTMENTS IN STORE
         }).catch(error => {
             console.log(error)
+        });
+
+        patientService.getPatientsList().then(response => {
+            this.$store.commit("SET_PATIENTS_LIST", response.data);
+
+        })
+        .catch(error => {
+            console.log(error);
         })
     },
     mounted() {
@@ -142,5 +151,12 @@ export default {
 <style>
 .field {
     margin: 0 20px 0 20px
+}
+#button {
+  background-color:#f4931c;
+  position: absolute;
+}
+#button:hover, #button:active {
+  background-color:#f45d1c
 }
 </style>
