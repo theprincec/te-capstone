@@ -72,9 +72,9 @@ public class JDBCDoctorDao implements DoctorDAO{
 	public List<Doctor> getDoctors() {
 		List<Doctor> doctors = new ArrayList<Doctor>();
 		String sql = "SELECT doctor_id, doctors.user_id as user_id, first_name, last_name, doctors.office_id as office_id, office_name, " + 
-				"address, city, district, postal_code, phone, open_time, close_time, hourly_rate, users.email as email FROM doctors " + 
+				"address, city, district, postal_code, phone, open_time, close_time, hourly_rate, users.email FROM doctors " + 
 				"JOIN offices ON doctors.office_id = offices.office_id " + 
-				"JOIN users ON users.user_id = doctors.user_id";
+				"JOIN users ON users.user_id = doctors.user_id ";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
 		while(rows.next()) {
 			doctors.add(mapDoctorToRow(rows));

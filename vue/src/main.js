@@ -11,6 +11,8 @@ import firebase from 'firebase/app'
 import 'firebase/database'; // If using Firebase database
 import 'firebase/storage'; 
 import 'firebase/firestore'; 
+// import emailjscom from 'emailjs-com';
+// import emailjs from 'emailjs-com';
 
 
 Vue.config.productionTip = false

@@ -60,8 +60,11 @@ import appointmentService from '@/services/AppointmentService'
 import AvailabilityForm from '@/components/AvailabilityForm'
 import emailService from '@/services/EmailService'
 //import TimeSlotCard from '@/components/TimeSlotCard'
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 13b525693bc36c40350b3188bedc6b4ac6d9e9dc
 export default {
     name: "appointments-list",
     components: {
@@ -85,12 +88,15 @@ export default {
             console.log(error)
         })
     },
+<<<<<<< HEAD
     mounted() {
         let emailScript = document.createElement('script');
         emailScript.setAttribute('src', 'https://smtpjs.com/v3/smtp.js');
         document.head.appendChild(emailScript);
         //let toEmail = this.$store.state.currentPatient.email;
     },
+=======
+>>>>>>> 13b525693bc36c40350b3188bedc6b4ac6d9e9dc
     computed: {
         getAppointmentsForToday() {
             //let todayDate = new Date().toISOString().split('T')[0];
@@ -142,8 +148,4 @@ export default {
 .field {
     margin: 0 20px 0 20px
 }
-div{
-    background-color: linear-gradient(#f5bd43,orange, orange, darkorange);
-}
-
 </style>
