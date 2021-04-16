@@ -116,7 +116,7 @@
       </v-tabs >
     </v-app-bar>  
 
-    <h1>View Doctors</h1>
+    
    
       <doctors-list />
       <!-- <div @click.prevent="sendEmail">

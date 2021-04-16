@@ -41,8 +41,31 @@
             </v-card>
         </v-col> -->
         <!-- vertical column for doctor's list -->
-    <v-row justify="space-around" class="mt-10">
-        <v-col cols="12" md="7">             
+<v-container>
+    <v-row>
+        <v-col cols="12" md="12" class="mt-5">
+            <v-card id="docs"
+                rounded="lg"
+                min-height="100"
+                flat>
+
+                <v-row>
+                    
+                     <v-col col="12" md="12" >
+                         <!-- <v-card-title class="headline pb-0">Welcome to Homepage</v-card-title> -->
+                        <v-card-title class="text-h4 pt-1 bold"> Choose a Doctor </v-card-title>
+                        <v-card-text class=" text-md-body-1">
+                            Select a Doctor to make an appointment with.
+                        </v-card-text>
+  
+                     </v-col>
+                </v-row>
+            </v-card>
+        </v-col>
+    </v-row>
+    <v-row justify="space-around" class="mt-5">
+        <v-col cols="12" md="7">  
+                    
              <doctor-card class="mb-5" v-for="doctor in $store.state.doctors" 
              :key="doctor.doctorId" :doctor="doctor" />
         </v-col>
@@ -62,6 +85,7 @@
             </v-card>
         </v-col>
     </v-row>
+</v-container>
 </template>
 
 <script>

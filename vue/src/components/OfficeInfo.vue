@@ -17,7 +17,7 @@
                     </v-col>
                      <v-col col="12" md="4" >
                          <!-- <v-card-title class="headline pb-0">Welcome to Homepage</v-card-title> -->
-                        <v-card-title class="text-h4 pt-1  ">Dr. {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
+                        <v-card-title class="text-h4 pt-1">Dr. {{$store.state.currentDoctor.firstName}} {{$store.state.currentDoctor.lastName}}</v-card-title>
                         <v-card-text class=" text-md-body-1">
                             M.D., Neurology
                         </v-card-text>
