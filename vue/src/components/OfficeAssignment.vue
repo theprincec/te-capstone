@@ -8,7 +8,7 @@
                 <v-row style="padding:10px; border-radius: 20px;">
                     <img style="height: 100%; max-width: 100px; margin: 0 30px; display:inline-block" src="@/assets/carehub.png" alt="">
                     <div style="max-height: 100px; display:inline-block; padding: 10px 0;">
-                        <h1 style=" color: black; margin-bottom:0; line-spacing: 0;">Alter Doctor's Office Assignments</h1>
+                        <h1 style=" color: black; margin-bottom:0; line-spacing: 0;">Alter Doctors Office Assignments</h1>
                         <p id="drag-description">Drag and Drop Doctors between offices to change their Office assignments.</p>
                     </div>
                 </v-row>
@@ -44,7 +44,8 @@
                         <div v-for="doctor in item.doctors" :key="doctor.doctorId" style="font-weight:bold;"  
                                 @dragstart='startDrag($event, doctor)'  id="dragging-div">
                         <!-- <v-hover v-slot="{ hover }"> -->
-                        <v-card class="ml-10 mr-10 mb-5 doctorCards" :elevation="hover ? 8 : 2" color="#Fddc96" id="doctor-in-office">
+                        <!-- :elevation="hover ? 4 : 2" color="#Fddc96" -->
+                        <v-card class="ml-10 mr-10 mb-5 doctorCards"  id="doctor-out-office">
                             <v-card-text class="text-center text-md-body-1 font-weight-bold">
                             Dr. {{doctor.firstName}} {{doctor.lastName}}
                             </v-card-text>
@@ -86,15 +87,16 @@
                     <draggable v-model="item.doctors" group="offices" >
                         <div v-for="doctor in item.doctors" :key="doctor.doctorId" style="font-weight:bold;"  
                                 @dragstart='startDrag($event, doctor)'  >
-                        <v-hover v-slot="{ hover }">
+                        <!-- <v-hover v-slot="{ hover }"> -->
                         <!-- Doctor in Office     -->
-                        <v-card class="ml-10 mr-10 mb-5 doctorCards" :elevation="hover ? 5 : 2" color="#dddddd">
+                        <!-- :elevation="hover ? 8 : 2" color="#dddddd" -->
+                        <v-card class="ml-10 mr-10 mb-5 doctorCards"  id="doctor-in-office" style="border-radius:20px;">
                             <v-card-text class="text-center text-md-body-1 font-weight-bold">
                             Dr. {{doctor.firstName}} {{doctor.lastName}}
                             </v-card-text>
 
                         </v-card>
-                        </v-hover>
+                        <!-- </v-hover> -->
                         </div>
                     </draggable>
                     </v-card>
@@ -260,20 +262,47 @@ export default {
 /* .drag-name {
     background-color: chartreuse;
 } */
-#doctor-in-office{
-    background-color: green;
-
+#doctor-out-office{
+    background-color: #Fddc96;
+    box-shadow: #999999 4px 4px 4px;
+    border-radius:20px;
 }
+
+#doctor-out-office:active{
+    background-color: orange;
+    box-shadow: #888888 7px 7px 4px;
+}
+/* #doctor-out-office:hover{
+    background-color: orange;
+    box-shadow: #888888 7px 7px 4px;
+} */
+
+#doctor-in-office{
+    background-color: #dddddd;
+    box-shadow: #999999 4px 4px 4px;
+    border-radius:20px;
+}
+
+#doctor-in-office:active{
+    background-color: #Fddc96;
+    box-shadow: #888888 7px 7px 4px;
+}
+/* #doctor-in-office:hover{
+    background-color: #Fddc96;
+    box-shadow: #888888 7px 7px 4px;
+} */
+
 #dropZoneTitle {
     padding: 10px;
 
 }
 
-.doctorCards:hover {
-    box-shadow: 5px 0 5px;
+/* .doctorCards:hover {
+    box-shadow: 10px 0 5px;
+    background-color: #Fddc96;
     /* border: 5px solid #888888; 
-    background-color: coral;*/
-}
+    background-color: coral;
+} */
 
 #filler {
 	

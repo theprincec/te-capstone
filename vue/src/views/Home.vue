@@ -20,6 +20,10 @@
       <!-- </v-tabs> -->
     </v-app-bar>
 
+
+
+
+
     <v-img id="background" src="../assets/homebackground.jpg" cover="true" alt="Carehub">
     </v-img>
     
@@ -49,41 +53,68 @@
 
   <v-container grid-list-md fluid color="#888888" v-if="($store.state.currentUserRole == 'ROLE_USER')">
 
-  <v-app-bar  class="d-flex  flex-row-reverse " app color="#888888"  flat > 
-    <!-- <v-tabs 
-      class="ml-n9"
-      color="grey darken-1"
-    > -->
-    <v-divider vertical></v-divider>
-    <router-link :to="{ name: 'home' }" style="text-decoration: none" >
-      <v-btn class="pa-8 button" text color="white" >Home</v-btn>
-    </router-link>
+    <!-- <v-app-bar  class="d-flex  flex-row-reverse " app color="#888888"  flat > 
+      <v-divider vertical></v-divider>
+      <router-link :to="{ name: 'home' }" style="text-decoration: none" >
+        <v-btn class="pa-8 button" text color="white" >Home</v-btn>
+      </router-link>
 
-    
-    <v-divider vertical></v-divider>
       
-    <router-link v-bind:to="{ name: 'logout' }" 
-      v-if="$store.state.token != ''"
-      style="text-decoration: none">
-      <v-btn class="pa-8 button" text color="white" >Logout</v-btn>
-    </router-link>
-    <v-divider vertical></v-divider>
+      <v-divider vertical></v-divider>
+        
+      <router-link v-bind:to="{ name: 'logout' }" 
+        v-if="$store.state.token != ''"
+        style="text-decoration: none">
+        <v-btn class="pa-8 button" text color="white" >Logout</v-btn>
+      </router-link>
+      <v-divider vertical></v-divider>
 
-    <v-btn class="py-8 pl-8 pr-6 button" text color="white" >
-      Welcome, {{$store.state.currentPatient.firstName}} {{$store.state.currentPatient.lastName}}!
-     <v-avatar
-        class="hidden-sm-and-down mx-2"
-        color="grey"
-        size="38"
+      <v-btn class="py-8 pl-8 pr-6 button" text color="white" >
+        Welcome, {{$store.state.currentPatient.firstName}} {{$store.state.currentPatient.lastName}}!
+      <v-avatar
+          class="hidden-sm-and-down mx-2"
+          color="grey"
+          size="38"
+        >
+        <v-icon dark>
+          mdi-account-circle
+        </v-icon>
+        </v-avatar>
+        </v-btn >
+      </v-app-bar> -->
+      
+      <v-app-bar class="px-5" app color="#888888" flat>
+      <v-tabs 
+        class="ml-n9"
+        color="grey darken-1"
       >
-      <v-icon dark>
-        mdi-account-circle
-      </v-icon>
-      </v-avatar>
-      </v-btn >
-  
+      <router-link :to="{ name: 'home' }" style="text-decoration: none" >
+        <v-tab class="pa-6 mx-auto" style="color:white">Home</v-tab>
+      </router-link>
+      <v-divider vertical></v-divider>
+        
+      <router-link v-bind:to="{ name: 'logout' }" 
+        v-if="$store.state.token != ''"
+        style="text-decoration: none">
+        <v-tab class="pa-6 mx-auto" style="color:white">Logout</v-tab>
+      </router-link>
+      <v-divider vertical></v-divider>
+      <v-divider vertical></v-divider>
 
-    </v-app-bar>
+        <v-tab class="pa-6"  style="color:white">
+          Welcome, {{$store.state.currentPatient.firstName}} {{$store.state.currentPatient.lastName}}!
+        <v-avatar
+            class="hidden-sm-and-down mx-2"
+            color="orange darken-1 shrink"
+            size="38"
+          >
+          <v-icon dark >
+            mdi-account-circle
+          </v-icon>
+          </v-avatar>
+        </v-tab >
+      </v-tabs >
+    </v-app-bar>  
 
     <h1>View Doctors</h1>
    
