@@ -7,9 +7,22 @@
         <div id="bottom-page"></div>
 
         <div id="bottom-page-gradient"></div>
+        <div id="circle-decoration">
+            <div class="circle c1"></div>
+            <div class="circle c1"></div>
+            <div class="circle c1"></div>
+            <div class="circle c1"></div>
+            <div class="circle c2"></div>
+            <div class="circle c2"></div>
+            <div class="circle c2"></div>
+        </div>
         <div id="buttons-nav">
-            <button id="create">Create Account</button>
-            <button id="login">Log In</button>
+            <router-link :to="{ name: 'login' }" style="text-decoration: none" >
+                <button id="create">Create Account</button>
+            </router-link>
+            <router-link :to="{ name: 'login' }" style="text-decoration: none" >
+                <button id="login">Log In</button>
+            </router-link>
         </div>
         <div id="middle-section">
             <div id="middle-text">
@@ -45,7 +58,9 @@
                         CAREHUB is the solution for enterprise scheduling and ease of mind. 
                         We make scheduling as convenient as possible for you and your clients!
                     </h3>
-                    <button id="register">Lets Get Started</button>
+                    <router-link :to="{ name: 'login' }" style="text-decoration: none" >
+                        <button id="register">Lets Get Started</button>
+                    </router-link>
                 </div>
             </div>
             <div id="hero-image-container">
@@ -71,6 +86,32 @@ body{
     font-family: 'Roboto', sans-serif;
     background-color:#475f69;
 }
+#circle-decoration{
+    height: 25px;
+    width: 100vw;
+    position: absolute;
+    bottom: 25px;
+    z-index: 1;
+    display: flex;
+    text-align: end;
+    justify-content: flex-end;
+    padding-right: 8%;
+}
+.circle{
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    /* border: 2px solid white; */
+    border-radius: 20px;
+    margin-right: 6px;
+}
+.circle.c1{
+    border: 1px solid white;
+    opacity: .5;
+}
+.circle.c2{
+    border: 1px solid white;
+}
 
 #page{
     background:linear-gradient(165deg, #d9e8ec,#4f9cbd);
@@ -79,7 +120,7 @@ body{
     z-index: -10000;
     display: grid;
     grid-template-columns: 1fr 1fr ;
-    grid-template-rows: 20% 30% 50%;
+    grid-template-rows: 20vh 30vh 50vh;
     grid-template-areas:
         "nav-buttons nav-buttons"
         "middle middle"
@@ -92,10 +133,11 @@ body{
     /* stroke-dashoffset: 600; */
 
     animation: mymove 4s linear infinite;
+    -webkit-animation: mymove 4s linear infinite;
 }
 
 path{
-    animation: mymove 4s linear infinite;
+    -webkit-animation: mymove 4s linear infinite;
 }
 
 @keyframes circle-stroke {
@@ -109,7 +151,7 @@ path{
 }
 #bottom-page{
     background-color:#475f69;
-    height: 52vh;
+    height: 55vh;
     width: 100vw;
     position: absolute;
     bottom: 0;
@@ -138,7 +180,7 @@ button{
     border-radius: 30px;
     color: white;
     height: 2.6em;
-    font-size: 1.4em;
+    font-size: 1.2em;
     font-weight: 400;
     vertical-align: middle;
     text-transform: uppercase;
@@ -258,12 +300,16 @@ button{
     z-index: 200;
     font-size: 16pt;
     font-weight: 100;
+    max-width: 650px;
 }
 
 @media only screen and (max-width: 768px){
     #buttons-nav{
         padding-right: 30px;
     }
+    #bottom-page{
+    height: 52vh;
+}
 
     #middle-section{
         padding-left:0px;
@@ -286,11 +332,11 @@ button{
     }
     #bottom-text{
         padding: 0px 30px 50px 30px;
-        font-size: 16px;
+        font-size: 14px;
     }
     #middle-text{
         width:50%;
-        min-width: 300px;
+        min-width: 310px;
     }
     #hero-image-container{
         /* width: 100px; */
@@ -302,8 +348,10 @@ button{
         height: 2.0em;
     }
     #register{
-    width: 100%;
-}
+        width: 100%;
+        height: 1.8em;
+        padding-top: 3px;;
+    }
 }
 @media only screen and (max-width: 450px){
 
