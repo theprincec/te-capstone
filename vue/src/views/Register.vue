@@ -1,15 +1,15 @@
 <template>
 
-<v-container id="register" class="mt-15" fluid>
+<v-container id="register align-center" class="mt-5" fluid >
   <v-layout>
       <!-- <v-flex md5 class="primary" id="background">
       </v-flex> -->
-      <v-flex align-self-center>
+      <v-flex align-self-center >
         <!-- <v-card elevation="0" class="d-flex justify-center mx-auto mb-10">
           <v-img src="../assets/carehub.png" max-height="150" max-width="134">
           </v-img>
         </v-card> -->
-        <v-card elevation="7" width="600" class="mx-auto ">
+        <v-card elevation="7" width="600" class="mx-auto pa-3" >
           <v-card-title class="pb-8 display-1" id="title-container">
           Create Account
         </v-card-title>
@@ -61,6 +61,18 @@
               dense   
               class="mx-4"       
             />
+
+            <!-- EMAIL -->
+            <v-text-field 
+              prepend-icon="mdi-email"
+              :rules="[v => !!v || 'Email is required']"
+              v-model="user.email"
+              label="Email Address"
+              required
+              dense
+               class="mx-4" 
+            />
+
             <v-text-field 
               v-model="user.password"
               :type="showPassword ? 'text' : 'password'"
@@ -85,26 +97,17 @@
               dense
                class="mx-4" 
             />
-            <!-- EMAIL -->
-            <v-text-field 
-              prepend-icon="mdi-email"
-              :rules="[v => !!v || 'Email is required']"
-              v-model="user.email"
-              label="Email Address"
-              required
-              dense
-               class="mx-4" 
-            />
+            
            
-          <center>
-            <p class="pt-2 mb-2">Are you a patient or a doctor?</p>
-          </center>
-          
-          <v-radio-group class="px-15 mt-2 " v-model="user.role" row align-center mandatory>       
+          <div style="margin: 0 20px;" >
+            <p class="pt-2 mb-2" style="font-size: 14pt;">Are you a patient or a doctor?</p>
+
+            <v-radio-group class="px-15 mt-2 " v-model="user.role" row align-center mandatory>       
               <v-radio label="Patient" value="user" name="role"></v-radio>
               <v-spacer></v-spacer>
               <v-radio label="Doctor" value="doctor" name="role"></v-radio>
           </v-radio-group>
+          </div>
 
           </v-form>
         </v-card-text>
@@ -195,17 +198,45 @@ export default {
 } */
 #sign-in-button{
   background-color: #f4931c;
+  border-radius: 10px;
 }
 #sign-in-button:hover{
   background-color: #f45d1c
 }
 #title-container{
   width: 100%;
-  padding-left: 180px;
+  padding-left: 30%;
 }
 #log-in-text{
   width: 100%;
   padding-left: 160px;
+}
+#align-center {
+  /* height: 100vh;
+  width: 100vw; */
+  display: flex;
+  align-items: center;
+  padding-right: 5%;
+  /* background-color: orchid; */
+  /* left: 67%; */
+  /* background-image: url(../assets/background.jpg);
+  background-size: cover;
+  background-position: left center; */
+  z-index: 100;
+}
+
+@media only screen and (max-width: 450px){
+
+  #title-container{
+  width: 100%;
+  padding-left: 18%;
+}
+
+  #log-in-text{
+  width: 100%;
+  padding-left: 40%;
+}
+
 }
 
 </style>

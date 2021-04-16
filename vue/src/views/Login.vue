@@ -1,7 +1,7 @@
 <template>
-  <v-container ma-0 pa-0 fill-height fluid >
+  <v-container ma-0 pa-0 fill-height fluid id="the-background">
     <v-layout >
-      <v-img id="background" src="../assets/background.jpg" cover="true" alt="Doctor" >
+      <!-- <v-img id="background" src="../assets/background.jpg" cover="true" alt="Doctor" > -->
       
       <v-flex d-flex justify-end id="align-center">
         <!-- <v-card elevation="7" class="d-flex justify-center mb-10" mx-auto>
@@ -164,20 +164,46 @@ export default {
   background-image: url('../assets/background.jpg');
   background-size: cover;
 } */
-.img {
-  position:relative;
-}
 
-#align-center {
+/* .img {
+  position:relative;
+} */
+
+/* #align-center {
    position: absolute;
   top: 30%;
-  left: 67%
+  left: 67%;
+} */
+
+#align-center {
+  display: flex;
+  align-items: center;
+  padding-right: 5%;
+  /* background-color: orchid; */
+  /* left: 67%; */
+  background-image: url(../assets/background.jpg);
+  background-size: cover;
+  background-position: left center;
+  z-index: 100;
 }
+
 #background {
   height: 100vh;
+  width: 100vw;
+  z-index: 0;
 }
 
 
 
+@media only screen and (max-width: 450px){
+
+  #align-center {
+    /* align-items: flex-end; */
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 50px;
+  }
+
+}
 
 </style>
