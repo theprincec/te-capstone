@@ -109,7 +109,7 @@ export default {
             this.$store.commit("SET_USER_ROLE", this.$store.state.user.authorities[0].name)
             this.setCurrentUserInfo(this.$store.state.user.authorities[0].name);
             
-              this.$router.push("/");
+              this.$router.push("/home");
           }
         })
         .catch(error => {

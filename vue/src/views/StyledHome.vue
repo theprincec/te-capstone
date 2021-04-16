@@ -17,7 +17,7 @@
             <div class="circle c2"></div>
         </div>
         <div id="buttons-nav">
-            <router-link :to="{ name: 'login' }" style="text-decoration: none" >
+            <router-link :to="{ name: 'register' }" style="text-decoration: none" >
                 <button id="create">Create Account</button>
             </router-link>
             <router-link :to="{ name: 'login' }" style="text-decoration: none" >
@@ -58,7 +58,7 @@
                         CAREHUB is the solution for enterprise scheduling and ease of mind. 
                         We make scheduling as convenient as possible for you and your clients!
                     </h3>
-                    <router-link :to="{ name: 'login' }" style="text-decoration: none" >
+                    <router-link :to="{ name: 'register' }" style="text-decoration: none" >
                         <button id="register">Lets Get Started</button>
                     </router-link>
                 </div>
